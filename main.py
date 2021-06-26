@@ -143,7 +143,7 @@ if solver.net.use_tf_threading:
     tf.train.start_queue_runners(sess=solver.sess, coord=solver.coord)
 
 x=run_vote_no_threads(im1,solver,None)
-benchmark_utils.EfficientBenchmark(solver,exif_net,net_args,im1)
+benchmark_utils.EfficientBenchmark(benchmark_utils.EfficientBenchmark,solver,exif_net,net_args,im1)
 #exif_solver.ExifSolver.train(solver)
 """
 im = np.zeros((256, 256, 3))
