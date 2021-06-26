@@ -135,7 +135,7 @@ if solver.net.use_tf_threading:
     tf.train.start_queue_runners(sess=solver.sess, coord=solver.coord)
 
 x=run_vote_no_threads(im1,solver,None)
-print(x)
+exif_solver.ExifSolver.train()
 """
 im = np.zeros((256, 256, 3))
 
