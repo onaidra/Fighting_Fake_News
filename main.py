@@ -125,7 +125,15 @@ def run_vote_no_threads(image, solver, exif_to_use, n_anchors=1, num_per_dim=Non
 
     return {e: {'responses':(responses[e] / vote_counts[e]), 'anchors':anchor_indices} for e in exif_to_use}
 
-
+net_args = {'num_classes':80+3,
+                'is_training':False,
+                'train_classifcation':True,
+                'freeze_base': True,
+                'im_size':128,
+                'batch_size':64,
+                'use_gpu':[0],
+                'use_tf_threading':False,
+                'learning_rate':1e-4}
 
 solver = initialize_exif()
 solver.sess.run(tf.compat.v1.global_variables_initializer())
@@ -135,8 +143,8 @@ if solver.net.use_tf_threading:
     tf.train.start_queue_runners(sess=solver.sess, coord=solver.coord)
 
 x=run_vote_no_threads(im1,solver,None)
-exif_solver.ExifSolver.setup_data(solver,x,benchmark_utils.EfficientBenchmark.data_fn(128,128))
-exif_solver.ExifSolver.train(solver)
+benchmark_utils.EfficientBenchmark(solver,exif_net,net_args,im1)
+#exif_solver.ExifSolver.train(solver)
 """
 im = np.zeros((256, 256, 3))
 
