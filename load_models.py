@@ -17,10 +17,10 @@ def initialize_exif(ckpt='', init=True, use_gpu=0):
 
     solver = exif_solver.initialize({'checkpoint':ckpt,
                                      'use_exif_summary':False,
-                                     'init_summary':False,
+                                     'init_summary':True,
                                      'exp_name':'eval'})
     if init:
         net = exif_net.initialize(net_args)
         solver.setup_net(net=net)
-        return solver,exif_net,net_args #aggiunti ,exif_net,net_args ####################################################################
+        return solver
     return solver, exif_net, net_args

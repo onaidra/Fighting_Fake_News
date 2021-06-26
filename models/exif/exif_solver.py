@@ -116,7 +116,7 @@ class ExifSolver(object):
             try:
                 self.data_fn = self.data.exif_balanced_nextbatch
             except:
-                self.data_fn = self.data.nextbatch
+                self.data_fn = self.data.next_batch
 
         assert self.data_fn is not None
         return

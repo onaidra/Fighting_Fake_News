@@ -16,8 +16,9 @@ def get(link, save_as=False):
     else:
         save_path = os.path.join(base_dir, 'tmp.png')
         
-    urllib.urlretrieve(link, save_path)
-    im = cv2.imread(save_path)[:,:,[2,1,0]]
+    #urllib.request.urlretrieve(link, save_path)            ############################################################################
+    #im = cv2.imread(save_path)[:,:,[2,1,0]]
+    im = cv2.imread(link)[:,:,[2,1,0]]
     return im
 
 def softmax(X, theta = 1.0, axis = None):
@@ -53,7 +54,7 @@ def random_crop(im, crop_size, return_crop_loc=False):
 
 def process_im(im):
     """ Normalizes images into the range [-1.0, 1.0] """
-    im = np.array(im)
+    im = np.array(im).astype(np.float) ################################################################### aggiunto np.float
     if np.max(im) <= 1:
         # PNG format
         im = (2.0 * im) - 1.0
