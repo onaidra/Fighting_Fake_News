@@ -11,8 +11,9 @@ import cv2
 #salvati = dict.keys()
 #print(salvati)
 im1 = cv2.imread("D01_img_orig_0001.jpg")[:,:,[2,1,0]]
-
-
+print("---------------------------------------------------------------------")
+print(im1.shape())
+print("---------------------------------------------------------------------")
 solver = initialize_exif()
 solver.sess.run(tf.compat.v1.global_variables_initializer())
 if solver.net.use_tf_threading:
