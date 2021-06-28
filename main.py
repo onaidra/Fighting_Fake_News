@@ -30,7 +30,7 @@ net_args = {'num_classes':80+3,
                 'use_tf_threading':False,
                 'learning_rate':1e-4}
 
-benchmark_utils.EfficientBenchmark(solver,exif_net.EXIFNet,net_args,im1)
+benchmark_utils.EfficientBenchmark(solver,exif_net,net_args,im1)
 #exif_solver.ExifSolver.train(solver)
 """
 im = np.zeros((256, 256, 3))
