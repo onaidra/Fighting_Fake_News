@@ -30,7 +30,7 @@ net_args = {'num_classes':80+3,
                 'use_gpu':[0],
                 'use_tf_threading':False,
                 'learning_rate':1e-4}
-im1=util.random_crop(im1,128)
+im1=util.random_crop(im1,[128,128])
 benchmark_utils.EfficientBenchmark(solver,exif_net,net_args,im1)
 #exif_solver.ExifSolver.train(solver)
 """
