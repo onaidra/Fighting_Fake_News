@@ -35,6 +35,7 @@ class ExifSolver(object):
         return
 
     def setup_net(self, net):
+        print("CI SIAMOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
         """ Links and setup loss and summary """
         # Link network
         self.net = net
