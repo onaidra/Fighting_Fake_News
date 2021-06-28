@@ -22,7 +22,8 @@ if solver.net.use_tf_threading:
     tf.train.start_queue_runners(sess=solver.sess, coord=solver.coord)
 
 im1=util.random_crop(im1,[128,128])
-exif_solver.ExifSolver.setup_data(solver,im1,im1)
+im1_merge = {'im_a':im1,'im_b':im1}
+exif_solver.ExifSolver.setup_data(solver,im1,im1_merge)
 exif_solver.ExifSolver.train(solver)
 """
 im = np.zeros((256, 256, 3))

@@ -127,7 +127,8 @@ class ExifSolver(object):
         if batch_size is None:
             batch_size = self._batch_size
 
-        data_dict = self.data_fn(batch_size, split=split)
+        #data_dict = self.data_fn(batch_size, split=split)
+        data_dict = self.data_fn
 
         args = {self.net.im_a:data_dict['im_a'],
                 self.net.im_b:data_dict['im_b']}
