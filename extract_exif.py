@@ -31,11 +31,11 @@ def extract_exif():
             
             # read the image data using PIL
             image = Image.open(new_dir)
-
+            
             if new_dir not in image_list : image_list.append(new_dir)
             # extract EXIF data
             exifdata = image.getexif()
-            
+            print(exifdata)
             # iterating over all EXIF data fields
             for tag_id in exifdata:
                 # get the tag name, instead of human unreadable tag id
