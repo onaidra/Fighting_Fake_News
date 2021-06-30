@@ -10,8 +10,9 @@ wrong_tags =[545,546,547,548,544,549]
 right_tags = ["ISO2","StopsAboveBaseISO","ExposureCompensation","BrightnessValue","FirmwareVersion","Info"]
 # path to the image or video
 
+
 def extract_exif():
-    path = r"C:\Users\Adri\Desktop\VISIOPE\prova\foto"
+    path = r"/content/drive/MyDrive/foto/foto/"
     dir = os.listdir(path)
 
     right_dir = []
