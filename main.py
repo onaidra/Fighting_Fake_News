@@ -9,6 +9,7 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 import cv2
+print(" HA FUNZIONATO")
 dict,image_list = extract_exif()
 salvati = list(dict.keys())
 key_chosen = random.choice(salvati)
@@ -19,7 +20,7 @@ exif_lbl = generate_label(image_list,second_image_list)
 
 list1,list2 = cropping_list(image_list,second_image_list)
 print("---------------------------------------------------------------------")
-print(" HA FUNZIONATO")
+
 solver = initialize_exif()
 solver.sess.run(tf.compat.v1.global_variables_initializer())
 if solver.net.use_tf_threading:
