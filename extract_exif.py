@@ -42,6 +42,7 @@ def extract_exif():
                 tag = TAGS.get(tag_id, tag_id)
                 data = exifdata.get(tag_id)
                 if isinstance(data, bytes):
+                    data = data.encode('utf-8')
                     data = data.decode()
                 data = str(data).strip(" ")
                 if tag not in dict.keys():
