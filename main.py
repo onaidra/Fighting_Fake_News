@@ -9,7 +9,7 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 import cv2
-print(" HA FUNZIONATO")
+
 dict,image_list = extract_exif()
 salvati = list(dict.keys())
 key_chosen = random.choice(salvati)
