@@ -89,9 +89,9 @@ def generate_label(first,second):
                 # get the tag name, instead of human unreadable tag id
                 tag = TAGS.get(tag_id, tag_id)
                 data = exif1.get(tag_id)
-                if isinstance(data, bytes):
-                    data = data.decode()
-                data = str(data).strip(" ")
+                #if isinstance(data, bytes):
+                #    data = data.decode()
+                #data = str(data).strip(" ")
                 list_tag1[tag] = data
             
             for tag_id in exif2:
