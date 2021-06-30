@@ -41,9 +41,9 @@ def extract_exif():
                 # get the tag name, instead of human unreadable tag id
                 tag = TAGS.get(tag_id, tag_id)
                 data = exifdata.get(tag_id)
-                if isinstance(data, bytes):
-                    data = data.decode('utf-8')
-                data = str(data).strip(" ")
+                #if isinstance(data, bytes):
+                #    data = data.decode('utf-8')
+                #data = str(data).strip(" ")
                 if tag not in dict.keys():
                     dict[tag] = [[data,[elem]]]
                 else:
