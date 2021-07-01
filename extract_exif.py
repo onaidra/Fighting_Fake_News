@@ -100,42 +100,13 @@ def generate_label(keys,first,second):
                         shared_tags.append(0)
                 else:
                     shared_tags.append(0)
-            """
-            for tag_id in exif1:
-                # get the tag name, instead of human unreadable tag id
-                tag = TAGS.get(tag_id, tag_id)
-                data = exif1.get(tag_id)
-                #if isinstance(data, bytes):
-                #    data = data.decode()
-                #data = str(data).strip(" ")
-                list_tag1[tag] = data
-            
-            for tag_id in exif2:
-                # get the tag name, instead of human unreadable tag id
-                tag = TAGS.get(tag_id, tag_id)
-                data = exif1.get(tag_id)
-                #if isinstance(data, bytes):
-                #    data = data.decode()
-                #data = str(data).strip(" ")
-                list_tag2[tag] = data
-            shared_tags = []
-            
-            for elem in list_tag1.keys():
-                if elem in list_tag2.keys():
-                    if(list_tag1[elem] == list_tag2[elem]):
-                        shared_tags.append(1)
-                    else:
-                        shared_tags.append(0)
-                else:
-                    shared_tags.append(0)
-            
-            for elem in list_tag2.keys():
-                if elem not in list_tag1.keys():
-                    shared_tags.append(0)
-            """
             exif_lbl.append(shared_tags)
+        
         print("[INFO] Label extracted")
+        
         return exif_lbl
+
+
 def save_np_arrays(tmp1,tmp2):
     with open('cropped_arrays.npy','wb') as f:
         np.save(f,tmp1)
@@ -170,31 +141,3 @@ def cropping_list(first,second):
 
     return tmp1 ,tmp2
 
-
-"""
-####################################################ORIGINAL #################################################
-# path to the image or video
-# path to the image or video
-path = os.getcwd()
-path+=r"\foto"
-directory = os.listdir(path)
-# read the image data using PIL
-for elem in directory:
-    new_dir = os.path.join(path,elem)
-    image = Image.open(new_dir)
-
-    # extract EXIF data
-    exifdata = image.getexif()
-
-    # iterating over all EXIF data fields
-    for tag_id in exifdata:
-        # get the tag name, instead of human unreadable tag id
-        tag = TAGS.get(tag_id, tag_id)
-        data = exifdata.get(tag_id)
-        # decode bytes 
-        if isinstance(data, bytes):
-            data = data.decode()
-        data = str(data).strip(" ")
-        print(f"{tag:25}: {data}")
-    print()
-    print()"""
