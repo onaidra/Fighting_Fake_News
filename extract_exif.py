@@ -1,3 +1,4 @@
+from numpy.lib.function_base import append
 from models import exif
 from PIL import Image
 from PIL.ExifTags import TAGS
@@ -10,7 +11,8 @@ wrong_tags =[545,546,547,548,544,549]
 right_tags = ["ISO2","StopsAboveBaseISO","ExposureCompensation","BrightnessValue","FirmwareVersion","Info"]
 # path to the image or video
 
-
+##my path r"C:\Users\Adri\Desktop\VISIOPE\prova\foto"
+## drive path r"/content/drive/MyDrive/foto/foto/"
 def extract_exif():
     path = r"/content/drive/MyDrive/foto/foto/"
     dir = os.listdir(path)
@@ -60,7 +62,7 @@ def extract_exif():
         dict[right_tags[i]] = x
 
     print("[INFO] Extracted dict")
-    return dict,image_list
+    return dict,image_list,list(dict.keys())
 
 def random_list(list):
     second_list = []
@@ -72,8 +74,9 @@ def random_list(list):
     print("[INFO] Generated second list")
     return second_list
 
-def generate_label(first,second):
+def generate_label(keys,first,second):
     exif_lbl = []
+
     if(len(first)!=len(second)):
         print("list len do not match")
         return
@@ -83,8 +86,21 @@ def generate_label(first,second):
             im2 = Image.open(second[i])
             exif1 = im1.getexif()
             exif2 = im2.getexif()
-            list_tag1={}
-            list_tag2={}
+            #list_tag1={}
+            #list_tag2={}
+            shared_tags = []
+            for tag_id in keys:
+                if tag_id in exif1.keys() and tag_id in exif2.keys():
+                    #tag = TAGS.get(tag_id, tag_id)
+                    data1 = exif1.get(tag_id)
+                    data2 = exif2.get(tag_id)
+                    if(data1 == data2):
+                        shared_tags.append(1)
+                    else:
+                        shared_tags.append(0)
+                else:
+                    shared_tags.append(0)
+            """
             for tag_id in exif1:
                 # get the tag name, instead of human unreadable tag id
                 tag = TAGS.get(tag_id, tag_id)
@@ -116,26 +132,28 @@ def generate_label(first,second):
             for elem in list_tag2.keys():
                 if elem not in list_tag1.keys():
                     shared_tags.append(0)
-            
+            """
             exif_lbl.append(shared_tags)
         print("[INFO] Label extracted")
         return exif_lbl
     
 def cropping_list(first,second):
-    tmp1 = []
-    tmp2 = []
-    
-    for i in range(len(first)):
+    N = len(first)
+    tmp1 = np.empty((N, 128, 128, 3), dtype=np.uint8)
+    tmp2 = np.empty((N, 128, 128, 3), dtype=np.uint8)
+    for i in range(10):
         print(i)
         x = cv2.imread(first[i])[:,:,[2,1,0]]
         y = cv2.imread(second[i])[:,:,[2,1,0]]
-        im1 = util.random_crop(x,[128,128])
-        im2 = util.random_crop(y,[128,128])
-        tmp1.append(im1)
-        tmp2.append(im2)
+        patch1 = util.random_crop(x,[128,128])
+        patch2 = util.random_crop(y,[128,128])
+
+        tmp1[i] = patch1
+        tmp2[i] = patch2
     
     print("[INFO] Images cropped")
-    return tmp1,tmp2
+    return tmp1 ,tmp2
+
 
 """
 ####################################################ORIGINAL #################################################

@@ -9,21 +9,15 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 import cv2
-im1 = cv2.imread("D01_img_orig_0001.jpg")
 
-dict,image_list = extract_exif()
 
-im1 = [image_list[0]]
-im2 = [image_list[1]]
-exif_lbl = generate_label(im1,im2)
-list1,list2 = cropping_list(im1,im2)
-"""
+dict,image_list,dict_keys = extract_exif()
+print(len(dict_keys))
 second_image_list = random_list(image_list)
-exif_lbl = generate_label(image_list,second_image_list)
-
 list1,list2 = cropping_list(image_list,second_image_list)
 print("---------------------------------------------------------------------")
-"""
+exif_lbl = generate_label(dict_keys,image_list,image_list)
+
 solver = initialize_exif()
 solver.sess.run(tf.compat.v1.global_variables_initializer())
 if solver.net.use_tf_threading:
@@ -32,7 +26,7 @@ if solver.net.use_tf_threading:
     tf.train.start_queue_runners(sess=solver.sess, coord=solver.coord)
 
 cls_lbl = np.ones((1,1))
-cls_lbl[0][0] = len(dict.keys())
+cls_lbl[0][0] = len(dict_keys)
 
 
 im1_merge = {'im_a':list1,'im_b':list2,'exif_lbl': exif_lbl,'cls_lbl': cls_lbl}
