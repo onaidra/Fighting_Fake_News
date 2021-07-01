@@ -12,7 +12,7 @@ import cv2
 
 #extract exif data
 dict,image_list,dict_keys = extract_exif()
-
+print(len(dict_keys))
 #generate second random list
 second_image_list = random_list(image_list)
 
