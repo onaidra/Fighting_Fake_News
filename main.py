@@ -10,13 +10,20 @@ import numpy as np
 from PIL import Image
 import cv2
 
-
+#extract exif data
 dict,image_list,dict_keys = extract_exif()
-print(len(dict_keys))
+
+#generate second random list
 second_image_list = random_list(image_list)
+
+#crop images to 128x128
 list1,list2 = cropping_list(image_list,second_image_list)
-print("---------------------------------------------------------------------")
+
+#generate labels for each pair of images
+
 exif_lbl = generate_label(dict_keys,image_list,image_list)
+
+#start initialization
 
 solver = initialize_exif()
 solver.sess.run(tf.compat.v1.global_variables_initializer())

@@ -29,7 +29,7 @@ class ExifSolver(object):
         self.test_init = True
         self.show_iter = 20
         self.test_iter = 2000
-        self.save_iter = 10000
+        self.save_iter = 100000
 
         self.train_timer = deque(maxlen=10)
         return

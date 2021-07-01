@@ -136,22 +136,38 @@ def generate_label(keys,first,second):
             exif_lbl.append(shared_tags)
         print("[INFO] Label extracted")
         return exif_lbl
-    
+def save_np_arrays(tmp1,tmp2):
+    with open('cropped_arrays.npy','wb') as f:
+        np.save(f,tmp1)
+        np.save(f,tmp2)
+
+def get_np_arrays(file):
+    with open(file,'rb') as f:
+        tmp1 = np.load(f)
+        tmp2 = np.load(f)
+    return tmp1,tmp2
+
 def cropping_list(first,second):
     N = len(first)
     tmp1 = np.empty((N, 128, 128, 3), dtype=np.uint8)
     tmp2 = np.empty((N, 128, 128, 3), dtype=np.uint8)
-    for i in range(10):
+    for i in range(N):
         print(i)
         x = cv2.imread(first[i])[:,:,[2,1,0]]
         y = cv2.imread(second[i])[:,:,[2,1,0]]
+
         patch1 = util.random_crop(x,[128,128])
         patch2 = util.random_crop(y,[128,128])
-
         tmp1[i] = patch1
         tmp2[i] = patch2
     
     print("[INFO] Images cropped")
+    #save_np_arrays(tmp1,tmp2)
+    #a,b = get_np_arrays('cropped_arrays.npy')
+    #if(np.array_equal(a,tmp1) and np.array_equal(b,tmp2)):
+        #print("Corretti")
+            
+
     return tmp1 ,tmp2
 
 
