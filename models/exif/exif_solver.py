@@ -129,7 +129,7 @@ class ExifSolver(object):
             batch_size = self._batch_size
 
         #data_dict = self.data_fn(batch_size, split=split)
-        """
+
         if(self.iterator_tmp<=60): #60
             tmp1 = np.empty((batch_size, 128, 128, 3), dtype=np.uint8)
             tmp2 = np.empty((batch_size, 128, 128, 3), dtype=np.uint8)
@@ -166,12 +166,12 @@ class ExifSolver(object):
 
         if 'cls_lbl' in self.data_fn:
             args[self.net.cls_label] = self.data_fn['cls_lbl']
-
+        """
         if 'exif_lbl' in self.data_fn:
-            args[self.net.label] = data_dict['exif_lbl']
-            #args[self.net.label] = right_labels
+            #args[self.net.label] = data_dict['exif_lbl']
+            args[self.net.label] = right_labels
 
-
+        
         return args
 
     def train(self):
