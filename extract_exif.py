@@ -123,7 +123,7 @@ def cropping_list(first,second):
     tmp1 = np.empty((N, 128, 128, 3), dtype=np.uint8)
     tmp2 = np.empty((N, 128, 128, 3), dtype=np.uint8)
     for i in range(N):
-        if (i % 77 == 0): print(i)
+        if (i % 77 == 0): print(i) #77
         x = cv2.imread(first[i])[:,:,[2,1,0]]
         y = cv2.imread(second[i])[:,:,[2,1,0]]
 

@@ -1,4 +1,5 @@
 import os, sys, numpy as np, time
+from typing import Iterator
 import init_paths
 
 import tf_slim as slim
@@ -19,17 +20,17 @@ class ExifSolver(object):
         """
         self.checkpoint = None if checkpoint in ['', None] else checkpoint
         self.exp_name = exp_name
-        self._batch_size = 128
+        self._batch_size = 64
         self.use_exif_summary = use_exif_summary
         self.init_summary = init_summary
         self.ckpt_path = os.path.join('./ckpt', exp_name, exp_name)
         io.make_dir(self.ckpt_path)
-
-        self.train_iterations = 10000000
+        self.iterator_tmp = 0
+        self.train_iterations = 100000
         self.test_init = True
         self.show_iter = 20
         self.test_iter = 2000
-        self.save_iter = 100000
+        self.save_iter = 10000
 
         self.train_timer = deque(maxlen=10)
         return
@@ -128,16 +129,49 @@ class ExifSolver(object):
             batch_size = self._batch_size
 
         #data_dict = self.data_fn(batch_size, split=split)
+        """
+        if(self.iterator_tmp<=60): #60
+            tmp1 = np.empty((batch_size, 128, 128, 3), dtype=np.uint8)
+            tmp2 = np.empty((batch_size, 128, 128, 3), dtype=np.uint8)
+            j = self.iterator_tmp*batch_size
+            jj = j + batch_size
+
+        else: #11 <- 61esima iterazione
+            tmp1 = np.empty((11, 128, 128, 3), dtype=np.uint8)
+            tmp2 = np.empty((11, 128, 128, 3), dtype=np.uint8)
+            j = self.iterator_tmp*batch_size
+            jj = j+11
+        
+        iterator2 = 0
+        right_labels = []
+        for i in range(j,jj):
+            tmp1[iterator2] = self.data_fn['im_a'][i]
+            tmp2[iterator2] = self.data_fn['im_b'][i]
+            right_labels.append(self.data_fn['exif_lbl'][i])
+            iterator2+=1
+
+        args = {self.net.im_a:tmp1,
+                self.net.im_b:tmp2}
+
+        if (self.iterator_tmp == 61):
+            self.iterator_tmp = 0
+        else: self.iterator_tmp+=1
+        """
         data_dict = self.data_fn
 
         args = {self.net.im_a:data_dict['im_a'],
                 self.net.im_b:data_dict['im_b']}
 
-        if 'cls_lbl' in data_dict:
-            args[self.net.cls_label] = data_dict['cls_lbl']
+        
 
-        if 'exif_lbl' in data_dict:
+        if 'cls_lbl' in self.data_fn:
+            args[self.net.cls_label] = self.data_fn['cls_lbl']
+
+        if 'exif_lbl' in self.data_fn:
             args[self.net.label] = data_dict['exif_lbl']
+            #args[self.net.label] = right_labels
+
+
         return args
 
     def train(self):
