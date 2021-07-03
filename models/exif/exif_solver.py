@@ -130,13 +130,13 @@ class ExifSolver(object):
 
         #data_dict = self.data_fn(batch_size, split=split)
 
-        if(self.iterator_tmp<=60): #60
+        if(self.iterator_tmp<=59): #59
             tmp1 = np.empty((batch_size, 128, 128, 3), dtype=np.uint8)
             tmp2 = np.empty((batch_size, 128, 128, 3), dtype=np.uint8)
             j = self.iterator_tmp*batch_size
             jj = j + batch_size
 
-        else: #11 <- 61esima iterazione
+        else: #11 <- 60esima iterazione
             tmp1 = np.empty((11, 128, 128, 3), dtype=np.uint8)
             tmp2 = np.empty((11, 128, 128, 3), dtype=np.uint8)
             j = self.iterator_tmp*batch_size
@@ -153,7 +153,7 @@ class ExifSolver(object):
         args = {self.net.im_a:tmp1,
                 self.net.im_b:tmp2}
 
-        if (self.iterator_tmp == 61):
+        if (self.iterator_tmp == 60): #ultima it
             self.iterator_tmp = 0
         else: self.iterator_tmp+=1
         """
