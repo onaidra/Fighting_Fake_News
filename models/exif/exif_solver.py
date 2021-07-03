@@ -26,11 +26,11 @@ class ExifSolver(object):
         self.ckpt_path = os.path.join('./ckpt', exp_name, exp_name)
         io.make_dir(self.ckpt_path)
         self.iterator_tmp = 0
-        self.train_iterations = 100000
+        self.train_iterations = 1000000
         self.test_init = True
         self.show_iter = 20
         self.test_iter = 2000
-        self.save_iter = 10000
+        self.save_iter = 100000
 
         self.train_timer = deque(maxlen=10)
         return
@@ -137,10 +137,10 @@ class ExifSolver(object):
             jj = j + batch_size
 
         else: #11 <- 60esima iterazione
-            tmp1 = np.empty((11, 128, 128, 3), dtype=np.uint8)
-            tmp2 = np.empty((11, 128, 128, 3), dtype=np.uint8)
+            tmp1 = np.empty((10, 128, 128, 3), dtype=np.uint8)
+            tmp2 = np.empty((10, 128, 128, 3), dtype=np.uint8)
             j = self.iterator_tmp*batch_size
-            jj = j+11
+            jj = j+10
         
         iterator2 = 0
         right_labels = []
