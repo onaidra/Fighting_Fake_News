@@ -163,10 +163,10 @@ class ExifSolver(object):
                 self.net.im_b:data_dict['im_b']}
 
         
-
+"""
         if 'cls_lbl' in self.data_fn:
             args[self.net.cls_label] = self.data_fn['cls_lbl']
-        """
+        
         if 'exif_lbl' in self.data_fn:
             #args[self.net.label] = data_dict['exif_lbl']
             args[self.net.label] = right_labels
