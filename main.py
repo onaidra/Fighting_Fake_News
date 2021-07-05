@@ -7,6 +7,7 @@ from lib.utils import benchmark_utils, util,io
 from demo import Demo
 import tensorflow as tf
 import numpy as np
+import pickle
 from PIL import Image
 import cv2
 
@@ -20,13 +21,22 @@ second_image_list = random_list(image_list)
 
 exif_lbl = generate_label(dict_keys,image_list,image_list)
 
+with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)
+	pickle.dump(exif_lbl,fp)
+fp.close()
 #crop images to 128x128
 
 list1,list2 = cropping_list(image_list,second_image_list)
 
+cls_lbl = np.ones((1,1))
+cls_lbl[0][0] = len(dict_keys)
+
+with open("cls_lbl.txt", "w") as f:
+    f.write(cls_lbl[0][0])
+f.close()
 
 #start initialization
-
+"""
 solver = initialize_exif()
 solver.sess.run(tf.compat.v1.global_variables_initializer())
 if solver.net.use_tf_threading:
@@ -34,15 +44,12 @@ if solver.net.use_tf_threading:
     solver.net.train_runner.start_p_threads(solver.sess)
     tf.train.start_queue_runners(sess=solver.sess, coord=solver.coord)
 
-cls_lbl = np.ones((1,1))
-cls_lbl[0][0] = len(dict_keys)
-
 
 im1_merge = {'im_a':list1,'im_b':list2,'exif_lbl': exif_lbl,'cls_lbl': cls_lbl}
 exif_solver.ExifSolver.setup_data(solver,list1,im1_merge)
 exif_solver.ExifSolver.train(solver)
 
-"""
+
 im = np.zeros((256, 256, 3))
 
 bu = benchmark_utils.EfficientBenchmark(solver, nc, params, im, auto_close_sess=False, 
