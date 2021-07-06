@@ -42,7 +42,7 @@ cls_lbl[0][0] = len(exif_lbl)
 
 ## sulla read di cls metti ad int il valore cls_lbl = int(cls_lbl)
 #start initialization
-"""
+
 solver = initialize_exif()
 solver.sess.run(tf.compat.v1.global_variables_initializer())
 if solver.net.use_tf_threading:
@@ -55,7 +55,7 @@ im1_merge = {'im_a':list1,'im_b':list2,'exif_lbl': exif_lbl,'cls_lbl': cls_lbl}
 exif_solver.ExifSolver.setup_data(solver,list1,im1_merge)
 exif_solver.ExifSolver.train(solver)
 
-
+"""
 im = np.zeros((256, 256, 3))
 
 bu = benchmark_utils.EfficientBenchmark(solver, nc, params, im, auto_close_sess=False, 
