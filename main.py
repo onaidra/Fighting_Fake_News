@@ -12,15 +12,15 @@ from PIL import Image
 import cv2
 
 #extract exif data
-dict,image_list,dict_keys = extract_exif()
+#dict,image_list,dict_keys = extract_exif()
 
 #generate second random list
-second_image_list = random_list(image_list)
+#second_image_list = random_list(image_list)
 
 #generate labels for each pair of images
 
-exif_lbl = generate_label(dict_keys,image_list,image_list)
-
+#exif_lbl = generate_label(dict_keys,image_list,image_list)
+"""
 with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)
 	pickle.dump(exif_lbl,fp)
 fp.close()
@@ -29,13 +29,13 @@ fp.close()
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
 fp.close()
-"""
+
 #######################################################################################à
 #crop images to 128x128
 #######################################################################################à
-#list1,list2 = get_np_arrays('cropped_arrays.npy')
+list1,list2 = get_np_arrays('cropped_arrays.npy')
 #######################################################################################à
-list1,list2 = cropping_list(image_list,second_image_list)
+#list1,list2 = cropping_list(image_list,second_image_list)
 
 cls_lbl = np.ones((1,1))
 cls_lbl[0][0] = len(exif_lbl)
