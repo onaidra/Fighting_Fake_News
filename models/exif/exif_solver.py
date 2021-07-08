@@ -28,7 +28,7 @@ class ExifSolver(object):
         self.iterator_tmp = 0
         self.train_iterations = 1000000
         self.test_init = True
-        self.show_iter = 20
+        self.show_iter = 2000
         self.test_iter = 2000
         self.save_iter = 100000
 
