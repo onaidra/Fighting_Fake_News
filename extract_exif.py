@@ -133,7 +133,7 @@ def cropping_list(first,second):
         tmp2[i] = patch2
     
     print("[INFO] Images cropped")
-    #save_np_arrays(tmp1,tmp2)
+    save_np_arrays(tmp1,tmp2)
     #a,b = get_np_arrays('cropped_arrays.npy')
     #if(np.array_equal(a,tmp1) and np.array_equal(b,tmp2)):
         #print("Corretti")
