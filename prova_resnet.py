@@ -17,11 +17,11 @@ def create_base_model(image_shape, dropout_rate, suffix=''):
     model = ResNet50(include_top=False, weights='imagenet', input_tensor=I1, pooling=None)
     model.layers.pop()
     model.outputs = [model.layers[-1].output]
-    model.layers[-1].outbound_nodesx = []
+    model.layers[-1]._outbound_nodes = []
 
     for layer in model.layers:
-        layer.name = layer.name + str(suffix)
-        layer.trainable = False
+        layer._name = layer.name + str(suffix)
+        layer._trainable = False
 
     flatten_name = 'flatten' + str(suffix)
 
