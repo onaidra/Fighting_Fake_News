@@ -11,9 +11,9 @@ from extract_exif import extract_exif, random_list,generate_label,cropping_list,
 import pickle
 
 import numpy as np
-import keras
 
-class DataGenerator(keras.utils.Sequence):
+
+class DataGenerator(tf.keras.utils.Sequence):
     'Generates data for Keras'
     def __init__(self, list_IDs, labels, batch_size=32, dim=(128,128,3), n_channels=1,
                  n_classes=10, shuffle=True):
