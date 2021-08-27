@@ -17,7 +17,7 @@ def create_base_model(image_shape, dropout_rate, suffix=''):
     model = ResNet50(include_top=False, weights='imagenet', input_tensor=I1, pooling=None)
     model.layers.pop()
     model.outputs = [model.layers[-1].output]
-    model.layers[-1].outbound_nodes = []
+    model.layers[-1].outbound_nodesx = []
 
     for layer in model.layers:
         layer.name = layer.name + str(suffix)
@@ -58,8 +58,7 @@ def create_siamese_model(image_shape, dropout_rate):
 
 
 
-siamese_model = create_siamese_model(image_shape=(128, 128, 3),
-                                         dropout_rate=0.2)
+siamese_model = create_siamese_model(image_shape=(128, 128, 3),dropout_rate=0.2)
 
 siamese_model.compile(loss='binary_crossentropy',
                       optimizer=Adam(lr=0.0001),
