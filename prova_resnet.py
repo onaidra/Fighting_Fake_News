@@ -3,7 +3,7 @@ from PIL import Image
 import tensorflow as tf
 from tensorflow.keras.applications.resnet50 import ResNet50
 from tensorflow.keras import Input,Model
-from tensorflow.keras.layer import Dense,Flatten,Dropout
+from keras.layer import Dense,Flatten,Dropout
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import load_model
 from extract_exif import extract_exif, random_list,generate_label,cropping_list,get_np_arrays
