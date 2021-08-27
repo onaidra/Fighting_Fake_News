@@ -69,9 +69,8 @@ with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 fp.close()
 
 list1,list2 = get_np_arrays('cropped_arrays.npy')
-training_generator = list1, exif_lbl
 
-siamese_model.fit_generator(generator=training_generator,
+siamese_model.fit(list1,list2,batch_size=64,
                             steps_per_epoch=1000,
                             epochs=10,
                             verbose=1
