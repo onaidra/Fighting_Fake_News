@@ -2,7 +2,8 @@ from models import exif
 from PIL import Image
 import tensorflow as tf
 from tensorflow.keras.applications.resnet50 import ResNet50
-from tensorflow.keras import Input,Model
+from tensorflow.keras import Input
+from keras import Model
 from keras.layer import Dense,Flatten,Dropout
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import load_model
