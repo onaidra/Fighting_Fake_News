@@ -129,7 +129,7 @@ Y_train = list2
 cls_lbl= len(exif_lbl)
 training_generator = DataGenerator([X_train,Y_train], exif_lbl,n_classes=cls_lbl)
 
-siamese_model.fit(generator=training_generator,
+siamese_model.fit_generator(generator=training_generator,
                             steps_per_epoch=1000,
                             epochs=10,
                             verbose=1)
