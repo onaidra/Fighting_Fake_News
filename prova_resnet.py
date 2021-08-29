@@ -60,7 +60,7 @@ siamese_model = create_siamese_model(image_shape=(64, 64, 3),
 siamese_model.compile(loss='binary_crossentropy',
                       optimizer=Adam(lr=0.0001),
                       metrics=['binary_crossentropy', 'acc'])
-siamese_model.fit_generator(["https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143","https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143"],
+siamese_model.fit_generator(["https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143","https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143"],["https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143","https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143"],
                             steps_per_epoch=1000,
                             epochs=10,
                             verbose=1,
