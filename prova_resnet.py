@@ -20,7 +20,7 @@ def create_base_model(image_shape, dropout_rate, suffix=''):
     model.outputs = [model.layers[-1].output]
     model.layers[-1]._outbound_nodes = []
 
-    for layer in model._layers:
+    for layer in model.layers:
         layer._name = layer.name + str(suffix)
         layer._trainable = False
 
