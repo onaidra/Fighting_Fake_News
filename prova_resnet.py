@@ -61,7 +61,7 @@ siamese_model.compile(loss='binary_crossentropy',
                       optimizer=Adam(lr=0.0001),
                       metrics=['binary_crossentropy', 'acc'])
 siamese_model.fit_generator(["https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143","https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143"],["https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143","https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143"],
-                            steps_per_epoch=1000,
+                            #steps_per_epoch=1000,
                             epochs=10,
                             verbose=1,
                             #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
