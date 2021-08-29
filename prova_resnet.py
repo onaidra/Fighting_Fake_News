@@ -9,6 +9,7 @@ from keras.layers import Dense,Flatten,Dropout,Lambda
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import load_model
 from extract_exif import extract_exif, random_list,generate_label,cropping_list,get_np_arrays
+from matplotlib import image
 import pickle
 
 import numpy as np
@@ -60,12 +61,15 @@ siamese_model = create_siamese_model(image_shape=(64, 64, 3),
 siamese_model.compile(loss='binary_crossentropy',
                       optimizer=Adam(lr=0.0001),
                       metrics=['binary_crossentropy', 'acc'])
-siamese_model.fit_generator(["https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143","https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143"],["https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143","https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143"],
-                            #steps_per_epoch=1000,
+imagexs = image.imread('D01_img_orig_0001.jpg')
+imagexs= np.asarray(imagexs)
+x = [imagexs]
+y = [imagexs]
+siamese_model.fit(x,y,#steps_per_epoch=1000,
                             epochs=10,
                             verbose=1,
                             #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
-                            validation_data=(["https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143","https://drive.google.com/drive/u/0/folders/1qtAc7_R9DVIf8-fqI5BqTQ8yC2nRbPgq/D01_img_orig_0143"]))
+                            validation_data=(imagexs,imagexs))
                             #max_q_size=3)
 
 siamese_model.save('siamese_model.h5')
