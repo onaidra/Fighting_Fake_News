@@ -4,7 +4,8 @@ import tensorflow as tf
 from tensorflow.keras.applications.resnet50 import ResNet50
 from tensorflow.keras import Input
 from keras import Model
-from keras.layers import Dense,Flatten,Dropout,Lambda,RandomNormal
+from keras.initializers import RandomNormal
+from keras.layers import Dense,Flatten,Dropout,Lambda
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import load_model
 from extract_exif import extract_exif, random_list,generate_label,cropping_list,get_np_arrays
