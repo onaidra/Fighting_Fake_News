@@ -14,6 +14,11 @@ from matplotlib import image
 from lib.utils import benchmark_utils, util,io
 import cv2
 import numpy as np
+import keras
+
+(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+
+
 
 def create_base_model(image_shape, dropout_rate, suffix=''):
     I1 = Input(image_shape)
@@ -30,10 +35,11 @@ def create_base_model(image_shape, dropout_rate, suffix=''):
 
     x = model.output
     x = Flatten(name=flatten_name)(x)
-    x = Dense(1024, activation='relu')(x)
+    x = Dense(4096, activation='relu')(x)
     x = Dropout(dropout_rate)(x)
-    x = Dense(512, activation='relu')(x)
-    x = Dropout(dropout_rate)(x)
+
+    #x = Dense(512, activation='relu')(x)
+    #x = Dropout(dropout_rate)(x)
 
     return x, model.input
 
@@ -45,8 +51,8 @@ def create_siamese_model(image_shape, dropout_rate):
     print("------------------------------------------------------------------------------")
     print(output_left)
     print("------------------------------------------------------------------------------")
-    output = tf.concat([output_left,output_right],0)
-    """
+    #output = tf.concat([output_left,output_right],0)
+    
     L1_layer = Lambda(lambda tensors: tf.abs(tensors[0] - tensors[1]))
     L1_distance = L1_layer([output_left, output_right])
     L1_prediction = Dense(1, use_bias=True,
@@ -56,12 +62,12 @@ def create_siamese_model(image_shape, dropout_rate):
                           name='weighted-average')(L1_distance)
 
     prediction = Dropout(0.2)(L1_prediction)
-"""
-    siamese_model = Model(inputs=[input_left, input_right], outputs=output)
+
+    siamese_model = Model(inputs=[input_left, input_right], outputs=prediction)
 
     return siamese_model
 
-siamese_model = create_siamese_model(image_shape=(64, 64, 3),
+siamese_model = create_siamese_model(image_shape=(128,128, 3),
                                          dropout_rate=0.2)
 
 siamese_model.compile(loss='binary_crossentropy',
@@ -71,18 +77,25 @@ siamese_model.compile(loss='binary_crossentropy',
 imagexs =cv2.imread('D01_img_orig_0001.jpg')[:,:,[2,1,0]]
 
 imagexs = np.array(imagexs,np.float32)
-imagexs = util.random_crop(imagexs,[64,64])
+imagexs = util.random_crop(imagexs,[128,128])
 imagexs = np.expand_dims(imagexs,axis=0)
+siamese_model.summary()
 
-siamese_model.fit(x=(imagexs,imagexs),y=(imagexs),batch_size = 32,#steps_per_epoch=1000,
-                            epochs=10)
+tmp1 = np.empty((5, 128, 128, 3), dtype=np.uint8)
+
+for i in range(len(tmp1)):
+    tmp1[i] = imagexs
+
+x  = (tmp1,tmp1)
+
+siamese_model.fit(x,y=(tmp1),batch_size = 32,epochs=10)
                             #verbose=1,
                             #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
                             #validation_data=(imagexs,imagexs))
                             #max_q_size=3)
 
-siamese_model.save('siamese_model.h5')
 
+#siamese_model.save('siamese_model.h5')
 
 """
 # and the my prediction
