@@ -65,9 +65,6 @@ def create_siamese_model(image_shape, dropout_rate):
 
     output_left, input_left = create_base_model(image_shape, dropout_rate)
     output_right, input_right = create_base_model(image_shape, dropout_rate, suffix="_2")
-    print("------------------------------------------------------------------------------")
-    print(output_left)
-    print("------------------------------------------------------------------------------")
     #output = tf.concat([output_left,output_right],0)
     
     L1_layer = Lambda(lambda tensors: tf.abs(tensors[0] - tensors[1]))
@@ -153,5 +150,5 @@ x_train = datagenerator(list1,exif_lbl,32)
 #                            #validation_data=x_train)
                             #max_q_size=3)
                             # 
-print(list1[0])
+print(type(list1[0]))
 siamese_model.fit((list1[0],list2[0]),exif_lbl[0],epochs=10)
