@@ -16,8 +16,9 @@ import cv2
 import numpy as np
 import keras
 import pickle
-ssad = 1
+
 def datagenerator(images, labels, batchsize, mode="train"):
+    ssad = 1
     while True:
         start = 0
         end = batchsize
