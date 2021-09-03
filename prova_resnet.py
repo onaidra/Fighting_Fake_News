@@ -16,9 +16,22 @@ import cv2
 import numpy as np
 import keras
 
-(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+def datagenerator(images, labels, batchsize, mode="train"):
+    while True:
+        start = 0
+        end = batchsize
 
+        while start  < len(images):
+            if(len(images)-start < batchsize):
+                break
+            # load your images from numpy arrays or read from directory
+            else:
+                x = images[start:end] 
+                y = labels[start:end]
+                yield x, y
 
+            start += batchsize
+            end += batchsize
 
 def create_base_model(image_shape, dropout_rate, suffix=''):
     I1 = Input(image_shape)
@@ -66,7 +79,7 @@ def create_siamese_model(image_shape, dropout_rate):
     siamese_model = Model(inputs=[input_left, input_right], outputs=prediction)
 
     return siamese_model
-
+"""
 siamese_model = create_siamese_model(image_shape=(128,128, 3),
                                          dropout_rate=0.2)
 
@@ -88,7 +101,7 @@ for i in range(len(tmp1)):
 
 x  = (tmp1,tmp1)
 
-siamese_model.fit(x,y=(tmp1),batch_size = 32,epochs=10)
+siamese_model.fit(x = (imagexs,imagexs),y=(imagexs),batch_size = 32,epochs=10)
                             #verbose=1,
                             #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
                             #validation_data=(imagexs,imagexs))
@@ -97,7 +110,7 @@ siamese_model.fit(x,y=(tmp1),batch_size = 32,epochs=10)
 
 #siamese_model.save('siamese_model.h5')
 
-"""
+
 # and the my prediction
 siamese_net = load_model('siamese_model.h5', custom_objects={"tf": tf})
 X_1 = [image, ] * len(markers)
@@ -111,3 +124,4 @@ X_1 = [image, ] * len(markers)
 batch = [markers, X_1]
 result = siamese_net.predict_on_batch(batch)
 """
+prova = datagenerator()
