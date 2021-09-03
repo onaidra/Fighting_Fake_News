@@ -130,7 +130,7 @@ siamese_model = create_siamese_model(image_shape=(128,128, 3),
 siamese_model.compile(loss='binary_crossentropy',
                       optimizer=Adam(lr=0.0001),
                       metrics=['binary_crossentropy', 'acc'])
-                      
+
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
 fp.close()
@@ -140,6 +140,6 @@ fp.close()
 #######################################################################################à
 list1,list2 = get_np_arrays('cropped_arrays.npy')
 
-x_train,y_train = datagenerator(list1,exif_lbl,32)
+x_train = datagenerator(list1,exif_lbl,32)
 
-siamese_model.fit(x_train ,y_train,batch_size = 32,epochs=10)
+#siamese_model.fit(x_train ,y_train,batch_size = 32,epochs=10)
