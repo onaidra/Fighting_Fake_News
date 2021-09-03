@@ -19,13 +19,15 @@ import cv2
 
 #generate labels for each pair of images
 
-#exif_lbl = generate_label(dict_keys,image_list,image_list)
+#exif_lbl = generate_label(dict_keys,image_list,second_image_list)
 """
+#scrittura
 with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)
 	pickle.dump(exif_lbl,fp)
 fp.close()
 #######################################################################################à
 """
+#lettura
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
 fp.close()
