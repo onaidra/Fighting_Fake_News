@@ -153,4 +153,5 @@ x_train = datagenerator(list1,exif_lbl,32)
 #                            #validation_data=x_train)
                             #max_q_size=3)
                             # 
+print(list1[0])
 siamese_model.fit((list1[0],list2[0]),exif_lbl[0],epochs=10)
