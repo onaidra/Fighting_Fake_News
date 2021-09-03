@@ -141,6 +141,11 @@ fp.close()
 list1,list2 = get_np_arrays('cropped_arrays.npy')
 
 x_train = datagenerator(list1,exif_lbl,32)
-for i in x_train:
-    print(len(i))
-#siamese_model.fit(x_train ,y_train,batch_size = 32,epochs=10)
+
+siamese_model.fit_generator(x_train,
+                            steps_per_epoch=32,
+                            epochs=10,
+                            verbose=1,
+                            #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
+                            validation_data=x_train,
+                            max_q_size=3)
