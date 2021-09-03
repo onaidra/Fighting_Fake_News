@@ -22,13 +22,13 @@ def datagenerator(images, labels, batchsize, mode="train"):
         start = 0
         end = batchsize
         while start  < len(images):
-            if(len(images)-start < batchsize):
-                break
+            #if(len(images)-start < batchsize):
+            #    break
             # load your images from numpy arrays or read from directory
-            else:
-                x = images[start:end] 
-                y = labels[start:end]
-                yield x, y
+            #else:
+            x = images[start:end] 
+            y = labels[start:end]
+            yield x, y
 
             start += batchsize
             end += batchsize
@@ -142,10 +142,10 @@ list1,list2 = get_np_arrays('cropped_arrays.npy')
 
 x_train = datagenerator(list1,exif_lbl,32)
 
-siamese_model.fit_generator(x_train,
+siamese_model.fit_generator(datagenerator(list1,exif_lbl,32),
                             steps_per_epoch=32,
                             epochs=10,
-                            verbose=1,
+                            verbose=1)
                             #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
-                            validation_data=x_train)
+                            #validation_data=x_train)
                             #max_q_size=3)
