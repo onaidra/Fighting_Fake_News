@@ -151,4 +151,7 @@ x_train = datagenerator(list1,exif_lbl,32)
                             #max_q_size=3)
                             # 
 print(type(list1[0]))
-siamese_model.fit(x = (list1[0],list2[0]),y = list1[0],epochs=10)
+imagexs = np.expand_dims(list1[0],axis=0)
+imagexs2 = np.expand_dims(list2[0],axis=0)
+lbl = np.array(exif_lbl[0])
+siamese_model.fit(x = (imagexs,imagexs2),y = lbl,epochs=10)
