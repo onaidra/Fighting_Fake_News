@@ -129,7 +129,7 @@ batch = [markers, X_1]
 result = siamese_net.predict_on_batch(batch)
 
 ############################################################################################### FINE
-
+"""
 siamese_model = create_siamese_model(image_shape=(128,128, 3),
                                          dropout_rate=0.2)
 
@@ -148,43 +148,9 @@ list1,list2 = get_np_arrays('cropped_arrays.npy')
 
 x_train = datagenerator(list1,exif_lbl,32)
 
-siamese_model.fit_generator(datagenerator(list1,exif_lbl,32),steps_per_epoch=32,epochs=10,verbose=1)
-                            #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
-                            #validation_data=x_train)
-                            #max_q_size=3)"""
-
-import numpy as np
-import pandas as pd
-
-data = np.random.rand(200,2)
-expected = np.random.randint(2, size=200).reshape(-1,1)
-
-dataFrame = pd.DataFrame(data, columns = ['a','b'])
-expectedFrame = pd.DataFrame(expected, columns = ['expected'])
-
-dataFrameTrain, dataFrameTest = dataFrame[:100],dataFrame[-100:]
-expectedFrameTrain, expectedFrameTest = expectedFrame[:100],expectedFrame[-100:]
-
-from keras.datasets import mnist
-from keras.models import Sequential
-from keras.layers.core import Dense, Dropout, Activation, Flatten, Reshape
-from keras.layers.convolutional import Convolution1D, Convolution2D, MaxPooling2D
-from keras.utils import np_utils
-
-
-model = Sequential()
-model.add(Dense(12, activation='relu', input_dim=dataFrame.shape[1]))
-model.add(Dense(1, activation='sigmoid'))
-
-
-model.compile(loss='binary_crossentropy', optimizer='adadelta', metrics=['accuracy'])
-
-#Train the model using generator vs using the full batch
-batch_size = 8
-
-#without generator
-model.fit(
-    x = np.array(dataFrame),
-    y = np.array(expected),
-    batch_size = batch_size,
-    epochs = 3)
+#siamese_model.fit_generator(datagenerator(list1,exif_lbl,32),steps_per_epoch=32,epochs=10,verbose=1)
+#                            #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
+#                            #validation_data=x_train)
+                            #max_q_size=3)
+                            # 
+siamese_model.fit((np.array(list1),np.array(list2)),(exif_lbl),epochs=10)

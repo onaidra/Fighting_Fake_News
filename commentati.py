@@ -36,4 +36,45 @@ for i in range(10):
     list1.append(patch1)
     list2.append(patch2)
 
+
+
+import numpy as np
+import pandas as pd
+
+data = np.random.rand(200,2)
+expected = np.random.randint(2, size=200).reshape(-1,1)
+
+dataFrame = pd.DataFrame(data, columns = ['a','b'])
+expectedFrame = pd.DataFrame(expected, columns = ['expected'])
+
+dataFrameTrain, dataFrameTest = dataFrame[:100],dataFrame[-100:]
+expectedFrameTrain, expectedFrameTest = expectedFrame[:100],expectedFrame[-100:]
+
+from keras.datasets import mnist
+from keras.models import Sequential
+from keras.layers.core import Dense, Dropout, Activation, Flatten, Reshape
+from keras.layers.convolutional import Convolution1D, Convolution2D, MaxPooling2D
+from keras.utils import np_utils
+
+
+model = Sequential()
+model.add(Dense(12, activation='relu', input_dim=dataFrame.shape[1]))
+model.add(Dense(1, activation='sigmoid'))
+
+
+model.compile(loss='binary_crossentropy', optimizer='adadelta', metrics=['accuracy'])
+
+#Train the model using generator vs using the full batch
+batch_size = 8
+
+#without generator
+model.fit(
+    x = np.array(dataFrame),
+    y = np.array(expected),
+    batch_size = batch_size,
+    epochs = 100)
+
+"""
+
+
 """
