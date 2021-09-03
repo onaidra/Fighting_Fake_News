@@ -148,4 +148,4 @@ siamese_model.fit_generator(x_train,
                             verbose=1,
                             #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
                             validation_data=x_train,
-                            max_q_size=3)
+                            #max_q_size=3)
