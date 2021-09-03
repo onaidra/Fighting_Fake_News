@@ -16,7 +16,7 @@ import cv2
 import numpy as np
 import keras
 import pickle
-
+ssad = 1
 def datagenerator(images, labels, batchsize, mode="train"):
     while True:
         start = 0
@@ -28,6 +28,9 @@ def datagenerator(images, labels, batchsize, mode="train"):
             #else:
             x = images[start:end] 
             y = labels[start:end]
+            if (ssad == 1):
+                print(x[0].shape)
+                ssad = 0
             yield x, y
 
             start += batchsize
@@ -142,7 +145,7 @@ list1,list2 = get_np_arrays('cropped_arrays.npy')
 
 x_train = datagenerator(list1,exif_lbl,32)
 
-siamese_model.fit_generator(datagenerator(list1,exif_lbl,32),epochs=10)
+siamese_model.fit_generator(datagenerator(list1,exif_lbl,32),steps_per_epoch=32,epochs=10,verbose=1)
                             #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
                             #validation_data=x_train)
                             #max_q_size=3)
