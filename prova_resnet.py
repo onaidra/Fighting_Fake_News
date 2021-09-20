@@ -136,6 +136,9 @@ with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
 fp.close()
 
+for i in range(len(exif_lbl)):
+    exif_lbl[i] = np.array(exif_lbl[i])
+
 #######################################################################################à
 #crop images to 128x128
 #######################################################################################à
