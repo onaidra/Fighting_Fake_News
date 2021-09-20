@@ -18,7 +18,6 @@ import keras
 import pickle
 
 def datagenerator(images, labels, batchsize, mode="train"):
-    ssad = 1
     while True:
         start = 0
         end = batchsize
@@ -29,9 +28,7 @@ def datagenerator(images, labels, batchsize, mode="train"):
             #else:
             x = images[start:end] 
             y = labels[start:end]
-            if (ssad == 1):
-                print(x[0].shape)
-                ssad = 0
+
             yield x, y
 
             start += batchsize
