@@ -29,7 +29,6 @@ def datagenerator(images,images2, labels, batchsize, mode="train"):
             x = images[start:end] 
             y = labels[start:end]
             x2 = images2[start:end]
-            final_list.append(y)
             yield [x,x2],y
 
             start += batchsize
