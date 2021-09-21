@@ -155,4 +155,4 @@ imagexs = np.expand_dims(list1[0],axis=0)
 imagexs2 = np.expand_dims(list2[0],axis=0)
 
 
-siamese_model.fit_generator(x_train,y_train,epochs=10)
+siamese_model.fit(x_train,y_train,epochs=10)
