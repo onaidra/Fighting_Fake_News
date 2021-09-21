@@ -131,7 +131,7 @@ siamese_model = create_siamese_model(image_shape=(128,128, 3),
 
 siamese_model.compile(loss='categorical_crossentropy',
                       optimizer=Adam(lr=0.0001),
-                      metrics=['categorical_crossentropy', 'acc'])
+                      metrics=['accuracy'])
 
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
