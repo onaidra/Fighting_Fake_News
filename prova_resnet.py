@@ -29,9 +29,7 @@ def datagenerator(images,images2, labels, batchsize, mode="train"):
             x = images[start:end] 
             y = labels[start:end]
             x2 = images2[start:end]
-            print(type(x))
-            print(type(y))
-            yield (x,x2), y
+            yield x,x2, y
 
             start += batchsize
             end += batchsize
@@ -145,7 +143,7 @@ for i in range(len(exif_lbl)):
 #######################################################################################à
 list1,list2 = get_np_arrays('cropped_arrays.npy')
 x_train = datagenerator(list1,list2,exif_lbl,32)
-print(type(x_train))
+
 #siamese_model.fit_generator(datagenerator(list1,exif_lbl,32),steps_per_epoch=32,epochs=10,verbose=1)
 #                            #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
 #                            #validation_data=x_train)
