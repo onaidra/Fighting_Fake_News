@@ -16,7 +16,7 @@ import cv2
 import numpy as np
 import keras
 import pickle
-
+final_list=[]
 def datagenerator(images,images2, labels, batchsize, mode="train"):
     while True:
         start = 0
@@ -29,7 +29,8 @@ def datagenerator(images,images2, labels, batchsize, mode="train"):
             x = images[start:end] 
             y = labels[start:end]
             x2 = images2[start:end]
-            yield (x,x2), y
+            final_list.append(y)
+            yield (x,x2)
 
             start += batchsize
             end += batchsize
@@ -143,7 +144,7 @@ for i in range(len(exif_lbl)):
 #######################################################################################à
 list1,list2 = get_np_arrays('cropped_arrays.npy')
 x_train = datagenerator(list1,list2,exif_lbl,32)
-
+print(len(final_list))
 #siamese_model.fit_generator(datagenerator(list1,exif_lbl,32),steps_per_epoch=32,epochs=10,verbose=1)
 #                            #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
 #                            #validation_data=x_train)
@@ -153,4 +154,4 @@ imagexs = np.expand_dims(list1[0],axis=0)
 imagexs2 = np.expand_dims(list2[0],axis=0)
 
 
-siamese_model.fit(x_train,epochs=10)
+siamese_model.fit(x_train,y=exif_lbl,epochs=10)
