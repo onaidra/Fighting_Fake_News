@@ -62,7 +62,10 @@ def extract_exif():
         dict[right_tags[i]] = x
 
     for key in dict:
-        print(len(key))
+        print("KEY : ", key)
+        for i in range(len(dict[key][i])):
+            print("VALUE : ",dict[key][i][0]," len: ",dict[key][i][1])
+
     print("[INFO] Extracted dict")
     return dict,image_list,list(dict.keys())
 
