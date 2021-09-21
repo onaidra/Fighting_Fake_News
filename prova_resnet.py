@@ -17,6 +17,8 @@ import numpy as np
 import keras
 import pickle
 
+EPOCHS = 100
+
 def datagenerator(images,images2, labels, batchsize, mode="train"):
     while True:
         start = 0
@@ -150,5 +152,5 @@ x_train = datagenerator(list1,list2,exif_lbl,32)
                             #max_q_size=3)
                             # 
 #x_train = np.expand_dims(x_train,axis=0)
-
-siamese_model.fit(x_train,epochs=10,steps_per_epoch=32)
+steps = len(list1)/EPOCHS
+siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
