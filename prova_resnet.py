@@ -126,6 +126,7 @@ result = siamese_net.predict_on_batch(batch)
 
 ############################################################################################### FINE
 """
+extract_exif()
 siamese_model = create_siamese_model(image_shape=(128,128, 3),
                                          dropout_rate=0.2)
 

@@ -61,6 +61,8 @@ def extract_exif():
         x = dict.pop(wrong_tags[i])
         dict[right_tags[i]] = x
 
+    for key in dict:
+        print(len(key))
     print("[INFO] Extracted dict")
     return dict,image_list,list(dict.keys())
 
