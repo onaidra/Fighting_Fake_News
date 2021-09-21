@@ -30,8 +30,7 @@ def datagenerator(images,images2, labels, batchsize, mode="train"):
             y = labels[start:end]
             x2 = images2[start:end]
             final_list.append(y)
-            print(y)
-            yield (x,x2)
+            yield [x,x2],y
 
             start += batchsize
             end += batchsize
@@ -155,4 +154,4 @@ imagexs = np.expand_dims(list1[0],axis=0)
 imagexs2 = np.expand_dims(list2[0],axis=0)
 
 
-siamese_model.fit(x_train,y=exif_lbl,epochs=10)
+siamese_model.fit(x_train,epochs=10)
