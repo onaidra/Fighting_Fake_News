@@ -148,8 +148,6 @@ x_train = datagenerator(list1,list2,exif_lbl,32)
 #                            #validation_data=x_train)
                             #max_q_size=3)
                             # 
-imagexs = np.expand_dims(list1[0],axis=0)
-imagexs2 = np.expand_dims(list2[0],axis=0)
+x_train = np.expand_dims(x_train,axis=0)
 
-
-siamese_model.fit(np.array(x_train),epochs=10)
+siamese_model.fit(x_train,epochs=10)
