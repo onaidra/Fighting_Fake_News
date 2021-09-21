@@ -129,9 +129,9 @@ result = siamese_net.predict_on_batch(batch)
 siamese_model = create_siamese_model(image_shape=(128,128, 3),
                                          dropout_rate=0.2)
 
-siamese_model.compile(loss='categorical_crossentropy',
+siamese_model.compile(loss='binary_crossentropy',
                       optimizer=Adam(lr=0.0001),
-                      metrics=['accuracy'])
+                      metrics=['binary_crossentropy', 'accuracy'])
 
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
