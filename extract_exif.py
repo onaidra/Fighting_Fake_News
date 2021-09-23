@@ -71,7 +71,10 @@ def extract_exif():
                 dict[key].pop(i)
             i=i-1
     
-
+    for key in dict:
+        print("key: ", key)
+        
+    print(len(dict.keys()))
     print("[INFO] Extracted dict")
     return dict,image_list,list(dict.keys())
 
