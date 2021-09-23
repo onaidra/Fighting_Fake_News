@@ -9,6 +9,7 @@ from lib.utils import benchmark_utils, util,io
 import numpy as np
 wrong_tags =[545,546,547,548,544,549]
 right_tags = ["ISO2","StopsAboveBaseISO","ExposureCompensation","BrightnessValue","FirmwareVersion","Info"]
+
 # path to the image or video
 
 ##my path r"C:\Users\Adri\Desktop\VISIOPE\prova\foto"
@@ -16,7 +17,7 @@ right_tags = ["ISO2","StopsAboveBaseISO","ExposureCompensation","BrightnessValue
 def extract_exif():
     path = r"/content/drive/MyDrive/foto/foto/"
     dir = os.listdir(path)
-
+    no_dir = open(r"/content/drive/MyDrive/foto/foto/chiavi.txt","r").read().splitlines()
     right_dir = []
     for i in dir:
         if "D" in i and "_" in i:
@@ -42,19 +43,20 @@ def extract_exif():
                 # get the tag name, instead of human unreadable tag id
                 tag = TAGS.get(tag_id, tag_id)
                 data = exifdata.get(tag_id)
-                #if isinstance(data, bytes):
-                #    data = data.decode('utf-8')
-                #data = str(data).strip(" ")
-                if tag not in dict.keys():
-                    dict[tag] = [[data,[elem]]]
-                else:
-                    flag = False
-                    for i in range(len(dict[tag])):
-                        if dict[tag][i][0] == data:
-                            dict[tag][i][1].append(elem)
-                            flag = True
-                    if flag == False:
-                        dict[tag].append([data,[elem]])
+                if(tag not in no_dir):
+                    #if isinstance(data, bytes):
+                    #    data = data.decode('utf-8')
+                    #data = str(data).strip(" ")
+                    if tag not in dict.keys():
+                        dict[tag] = [[data,[elem]]]
+                    else:
+                        flag = False
+                        for i in range(len(dict[tag])):
+                            if dict[tag][i][0] == data:
+                                dict[tag][i][1].append(elem)
+                                flag = True
+                        if flag == False:
+                            dict[tag].append([data,[elem]])
 
             index+=1
     for i in range(len(wrong_tags)):
@@ -68,10 +70,7 @@ def extract_exif():
             if(len(dict[key][i][1])<30):
                 dict[key].pop(i)
             i=i-1
-    f=open("chiavi.txt","w")
-    for k in dict:
-        f.write("key: ",k," len: ",len(dict[k]))
-        print("key: ",k," len: ",len(dict[k]))
+    
 
     print("[INFO] Extracted dict")
     return dict,image_list,list(dict.keys())
