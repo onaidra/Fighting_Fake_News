@@ -67,6 +67,7 @@ def extract_exif():
         while(i>=0):
             if(len(dict[key][i][1])<30):
                 dict[key].pop(i)
+            i=i-1
     
     for k in dict:
         print("key: ",k," len: ",len(dict[k]))
