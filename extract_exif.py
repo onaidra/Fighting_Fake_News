@@ -68,8 +68,9 @@ def extract_exif():
             if(len(dict[key][i][1])<30):
                 dict[key].pop(i)
             i=i-1
-    
+    f=open("chiavi.txt","w")
     for k in dict:
+        f.write("key: ",k," len: ",len(dict[k]))
         print("key: ",k," len: ",len(dict[k]))
 
     print("[INFO] Extracted dict")
