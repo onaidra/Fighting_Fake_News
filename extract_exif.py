@@ -61,8 +61,10 @@ def extract_exif():
         x = dict.pop(wrong_tags[i])
         dict[right_tags[i]] = x
 
+
     for key in dict:
-        for i in range(len(dict[key])):
+        i = len(dict[key])-1
+        while(i>=0):
             if(len(dict[key][i][1])<30):
                 dict[key].pop(i)
     
