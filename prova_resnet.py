@@ -127,6 +127,7 @@ result = siamese_net.predict_on_batch(batch)
 ############################################################################################### FINE
 """
 extract_exif()
+"""
 siamese_model = create_siamese_model(image_shape=(128,128, 3),
                                          dropout_rate=0.2)
 
@@ -155,3 +156,4 @@ x_train = datagenerator(list1,list2,exif_lbl,32)
 #x_train = np.expand_dims(x_train,axis=0)
 steps = len(list1)/EPOCHS
 siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
+"""

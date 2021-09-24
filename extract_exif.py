@@ -45,37 +45,38 @@ def extract_exif():
                 # get the tag name, instead of human unreadable tag id
                 tag = TAGS.get(tag_id, tag_id)
                 data = exifdata.get(tag_id)
-                if str(tag) not in no_dir:
-                    #if isinstance(data, bytes):
-                    #    data = data.decode('utf-8')
-                    #data = str(data).strip(" ")
-                    if tag not in dict.keys():
-                        dict[tag] = [[data,[elem]]]
-                    else:
-                        flag = False
-                        for i in range(len(dict[tag])):
-                            if dict[tag][i][0] == data:
-                                dict[tag][i][1].append(elem)
-                                flag = True
-                        if flag == False:
-                            dict[tag].append([data,[elem]])
+                #if isinstance(data, bytes):
+                #    data = data.decode('utf-8')
+                #data = str(data).strip(" ")
+                if tag not in dict.keys():
+                    dict[tag] = [[data,[elem]]]
+                else:
+                    flag = False
+                    for i in range(len(dict[tag])):
+                        if dict[tag][i][0] == data:
+                            dict[tag][i][1].append(elem)
+                            flag = True
+                    if flag == False:
+                        dict[tag].append([data,[elem]])
 
             index+=1
+    #convert tags numbers to string
     for i in range(len(wrong_tags)):
         x = dict.pop(wrong_tags[i])
         dict[right_tags[i]] = x
 
-
+    #remove tags with less elements than 30
     for key in dict:
-        i = len(dict[key])-1
-        while(i>=0):
-            if(len(dict[key][i][1])<30):
-                dict[key].pop(i)
-            i=i-1
-    
-    for key in dict:
-        print("key: ", key)
-        
+        if key in no_dir:
+            dict.pop(key)
+        else:
+            print("key: ", key)
+            i = len(dict[key])-1
+            while(i>=0):
+                if(len(dict[key][i][1])<30):
+                    dict[key].pop(i)
+                i=i-1
+            
     print(len(dict.keys()))
     print("[INFO] Extracted dict")
     return dict,image_list,list(dict.keys())
