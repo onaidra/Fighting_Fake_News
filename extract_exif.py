@@ -18,6 +18,8 @@ def extract_exif():
     path = r"/content/drive/MyDrive/foto/foto/"
     dir = os.listdir(path)
     no_dir = open(r"/content/drive/MyDrive/foto/foto/chiavi.txt","r").read().splitlines()
+    for elem in no_dir:
+        print(elem)
     right_dir = []
     for i in dir:
         if "D" in i and "_" in i:
@@ -43,7 +45,7 @@ def extract_exif():
                 # get the tag name, instead of human unreadable tag id
                 tag = TAGS.get(tag_id, tag_id)
                 data = exifdata.get(tag_id)
-                if(tag not in no_dir):
+                if str(tag) not in no_dir:
                     #if isinstance(data, bytes):
                     #    data = data.decode('utf-8')
                     #data = str(data).strip(" ")
