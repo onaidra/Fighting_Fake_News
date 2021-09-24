@@ -66,7 +66,7 @@ def extract_exif():
         dict[right_tags[i]] = x
 
     #remove tags with less elements than 30
-    for key in dict:
+    for key in list(dict):
         if key in no_dir:
             dict.pop(key)
         else:
