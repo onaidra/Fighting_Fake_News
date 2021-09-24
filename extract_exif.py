@@ -18,8 +18,6 @@ def extract_exif():
     path = r"/content/drive/MyDrive/foto/foto/"
     dir = os.listdir(path)
     no_dir = open(r"/content/drive/MyDrive/foto/foto/chiavi.txt","r").read().splitlines()
-    for elem in no_dir:
-        print(elem)
     right_dir = []
     for i in dir:
         if "D" in i and "_" in i:
@@ -67,7 +65,7 @@ def extract_exif():
 
     #remove tags with less elements than 30
     for key in list(dict):
-        if key in no_dir:
+        if str(key) in no_dir:
             dict.pop(key)
         else:
             print("key: ", key)
