@@ -126,15 +126,25 @@ result = siamese_net.predict_on_batch(batch)
 
 ############################################################################################### FINE
 """
-extract_exif()
+###########################################################################################################
+#EXTRACTION#
+###########################################################################################################
+#extract exif data
+dict,image_list,dict_keys = extract_exif()
+
+#generate second random list
+second_image_list = random_list(image_list)
+
+#generate labels for each pair of images
+
+exif_lbl = generate_label(dict_keys,image_list,second_image_list)
+
+with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)
+	pickle.dump(exif_lbl,fp)
+fp.close()
+
+list1,list2 = cropping_list(image_list,second_image_list)
 """
-siamese_model = create_siamese_model(image_shape=(128,128, 3),
-                                         dropout_rate=0.2)
-
-siamese_model.compile(loss='binary_crossentropy',
-                      optimizer=Adam(lr=0.0001),
-                      metrics=['binary_crossentropy', 'accuracy'])
-
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
 fp.close()
@@ -143,10 +153,21 @@ for i in range(len(exif_lbl)):
     exif_lbl[i] = np.array(exif_lbl[i])
 exif_lbl = np.array(exif_lbl)
 
-#######################################################################################à
-#crop images to 128x128
-#######################################################################################à
 list1,list2 = get_np_arrays('cropped_arrays.npy')
+"""
+###########################################################################################################
+#MODEL#
+###########################################################################################################
+
+"""
+siamese_model = create_siamese_model(image_shape=(128,128, 3),
+                                         dropout_rate=0.2)
+
+siamese_model.compile(loss='binary_crossentropy',
+                      optimizer=Adam(lr=0.0001),
+                      metrics=['binary_crossentropy', 'accuracy'])
+
+
 x_train = datagenerator(list1,list2,exif_lbl,32)
 #siamese_model.fit_generator(datagenerator(list1,exif_lbl,32),steps_per_epoch=32,epochs=10,verbose=1)
 #                            #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
