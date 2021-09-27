@@ -130,14 +130,14 @@ result = siamese_net.predict_on_batch(batch)
 #EXTRACTION#
 ###########################################################################################################
 #extract exif data
-#dict,image_list,dict_keys = extract_exif()
+dict,image_list,dict_keys = extract_exif()
 
 #generate second random list
-#second_image_list = random_list(image_list)
+second_image_list = random_list(image_list)
 
 #generate labels for each pair of images
 
-#exif_lbl = generate_label(dict_keys,image_list,second_image_list)
+exif_lbl = generate_label(dict_keys,image_list,second_image_list)
 
 #with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)#
 	#pickle.dump(exif_lbl,fp)
@@ -145,20 +145,20 @@ result = siamese_net.predict_on_batch(batch)
 
 #list1,list2 = cropping_list(image_list,second_image_list)
 
-with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
-	exif_lbl = pickle.load(fp)
-fp.close()
+#with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
+#	exif_lbl = pickle.load(fp)
+#fp.close()
 
-for i in range(len(exif_lbl)):
-    exif_lbl[i] = np.array(exif_lbl[i])
-exif_lbl = np.array(exif_lbl)
+#for i in range(len(exif_lbl)):
+#    exif_lbl[i] = np.array(exif_lbl[i])
+#exif_lbl = np.array(exif_lbl)
 
-list1,list2 = get_np_arrays('cropped_arrays.npy')
+#list1,list2 = get_np_arrays('cropped_arrays.npy')
 
 ###########################################################################################################
 #MODEL#
 ###########################################################################################################
-
+"""
 
 siamese_model = create_siamese_model(image_shape=(128,128, 3),
                                          dropout_rate=0.2)
@@ -185,5 +185,6 @@ x_test = datagenerator(list1_test,list2_test,exif_lbl_test,32)
                             # 
 #x_train = np.expand_dims(x_train,axis=0)
 steps = int((len(list1)/2)/EPOCHS)
-print(steps)
+
 siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
+"""

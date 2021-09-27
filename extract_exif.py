@@ -116,7 +116,10 @@ def generate_label(keys,first,second):
                 else:
                     shared_tags.append(0)
             exif_lbl.append(shared_tags)
-        
+            if (i % 300) == 0:
+                print(first[i])
+                print(second[i])
+                print(shared_tags)
         print("[INFO] Label extracted")
         
         return exif_lbl
