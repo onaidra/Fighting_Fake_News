@@ -38,6 +38,8 @@ def extract_exif():
             if new_dir not in image_list : image_list.append(new_dir)
             # extract EXIF data
             exifdata = image.getexif()
+            if exifdata is None:
+                print("Sorry, image has no exif data.")
             # iterating over all EXIF data fields
             for tag_id in exifdata:
                 # get the tag name, instead of human unreadable tag id
@@ -121,6 +123,7 @@ def generate_label(keys,first,second):
                     data1 = exif1.get(tag_id)
                     data2 = exif2.get(tag_id)
                     if (i % 300) == 0:
+                        print("checking")
                         print(data1)
                         print(data2)
                     if(data1 == data2):
