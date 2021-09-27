@@ -129,7 +129,7 @@ def generate_label(keys,first,second):
                     if(i%300 == 0):
                         print(data1)
                         print(data2)
-                    if(data1 == data2):
+                    if(str(data1) == str(data2)):
                         shared_tags.append(1)
                     else:
                         shared_tags.append(0)
