@@ -19,7 +19,7 @@ import pickle
 from keras.engine import keras_tensor
 
 
-EPOCHS = 100
+EPOCHS = 20
 
 
 list1,list2 = get_np_arrays('cropped_arrays.npy')
