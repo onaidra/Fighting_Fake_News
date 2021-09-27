@@ -184,6 +184,6 @@ x_test = datagenerator(list1_test,list2_test,exif_lbl_test,32)
                             #max_q_size=3)
                             # 
 #x_train = np.expand_dims(x_train,axis=0)
-steps = (len(list1)/2)/EPOCHS
+steps = int((len(list1)/2)/EPOCHS)
 print(steps)
 siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test)
