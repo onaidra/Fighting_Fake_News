@@ -126,6 +126,9 @@ def generate_label(keys,first,second):
                     data1 = exif1.get(exif_real)
                     data2 = exif2.get(exif_real)
 
+                    if(i%300 == 0):
+                        print(data1)
+                        print(data2)
                     if(data1 == data2):
                         shared_tags.append(1)
                     else:
