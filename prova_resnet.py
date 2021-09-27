@@ -167,12 +167,12 @@ siamese_model.compile(loss='binary_crossentropy',
                       optimizer=Adam(lr=0.0001),
                       metrics=['binary_crossentropy', 'accuracy'])
 
-list1_train = list1[:len(list1)/2]
-list2_train = list2[:len(list2)/2]
-exif_lbl_train = exif_lbl[:len(exif_lbl)/2]
-list1_test = list1[len(list1)/2:len(list1)]
-list2_test = list2[len(list2)/2:len(list2)]
-exif_lbl_test = exif_lbl[len(exif_lbl)/2:len(exif_lbl)]
+list1_train = list1[:int(len(list1)/2)]
+list2_train = list2[:int(len(list2)/2)]
+exif_lbl_train = exif_lbl[:int(len(exif_lbl)/2)]
+list1_test = list1[int(len(list1)/2):len(list1)]
+list2_test = list2[int(len(list2)/2):len(list2)]
+exif_lbl_test = exif_lbl[int(len(exif_lbl)/2):len(exif_lbl)]
 x_train = datagenerator(list1_train,list2_train,exif_lbl_train,32)
 x_test = datagenerator(list1_test,list2_test,exif_lbl_test,32)
 
