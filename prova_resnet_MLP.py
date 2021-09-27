@@ -76,7 +76,7 @@ def create_siamese_model(image_shape, dropout_rate):
     output_right, input_right = create_base_model(image_shape, dropout_rate, suffix="_2")
     
     output_siamese = tf.concat([output_left,output_right],1)
-    num_classes=71
+    num_classes=45
     
     x = output_siamese
     x = Dense(4096, activation='relu')(x)
@@ -137,7 +137,7 @@ fp.close()
 for i in range(len(exif_lbl)):
     exif_lbl[i] = np.array(exif_lbl[i])
 exif_lbl = np.array(exif_lbl)
-print(len(exif_lbl[0]))
+
 #######################################################################################à
 #crop images to 128x128
 #######################################################################################à
