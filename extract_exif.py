@@ -106,7 +106,7 @@ def generate_label(keys,first,second):
             shared_tags = []
             for tag_id in keys:
                 print(tag_id)
-                print(type(data1))
+                print(type(tag_id))
                 print(exif1.keys())
                 print(tag_id in exif1.keys())
                 if tag_id in exif1.keys() and tag_id in exif2.keys():

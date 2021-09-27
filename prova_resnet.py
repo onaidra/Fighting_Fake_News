@@ -132,6 +132,34 @@ result = siamese_net.predict_on_batch(batch)
 #extract exif data
 dict,image_list,dict_keys = extract_exif()
 
+#############################################SAVE DICT##############################################
+with open("dict.pkl", "wb") as fp:   #Picklingpickle.dump(l, fp)#
+	pickle.dump(dict,fp)
+fp.close()
+
+#with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
+#	dict = pickle.load(fp)
+#fp.close()
+#############################################SAVE IMAGE LIST##############################################
+with open("list_img.pkl", "wb") as fp:   #Picklingpickle.dump(l, fp)#
+	pickle.dump(image_list,fp)
+fp.close()
+
+#with open("list_img.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
+#	image_list = pickle.load(fp)
+#fp.close()
+
+#############################################SAVE DICT_KEYS##############################################
+with open("dict_keys.pkl", "wb") as fp:   #Picklingpickle.dump(l, fp)#
+	pickle.dump(dict_keys,fp)
+fp.close()
+
+#with open("dict_keys.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
+#	dict_keys = pickle.load(fp)
+#fp.close()
+
+#----------------------------------------------------------------------------------------------------------------------------------------
+
 #generate second random list
 second_image_list = random_list(image_list)
 
