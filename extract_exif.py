@@ -103,11 +103,11 @@ def generate_label(keys,first,second):
             im2 = Image.open(second[i])
             exif1 = im1.getexif()
             exif2 = im2.getexif()
-            print(exif1)
             shared_tags = []
             im1keys = []
             im2keys = []
-            
+            print(im1keys)
+            print(im2keys)
             for elem in exif1:
                 tag = TAGS.get(elem, elem)
                 im1keys.append(tag)
