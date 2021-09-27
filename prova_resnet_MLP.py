@@ -43,6 +43,7 @@ def datagenerator(images,images2, labels, batchsize, mode="train"):
             x = images[start:end] 
             y = labels[start:end]
             x2 = images2[start:end]
+            print(y.shape)
             yield (x,x2),y
 
             start += batchsize
@@ -137,10 +138,13 @@ fp.close()
 for i in range(len(exif_lbl)):
     exif_lbl[i] = np.array(exif_lbl[i])
 exif_lbl = np.array(exif_lbl)
+
 print(exif_lbl.shape)
+
 #######################################################################################à
 #crop images to 128x128
 #######################################################################################à
+
 list1,list2 = get_np_arrays('cropped_arrays.npy')
 list1_train = list1[:int(len(list1)/2)]
 list2_train = list2[:int(len(list2)/2)]
