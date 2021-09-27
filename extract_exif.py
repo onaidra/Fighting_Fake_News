@@ -120,7 +120,9 @@ def generate_label(keys,first,second):
                     #tag = TAGS.get(tag_id, tag_id)
                     data1 = exif1.get(tag_id)
                     data2 = exif2.get(tag_id)
-                    
+                    if (i % 300) == 0:
+                        print(data1)
+                        print(data2)
                     if(data1 == data2):
                         shared_tags.append(1)
                     else:
