@@ -58,6 +58,7 @@ def extract_exif():
                         dict[tag].append([data,[elem]])
 
             index+=1
+
     #convert tags numbers to string
     for i in range(len(wrong_tags)):
         x = dict.pop(wrong_tags[i])
@@ -68,7 +69,6 @@ def extract_exif():
         if str(key) in no_dir:
             dict.pop(key)
         else:
-            print("key: ", key)
             i = len(dict[key])-1
             while(i>=0):
                 if(len(dict[key][i][1])<30):
@@ -101,15 +101,22 @@ def generate_label(keys,first,second):
             im2 = Image.open(second[i])
             exif1 = im1.getexif()
             exif2 = im2.getexif()
-            #list_tag1={}
-            #list_tag2={}
+
             shared_tags = []
+            im1keys = []
+            im2keys = []
+            
+            for elem in exif1:
+                tag = TAGS.get(elem, elem)
+                im1keys.append(tag)
+            
+            for elem in exif2:
+                tag = TAGS.get(elem, elem)
+                im2keys.append(tag)
+
             for tag_id in keys:
-                print(tag_id)
-                print(type(tag_id))
-                print(exif1.keys())
-                print(tag_id in exif1.keys())
-                if tag_id in exif1.keys() and tag_id in exif2.keys():
+
+                if tag_id in im1keys and tag_id in im2keys:
                     #tag = TAGS.get(tag_id, tag_id)
                     data1 = exif1.get(tag_id)
                     data2 = exif2.get(tag_id)
