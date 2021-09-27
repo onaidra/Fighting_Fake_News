@@ -137,6 +137,7 @@ for i in range(len(exif_lbl)):
 exif_lbl = np.array(exif_lbl)
 
 zeros = 0
+print(exif_lbl[300])
 for i in range(len(exif_lbl)):
     if np.sum(exif_lbl[i]) == 0:
         zeros+=1
