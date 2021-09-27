@@ -116,8 +116,7 @@ def generate_label(keys,first,second):
                 tag = TAGS.get(elem, elem)
                 im2keys.append(tag)
             
-            print(len(keys))
-            rep = 0
+
             for tag_id in keys:
                  
                 if tag_id in im1keys and tag_id in im2keys:
@@ -127,19 +126,14 @@ def generate_label(keys,first,second):
 
                     data1 = exif1.get(exif_real)
                     data2 = exif2.get(exif_real)
-                    rep+=1
                     if(str(data1) == str(data2)):
                         shared_tags.append(1)
                     else:
                         shared_tags.append(0)
                 else:
                     shared_tags.append(0)
-            print("total read: ",rep)
+
             exif_lbl.append(shared_tags)
-            if (i % 300) == 0:
-                print(first[i])
-                print(second[i])
-                print(shared_tags)
         print("[INFO] Label extracted")
         
         return exif_lbl
