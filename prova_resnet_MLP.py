@@ -137,7 +137,7 @@ fp.close()
 for i in range(len(exif_lbl)):
     exif_lbl[i] = np.array(exif_lbl[i])
 exif_lbl = np.array(exif_lbl)
-
+print(exif_lbl.shape)
 #######################################################################################à
 #crop images to 128x128
 #######################################################################################à
