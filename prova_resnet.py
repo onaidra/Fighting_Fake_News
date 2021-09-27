@@ -170,9 +170,11 @@ siamese_model.compile(loss='binary_crossentropy',
 list1_train = list1[:int(len(list1)/2)]
 list2_train = list2[:int(len(list2)/2)]
 exif_lbl_train = exif_lbl[:int(len(exif_lbl)/2)]
+
 list1_test = list1[int(len(list1)/2):len(list1)]
 list2_test = list2[int(len(list2)/2):len(list2)]
 exif_lbl_test = exif_lbl[int(len(exif_lbl)/2):len(exif_lbl)]
+
 x_train = datagenerator(list1_train,list2_train,exif_lbl_train,32)
 x_test = datagenerator(list1_test,list2_test,exif_lbl_test,32)
 
@@ -183,4 +185,5 @@ x_test = datagenerator(list1_test,list2_test,exif_lbl_test,32)
                             # 
 #x_train = np.expand_dims(x_train,axis=0)
 steps = (len(list1)/2)/EPOCHS
+print(steps)
 siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test)
