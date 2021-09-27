@@ -135,7 +135,7 @@ dict,image_list,dict_keys = extract_exif()
 #generate second random list
 second_image_list = random_list(image_list)
 
-#generate labels for each pair of images
+#generate lab els for each pair of images
 
 exif_lbl = generate_label(dict_keys,image_list,second_image_list)
 

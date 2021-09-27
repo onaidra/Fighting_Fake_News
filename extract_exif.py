@@ -99,17 +99,21 @@ def generate_label(keys,first,second):
         for i in range(len(first)):
             im1 = Image.open(first[i])
             im2 = Image.open(second[i])
-            exif1 = im1.getexif()
+            exif1 = im1.getexif()1
             exif2 = im2.getexif()
             #list_tag1={}
             #list_tag2={}
             shared_tags = []
+            print(tag_id)
+            print(type(data1))
+            print(exif1.keys())
+            print(tag_id in exif1.keys())
             for tag_id in keys:
                 if tag_id in exif1.keys() and tag_id in exif2.keys():
                     #tag = TAGS.get(tag_id, tag_id)
                     data1 = exif1.get(tag_id)
                     data2 = exif2.get(tag_id)
-                    print(type(data1))
+                    
                     if(data1 == data2):
                         shared_tags.append(1)
                     else:
