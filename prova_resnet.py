@@ -167,9 +167,9 @@ second_image_list = random_list(image_list)
 
 exif_lbl = generate_label(dict_keys,image_list,second_image_list)
 
-#with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)#
-	#pickle.dump(exif_lbl,fp)
-#fp.close()
+with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)#
+	pickle.dump(exif_lbl,fp)
+fp.close()
 
 #list1,list2 = cropping_list(image_list,second_image_list)
 
