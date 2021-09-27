@@ -123,8 +123,6 @@ def create_mlp(image_shape,dropout_rate):
     return sm_model
     
 
-
-
 total_model=create_mlp(image_shape=(128,128,3),dropout_rate=0.2)
 
 total_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
@@ -138,8 +136,12 @@ for i in range(len(exif_lbl)):
     exif_lbl[i] = np.array(exif_lbl[i])
 exif_lbl = np.array(exif_lbl)
 
-print(exif_lbl[4])
+zeros = 0
+for i in range(len(exif_lbl)):
+    if np.sum(exif_lbl[i]) == 0:
+        zeros+=1
 
+print(zeros)
 #######################################################################################à
 #crop images to 128x128
 #######################################################################################à
