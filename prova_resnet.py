@@ -130,7 +130,7 @@ result = siamese_net.predict_on_batch(batch)
 #EXTRACTION#
 ###########################################################################################################
 #extract exif data
-dict,image_list,dict_keys = extract_exif()
+#dict,image_list,dict_keys = extract_exif()
 
 #############################################SAVE DICT##############################################
 #with open("dict.pkl", "wb") as fp:   #Picklingpickle.dump(l, fp)#
