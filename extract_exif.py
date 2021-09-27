@@ -99,7 +99,7 @@ def generate_label(keys,first,second):
         for i in range(len(first)):
             im1 = Image.open(first[i])
             im2 = Image.open(second[i])
-            exif1 = im1.getexif()1
+            exif1 = im1.getexif()
             exif2 = im2.getexif()
             #list_tag1={}
             #list_tag2={}
