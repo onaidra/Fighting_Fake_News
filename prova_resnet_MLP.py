@@ -111,19 +111,32 @@ def create_siamese_model(image_shape, dropout_rate):
     # out = model2.output
     
     # return model2.input,out
+    """
+    num_classes=45
+    model = keras.models.load_model('siamese_model.h5') 
+    x =  model
+    x = Dense(4096, activation='relu')(x)
+    x = Dense(2048, activation='relu')(x)
+    x = Dense(1024, activation='relu')(x)
+    x = Dense(num_classes, activation='softmax')(x)
     
-def create_mlp(image_shape,dropout_rate):
-    x,input_left,input_right = create_siamese_model(image_shape,
-                                      dropout_rate)
-                                      
-    #input_mlp,output_mlp= create_mlp_model(output_siamese.shape)
-    #output_siamese=Input(output_siamese_shape)
-    sm_model = Model(inputs=[input_left, input_right], outputs=x)
+    mlp = Model(model.output, outputs=x)
+    return mlp
+"""
+def create_mlp():
+    num_classes=45
+    model = keras.models.load_model('siamese_model.h5') 
+    x =  model
+    x = Dense(4096, activation='relu')(x)
+    x = Dense(2048, activation='relu')(x)
+    x = Dense(1024, activation='relu')(x)
+    x = Dense(num_classes, activation='softmax')(x)
     
-    return sm_model
+    mlp = Model(model.output, outputs=x)
+    return mlp
     
 
-total_model=create_mlp(image_shape=(128,128,3),dropout_rate=0.2)
+total_model=create_mlp()
 
 total_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
