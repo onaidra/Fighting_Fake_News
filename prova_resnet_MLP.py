@@ -153,4 +153,4 @@ steps = int(len(list1)/EPOCHS)
 
 total_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
 
-#total_model.save('total_model.h5')
+total_model.save('total_model.h5')
