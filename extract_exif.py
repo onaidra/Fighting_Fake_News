@@ -107,31 +107,35 @@ def generate_label(keys,first,second):
             im1realkeys = []
             im1keys = []
             im2keys = []
-            for elem in exif1:
-                tag = TAGS.get(elem, elem)
-                im1keys.append(tag)
-                im1realkeys.append(elem)
-            
-            for elem in exif2:
-                tag = TAGS.get(elem, elem)
-                im2keys.append(tag)
-            
+            if str(first[i]) == str(second[i]):
+                shared_tags = [1]*len(keys)
+                print(f"stampati {len(keys)} Ones, array: {shared_tags}")
+                print("[INDEX]: ",i)
+            else:
+                for elem in exif1:
+                    tag = TAGS.get(elem, elem)
+                    im1keys.append(tag)
+                    im1realkeys.append(elem)
+                
+                for elem in exif2:
+                    tag = TAGS.get(elem, elem)
+                    im2keys.append(tag)
+                
 
-            for tag_id in keys:
-                 
-                if tag_id in im1keys and tag_id in im2keys:
-                    #tag = TAGS.get(tag_id, tag_id)
-                    exif_real = im1keys.index(tag_id)
-                    exif_real = im1realkeys[exif_real]
+                for tag_id in keys:
+                    if tag_id in im1keys and tag_id in im2keys:
+                        #tag = TAGS.get(tag_id, tag_id)
+                        exif_real = im1keys.index(tag_id)
+                        exif_real = im1realkeys[exif_real]
 
-                    data1 = exif1.get(exif_real)
-                    data2 = exif2.get(exif_real)
-                    if(str(data1) == str(data2)):
-                        shared_tags.append(1)
+                        data1 = exif1.get(exif_real)
+                        data2 = exif2.get(exif_real)
+                        if(str(data1) == str(data2)):
+                            shared_tags.append(1)
+                        else:
+                            shared_tags.append(0)
                     else:
                         shared_tags.append(0)
-                else:
-                    shared_tags.append(0)
 
             exif_lbl.append(shared_tags)
         print("[INFO] Label extracted")

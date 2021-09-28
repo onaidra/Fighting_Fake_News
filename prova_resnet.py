@@ -195,16 +195,9 @@ siamese_model.compile(loss='binary_crossentropy',
                       optimizer=Adam(lr=0.0001),
                       metrics=['binary_crossentropy', 'accuracy'])
 
-list1_train = list1[:int(len(list1)/2)]
-list2_train = list2[:int(len(list2)/2)]
-exif_lbl_train = exif_lbl[:int(len(exif_lbl)/2)]
 
-list1_test = list1[int(len(list1)/2):len(list1)]
-list2_test = list2[int(len(list2)/2):len(list2)]
-exif_lbl_test = exif_lbl[int(len(exif_lbl)/2):len(exif_lbl)]
+x_train = datagenerator(list1,list2,exif_lbl,32)
 
-x_train = datagenerator(list1_train,list2_train,exif_lbl_train,32)
-x_test = datagenerator(list1_test,list2_test,exif_lbl_test,32)
 
 #siamese_model.fit_generator(datagenerator(list1,exif_lbl,32),steps_per_epoch=32,epochs=10,verbose=1)
 #                            #callbacks=[checkpoint, tensor_board_callback, lr_reducer, early_stopper, csv_logger],
@@ -212,6 +205,6 @@ x_test = datagenerator(list1_test,list2_test,exif_lbl_test,32)
                             #max_q_size=3)
                             # 
 #x_train = np.expand_dims(x_train,axis=0)
-steps = int((len(list1)/2)/EPOCHS)
+steps = int(len(list1)/EPOCHS)
 
-siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
+siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
