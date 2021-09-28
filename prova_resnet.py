@@ -208,3 +208,4 @@ x_train = datagenerator(list1,list2,exif_lbl,32)
 steps = int(len(list1)/EPOCHS)
 
 siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
+#siamese_model.save('siamese_model.h5')
