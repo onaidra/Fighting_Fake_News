@@ -161,27 +161,27 @@ fp.close()
 #----------------------------------------------------------------------------------------------------------------------------------------
 
 #generate second random list
-second_image_list = random_list(image_list)
+#second_image_list = random_list(image_list)
 
 #generate lab els for each pair of images
 
-exif_lbl = generate_label(dict_keys,image_list,second_image_list)
+#exif_lbl = generate_label(dict_keys,image_list,second_image_list)
 
-with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)#
-	pickle.dump(exif_lbl,fp)
-fp.close()
-
-list1,list2 = cropping_list(image_list,second_image_list)
-
-#with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
-#	exif_lbl = pickle.load(fp)
+#with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)#
+#	pickle.dump(exif_lbl,fp)
 #fp.close()
+
+#list1,list2 = cropping_list(image_list,second_image_list)
+
+with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
+	exif_lbl = pickle.load(fp)
+fp.close()
 
 for i in range(len(exif_lbl)):
     exif_lbl[i] = np.array(exif_lbl[i])
 exif_lbl = np.array(exif_lbl)
 
-#list1,list2 = get_np_arrays('cropped_arrays.npy')
+list1,list2 = get_np_arrays('cropped_arrays.npy')
 
 ###########################################################################################################
 #MODEL#
@@ -208,4 +208,4 @@ x_train = datagenerator(list1,list2,exif_lbl,32)
 steps = int(len(list1)/EPOCHS)
 
 siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
-#siamese_model.save('siamese_model.h5')
+siamese_model.save('siamese_model.h5')
