@@ -137,7 +137,7 @@ def create_mlp(image_shape):
     return mlp
     
 
-total_model=create_mlp()
+total_model=create_mlp(image_shape=(128,128, 3))
 
 total_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
