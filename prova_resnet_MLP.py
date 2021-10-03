@@ -79,10 +79,10 @@ def create_siamese_model(image_shape, dropout_rate):
     num_classes=45
     
     x = output_siamese
-    x = Dense(4096, activation='relu')(x)
-    x = Dense(2048, activation='relu')(x)
-    x = Dense(1024, activation='relu')(x)
-    x = Dense(num_classes, activation='softmax')(x)
+    x.add(Dense(4096, activation='relu'))
+    x.add(Dense(2048, activation='relu'))
+    x.add(Dense(1024, activation='relu'))
+    x.add(Dense(num_classes, activation='softmax'))
     
     
     #model.summary()
