@@ -127,10 +127,10 @@ def create_mlp():
     num_classes=45
     model = keras.models.load_model('siamese_model.h5') 
     x =  model
-    x = Dense(4096, activation='relu')(x)
-    x = Dense(2048, activation='relu')(x)
-    x = Dense(1024, activation='relu')(x)
-    x = Dense(num_classes, activation='softmax')(x)
+    x.add(Dense(4096, activation='relu'))
+    x.add(Dense(2048, activation='relu'))
+    x.add(Dense(1024, activation='relu'))
+    x.add(Dense(num_classes, activation='softmax'))
     
     mlp = Model(model.output, outputs=x)
     return mlp
