@@ -123,12 +123,12 @@ def create_siamese_model(image_shape, dropout_rate):
     mlp = Model(model.output, outputs=x)
     return mlp
 """
-def create_mlp():
+def create_mlp(image_shape):
     num_classes=45
     model = keras.models.load_model('siamese_model.h5') 
     x = Sequential()
     x.add(model)
-    x.add(Dense(4096, activation='relu'))
+    x.add(Dense(4096,input_shape=image_shape, activation='relu'))
     x.add(Dense(2048, activation='relu'))
     x.add(Dense(1024, activation='relu'))
     x.add(Dense(num_classes, activation='softmax'))
