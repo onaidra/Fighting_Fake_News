@@ -70,10 +70,17 @@ def create_siamese_model(image_shape, dropout_rate):
     output_right, input_right = create_base_model(image_shape, dropout_rate, suffix="_2")
     
     output_siamese = tf.keras.layers.Concatenate(axis=1)([output_left,output_right])
+    L1_prediction = Dense(1, use_bias=True,
+                        activation='sigmoid',
+                        input_shape = image_shape,
+                        kernel_initializer=RandomNormal(mean=0.0, stddev=0.001),
+                        name='weighted-average')(output_siamese)
+
+    prediction = Dropout(0.2)(L1_prediction)
     num_classes=45
     
     x = Sequential()
-    x.add(output_siamese)
+    x.add(prediction)
     x.add(Dense(4096, activation='relu'))
     x = Dense(2048, activation='relu')(x)
     x = Dense(1024, activation='relu')(x)
