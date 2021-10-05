@@ -78,9 +78,7 @@ def create_siamese_model(image_shape, dropout_rate):
     output_siamese = tf.concat([output_left,output_right],1)
 
     num_classes=45
-    output_siamese = tf.numpy_function(output_siamese)
-    x = Sequential()
-    x.add(Dense(output_siamese))
+    x = Dense(output_siamese)
     x.add(Dense(4096, activation='relu'))
     x.add(Dense(2048, activation='relu'))
     x.add(Dense(1024, activation='relu'))
