@@ -94,7 +94,7 @@ def create_mlp_model(output_siamese_shape):
     # Create the model
     model2 = Sequential()
     #model2.add(Dense(8192, input_shape=output_siamese_shape, activation='relu'))
-    model2.add(Dense(4096, input_shape=input_shape, activation='relu'))
+    model2.add(Dense(4096, input_tensor=output_siamese_shape, activation='relu'))
     model2.add(Dense(2048, activation='relu'))
     model2.add(Dense(1024, activation='relu'))
     model2.add(Dense(num_classes, activation='softmax'))
@@ -111,7 +111,7 @@ def create_mlp(image_shape,dropout_rate):
                                       dropout_rate)
     
     print(x.shape)
-    input_mlp,output_mlp= create_mlp_model(x.shape)
+    input_mlp,output_mlp= create_mlp_model(x)
     #output_siamese=Input(output_siamese_shape)
     sm_model = Model(inputs=[input_left, input_right], outputs=output_mlp)
     
