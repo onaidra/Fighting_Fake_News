@@ -80,8 +80,8 @@ def create_siamese_model(image_shape, dropout_rate):
     num_classes=45
     
     x = Sequential()
-    x.add(prediction)
-    x.add(Dense(4096, activation='relu'))
+    x = Dense(prediction,activation='relu')(x)
+    #x.add(Dense(4096, activation='relu'))
     x = Dense(2048, activation='relu')(x)
     x = Dense(1024, activation='relu')(x)
     x = Dense(num_classes, activation='softmax')(x)
