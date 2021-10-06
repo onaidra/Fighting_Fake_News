@@ -150,9 +150,26 @@ siamese_model.compile(loss='binary_crossentropy',
                       metrics=['binary_crossentropy', 'accuracy'])
 
 
-x_train = datagenerator(list1,list2,exif_lbl,32)
+#x_train = datagenerator(list1,list2,exif_lbl,32)
 
-steps = int(len(list1)/EPOCHS)
+#steps = int(len(list1)/EPOCHS)
 
-siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
-siamese_model.save('siamese_model.h5')
+train_set = int(len(list1)*(2/3))
+
+list1,list2 = get_np_arrays('cropped_arrays.npy')
+
+list1_train = list1[:train_set]
+list2_train = list2[:train_set]
+exif_lbl1 = exif_lbl[:train_set]
+
+list1_test = list1[train_set:]
+list2_test = list2[train_set:]
+exif_lbl2 = exif_lbl[train_set:]
+
+x_train = datagenerator(list1_train,list2_train,exif_lbl1,32)
+x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
+steps = int(train_set/EPOCHS)
+
+siamese_model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
+#siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
+#siamese_model.save('siamese_model.h5')
