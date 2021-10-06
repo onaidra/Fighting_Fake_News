@@ -160,7 +160,7 @@ list2_test = list2[train_set:]
 x_train = datagenerator(list1_train,list2_train,exif_lbl,32)
 x_test = datagenerator(list1_test,list2_test,exif_lbl,32)
 #steps = len(list1)/EPOCHS
-steps = train_set
+steps = train_set/EPOCHS
 
 # imagexs = np.expand_dims(list1[0],axis=0)
 # imagexs2 = np.expand_dims(list2[0],axis=0)
