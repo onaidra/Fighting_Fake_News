@@ -148,15 +148,23 @@ exif_lbl = np.array(exif_lbl)
 #######################################################################################à
 #crop images to 128x128
 #######################################################################################à
+train_set = int(len(list1)*(2/3))
+
 list1,list2 = get_np_arrays('cropped_arrays.npy')
-x_train = datagenerator(list1,list2,exif_lbl,32)
 
-steps = len(list1)/EPOCHS
+list1_train = list1[:train_set]
+list1_test = list1[train_set:]
+list2_train = list2[:train_set]
+list2_test = list2[train_set:]
 
+x_train = datagenerator(list1_train,list2_train,exif_lbl,32)
+x_test = datagenerator(list1_test,list2_test,exif_lbl,32)
+#steps = len(list1)/EPOCHS
+steps = train_set
 
 # imagexs = np.expand_dims(list1[0],axis=0)
 # imagexs2 = np.expand_dims(list2[0],axis=0)
 # imagexs=tf.stack([imagexs,imagexs2],axis=0)
 
-total_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
+total_model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_set = x_test )
 
