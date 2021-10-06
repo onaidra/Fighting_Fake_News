@@ -81,51 +81,53 @@ def create_siamese_model(image_shape, dropout_rate):
 ############################################################################################### FINE
 
 ###########################################################################################################
-#EXTRACTION#
+                                                                                                            #EXTRACTION#
 ###########################################################################################################
 #extract exif data
-#dict,image_list,dict_keys = extract_exif()
-
+dict,image_list,dict_keys = extract_exif()
 #############################################SAVE DICT##############################################
-#with open("dict.pkl", "wb") as fp:   #Picklingpickle.dump(l, fp)#
-#	pickle.dump(dict,fp)
-#fp.close()
-
-with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
-	dict = pickle.load(fp)
+with open("dict.pkl", "wb") as fp:   #Picklingpickle.dump(l, fp)#
+	pickle.dump(dict,fp)
 fp.close()
 #############################################SAVE IMAGE LIST##############################################
-#with open("list_img.pkl", "wb") as fp:   #Picklingpickle.dump(l, fp)#
-#	pickle.dump(image_list,fp)
-#fp.close()
+with open("list_img.pkl", "wb") as fp:   #Picklingpickle.dump(l, fp)#
+	pickle.dump(image_list,fp)
+fp.close()
+#############################################SAVE DICT_KEYS##############################################
+with open("dict_keys.pkl", "wb") as fp:   #Picklingpickle.dump(l, fp)#
+	pickle.dump(dict_keys,fp)
+fp.close()
+#generate second random list
+second_image_list = random_list(image_list)
 
-with open("list_img.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
-	image_list = pickle.load(fp)
+#generate lab els for each pair of images
+
+exif_lbl = generate_label(dict_keys,image_list,second_image_list)
+
+with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)#
+	pickle.dump(exif_lbl,fp)
 fp.close()
 
-#############################################SAVE DICT_KEYS##############################################
-#with open("dict_keys.pkl", "wb") as fp:   #Picklingpickle.dump(l, fp)#
-#	pickle.dump(dict_keys,fp)
+list1,list2 = cropping_list(image_list,second_image_list)
+
+#############################################GET DICT##############################################
+#with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
+#	dict = pickle.load(fp)
+#fp.close()
+#############################################GET IMAGE LIST##############################################
+
+#with open("list_img.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
+#	image_list = pickle.load(fp)
 #fp.close()
 
+#############################################GET DICT_KEYS##############################################
+"""
 with open("dict_keys.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	dict_keys = pickle.load(fp)
 fp.close()
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 
-#generate second random list
-#second_image_list = random_list(image_list)
-
-#generate lab els for each pair of images
-
-#exif_lbl = generate_label(dict_keys,image_list,second_image_list)
-
-#with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)#
-#	pickle.dump(exif_lbl,fp)
-#fp.close()
-
-#list1,list2 = cropping_list(image_list,second_image_list)
 
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
@@ -173,3 +175,4 @@ steps = int(train_set/EPOCHS)
 siamese_model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
 #siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
 #siamese_model.save('siamese_model.h5')
+"""

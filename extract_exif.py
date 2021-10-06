@@ -73,7 +73,7 @@ def extract_exif():
         else:
             i = len(dict[key])-1
             while(i>=0):
-                if(len(dict[key][i][1])<30):
+                if(len(dict[key][i][1])<100):
                     dict[key].pop(i)
                 i=i-1
             
@@ -84,7 +84,7 @@ def extract_exif():
 def random_list(list):
     second_list = []
     for i in range(len(list)):
-        if i % 300 == 0:
+        if i % 3 == 0:
             second_list.append(list[i])
         else:
             second_list.append(random.choice(list))
