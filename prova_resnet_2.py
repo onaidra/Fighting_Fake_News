@@ -21,6 +21,12 @@ from keras.engine import keras_tensor
 
 EPOCHS = 100
 
+
+list1,list2 = get_np_arrays('cropped_arrays.npy')
+# imagexs = np.expand_dims(list1[0],axis=0)
+# imagexs2 = np.expand_dims(list2[0],axis=0)
+# num_classes=71
+
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
 fp.close()
@@ -65,14 +71,21 @@ def create_base_model(image_shape, dropout_rate, suffix=''):
 
 def create_siamese_model(image_shape, dropout_rate):
 
-    
     output_left, input_left = create_base_model(image_shape, dropout_rate)
     output_right, input_right = create_base_model(image_shape, dropout_rate, suffix="_2")
     
-    output_siamese = tf.keras.layers.Concatenate(axis=1)([output_left,output_right])
+    output_siamese = tf.concat([output_left,output_right],1)
+    L1_prediction = Dense(1, use_bias=True,
+                          activation='sigmoid',
+                          input_shape = image_shape,
+                          kernel_initializer=RandomNormal(mean=0.0, stddev=0.001),
+                          name='weighted-average')(output_siamese)
+
+    prediction = Dropout(0.2)(L1_prediction)
+
     num_classes=45
     
-    x = output_siamese
+    x = prediction
     x = Dense(4096, activation='relu')(x)
     x = Dense(2048, activation='relu')(x)
     x = Dense(1024, activation='relu')(x)
@@ -84,34 +97,33 @@ def create_siamese_model(image_shape, dropout_rate):
     #out = model.output
     #sm_model = Model(inputs=[input_left, input_right], outputs=out)
     return x,input_left,input_right
-"""   
-def create_mlp_model(output_siamese_shape):
+    
+# def create_mlp_model(output_siamese_shape):
 
-    num_classes=45
-    input_shape=Input(output_siamese_shape)
+    # num_classes=71;
+    # input_shape=Input((None,8192))
   
     
     # Create the model
-    model2 = Sequential()
-    model2.add(Dense(8192, input_shape=output_siamese_shape, activation='relu'))
-    model2.add(Dense(4096,  activation='relu'))
-    model2.add(Dense(2048, activation='relu'))
-    model2.add(Dense(1024, activation='relu'))
-    model2.add(Dense(num_classes, activation='softmax'))
+    # model2 = Sequential()
+    # model2.add(Dense(8192, input_shape=output_siamese_shape, activation='relu'))
+    # model2.add(Dense(4096, input_shape=output_siamese_shape,activation='relu'))
+    # model2.add(Dense(2048, activation='relu'))
+    # model2.add(Dense(1024, activation='relu'))
+    # model2.add(Dense(num_classes, activation='softmax'))
     
     # model2.summary()
     
-    out_siamese=Input(output_siamese_shape)
-    out = model2.output
+    # out_siamese=Input(output_siamese_shape)
+    # out = model2.output
     
-    return model2.input,out
-   """ 
+    # return model2.input,out
+    
 def create_mlp(image_shape,dropout_rate):
     x,input_left,input_right = create_siamese_model(image_shape,
                                       dropout_rate)
-    
-    
-    #input_mlp,output_mlp= create_mlp_model(x.shape)
+                                      
+    #input_mlp,output_mlp= create_mlp_model(output_siamese.shape)
     #output_siamese=Input(output_siamese_shape)
     sm_model = Model(inputs=[input_left, input_right], outputs=x)
     
