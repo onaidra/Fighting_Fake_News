@@ -153,9 +153,10 @@ train_set = int(len(list1)*(2/3))
 list1,list2 = get_np_arrays('cropped_arrays.npy')
 
 list1_train = list1[:train_set]
-list1_test = list1[train_set:]
-exif_lbl1 = exif_lbl[:train_set]
 list2_train = list2[:train_set]
+exif_lbl1 = exif_lbl[:train_set]
+
+list1_test = list1[train_set:]
 list2_test = list2[train_set:]
 exif_lbl2 = exif_lbl[train_set:]
 
