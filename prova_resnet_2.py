@@ -169,5 +169,5 @@ steps = int(train_set/EPOCHS)
 # imagexs2 = np.expand_dims(list2[0],axis=0)
 # imagexs=tf.stack([imagexs,imagexs2],axis=0)
 
-total_model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test )
+total_model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
 
