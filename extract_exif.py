@@ -131,20 +131,22 @@ def create_batch_samples(dict,image_list):
                     if flag == [True,True,True]:
                         flag = [False,False,False]
                         break
-
-                if(numero%2 == 0):
+                num = numero%2 == 0
+                print(num)
+                if(num):
                     list1.append(tmp1)
                     list1.append(tmp3)
 
-                elif(numero%2 != 0):
+                else:
                     list2.append(tmp2)
-                    while(1):              
+                    gh=True
+                    while(gh):              
                         second_image = random.choice(image_list)
                         s = second_image.split("/")
                         s = s[-1]
                         if(s not in actual_value[1]):
                             list2.append(second_image)
-                            break
+                            gh = False
     print(len(list1))                        
     print("[INFO] batch samples created")
     return list1,list2
