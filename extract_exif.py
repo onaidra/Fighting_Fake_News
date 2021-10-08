@@ -90,7 +90,9 @@ def remove_elements(dict):
             if(len(dict[key][i][1])>1999):
                 dict[key].pop(i)
             i=i-1
-    
+        if ( len(dict[key]) == 0):
+            dict.pop(key)
+
     return dict
 
 def create_batch_samples(dict,image_list):
@@ -106,7 +108,7 @@ def create_batch_samples(dict,image_list):
 
         if(str(actual_value[0]) in list_values):
             for i in range(64):
-                second_key = random.choice(dict.keys())
+                #second_key = random.choice(dict.keys())
                 second_value = random.choice(dict[second_key])
                 
                 if i<32:
