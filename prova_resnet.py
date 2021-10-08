@@ -119,7 +119,7 @@ fp.close()
 for key in dict:
     print(f"{key}:")
     for value in dict[key]:
-        print(f"\t-----{value} : [len]: {len(value)}")
+        print(f"\t-----{value[0]} : [len]: {len(value[1])}")
 """
 #############################################GET IMAGE LIST##############################################
 
