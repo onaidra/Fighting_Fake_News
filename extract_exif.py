@@ -119,7 +119,6 @@ def create_batch_samples(dict,image_list):
                 for foto in image_list:
                     if(tmp1 in foto and flag[0] == False):
                         tmp1 = foto
-                        print(tmp1)
                         flag[0] = True
                     if(tmp2 in foto and flag[1] == False):
                         tmp2 = foto
