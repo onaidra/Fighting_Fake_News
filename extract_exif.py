@@ -97,7 +97,7 @@ def remove_elements(dict):
 
 def create_batch_samples(dict,image_list):
 
-    print("[INFO] Creaing batch samples")
+    print("[INFO] Creating batch samples")
     list_values = []
     for key in dict:
         for elem in dict[key]:
