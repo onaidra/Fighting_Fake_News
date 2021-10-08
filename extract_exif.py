@@ -104,7 +104,6 @@ def create_batch_samples(dict,image_list):
     for key in dict:
         for elem in dict[key]:
             list_values.append(str(elem[0]))
-    print(len(list_values))
     list1_dot = []
     list2_dot = []
 
@@ -137,7 +136,6 @@ def create_batch_samples(dict,image_list):
                 if(num):
                     list1_dot.append(tmp1)
                     list1_dot.append(tmp3)
-                    print(len(list1_dot))
 
                 else:
                     list2_dot.append(tmp2)
@@ -151,7 +149,7 @@ def create_batch_samples(dict,image_list):
                             gh = False
         else:
             print("repetition")
-    print(len(list2_dot))                        
+
     print("[INFO] batch samples created")
     return list1_dot,list2_dot
 
