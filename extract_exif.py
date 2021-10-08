@@ -5,6 +5,7 @@ from PIL.ExifTags import TAGS
 import os
 import cv2
 import random
+import time
 from lib.utils import benchmark_utils, util,io
 import numpy as np
 wrong_tags =[545,546,547,548,544,549]
@@ -108,6 +109,7 @@ def create_batch_samples(dict,image_list):
 
     while len(list_values)>0:
         print(len(list_values))
+        time.sleep(1)
         actual_key = random.choice(list(dict.keys()))
         actual_value = random.choice(dict[actual_key])
 
