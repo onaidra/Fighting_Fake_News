@@ -105,7 +105,8 @@ def create_batch_samples(dict,image_list):
         for elem in dict[key]:
             list_values.append(str(elem[0]))
     print(len(list_values))
-    list1_dot = list2_dot = []
+    list1_dot = []
+    list2_dot = []
 
     while len(list_values)>0:
         print(len(list_values))
