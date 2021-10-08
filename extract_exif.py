@@ -90,9 +90,18 @@ def remove_elements(dict):
             if(len(dict[key][i][1])>1999):
                 dict[key].pop(i)
             i=i-1
+    
+    print("----------------------------------------------")
+    print(f"total_keys: {len(dict.keys())}")
+    print(f"totatl_values: {len(dict.values())} ")
+    print("----------------------------------------------")
     return dict
 
 def create_batch_samples(dict,list):
+    actual_key=random.choice(dict.keys())
+    print()
+    
+    
     return
 
 
