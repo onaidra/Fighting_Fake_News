@@ -107,7 +107,7 @@ def create_batch_samples(dict,image_list):
     list1 = list2 = []
 
     while len(list_values)>0:
-        
+        print(len(list_values))
         actual_key = random.choice(list(dict.keys()))
         actual_value = random.choice(dict[actual_key])
 
@@ -132,7 +132,6 @@ def create_batch_samples(dict,image_list):
                         flag = [False,False,False]
                         break
                 num = numero%2 == 0
-                print(num)
                 if(num):
                     list1.append(tmp1)
                     list1.append(tmp3)
