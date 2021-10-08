@@ -96,8 +96,6 @@ def remove_elements(dict):
     return dict
 
 def create_batch_samples(dict,image_list):
-    path = r"/content/drive/MyDrive/foto/foto/"
-    dir = os.listdir(path)
 
     print("[INFO] Creaing batch samples")
     list_values = []
@@ -111,29 +109,42 @@ def create_batch_samples(dict,image_list):
         actual_value = random.choice(dict[actual_key])
 
         if(str(actual_value[0]) in list_values):
+            flag = [False,False,False]
             list_values.remove(str(actual_value[0]))
             for i in range(64):
+                tmp1 = random.choice(actual_value[1])
+                tmp2 = random.choice(actual_value[1])
+                tmp3 = random.choice(actual_value[1])
+                for foto in image_list:
+                    if(tmp1 in foto and flag[0] == False):
+                        tmp1 = foto
+                        flag[0] = True
+                    if(tmp2 in foto and flag[1] == False):
+                        tmp2 = foto
+                        flag[1] = True
+                    if(tmp3 in foto and flag[2] == False):
+                        tmp3 = foto
+                        flag[2] = True
+                    if flag == [True,True,True]: break
                 if i<32:
                     if i % 2 == 0:
-                        tmp1 = random.choice(actual_value[1])
-                        print(tmp1)
-                        tmp1 = os.path.join(dir,tmp1)
                         list1.append(tmp1)
                     else:
-                        tmp1 = random.choice(actual_value[1])
-                        tmp1 = os.path.join(dir,tmp1)
-                        list2.append(tmp1)
+
+                        list2.append(tmp2)
                 else:
                     if i % 2 == 0:
-                        tmp1 = random.choice(actual_value[1])
-                        tmp1 = os.path.join(dir,tmp1)
-                        list1.append(tmp1)
+
+                        list1.append(tmp3)
                     else:
                         while(1):              
                             second_image = random.choice(image_list)
                             if(second_image not in actual_value[1]):
-                                tmp1 = os.path.join(dir,second_image)
-                                list2.append(tmp1)
+                                for foto in image_list:
+                                    if second_image in foto:
+                                        second_image = foto
+                                        break
+                                list2.append(second_image)
                                 break
             
     print("[INFO] batch samples created")
