@@ -125,7 +125,7 @@ def create_batch_samples(dict,image_list):
                                 break
             
     
-    return
+    return list1,list2
 
 
 

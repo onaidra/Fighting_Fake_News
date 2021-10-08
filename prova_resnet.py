@@ -9,7 +9,7 @@ from keras.initializers import RandomNormal
 from keras.layers import Dense,Flatten,Dropout,Lambda
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import load_model
-from extract_exif import extract_exif, random_list,generate_label,cropping_list,get_np_arrays, remove_elements
+from extract_exif import create_batch_samples, extract_exif, random_list,generate_label,cropping_list,get_np_arrays, remove_elements
 from matplotlib import image
 from lib.utils import benchmark_utils, util,io
 import cv2
@@ -116,12 +116,25 @@ with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	dict = pickle.load(fp)
 fp.close()
 
+with open("list_img.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
+	image_list = pickle.load(fp)
+fp.close()
+
 dict = remove_elements(dict)
 
-for key in dict:
-    print(f"{key}:")
-    for value in dict[key]:
-        print(f"\t-----{value[0]} : [len]: {len(value[1])}")
+dict_keys = list(dict.keys())
+print("[INFO] number of keys: ", dict_keys)
+
+list1_img,list2_img = create_batch_samples(dict,image_list)
+
+exif_lbl = generate_label(dict_keys,list1_img,list2_img)
+
+with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)#
+	pickle.dump(exif_lbl,fp)
+fp.close()
+
+list1,list2 = cropping_list(list1_img,list2_img)
+
 """
 #############################################GET IMAGE LIST##############################################
 
