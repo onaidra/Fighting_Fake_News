@@ -105,7 +105,7 @@ def create_batch_samples(dict,image_list):
         for elem in dict[key]:
             list_values.append(str(elem[0]))
     print(len(list_values))
-    list1 = list2 = []
+    list1_dot = list2_dot = []
 
     while len(list_values)>0:
         print(len(list_values))
@@ -135,25 +135,25 @@ def create_batch_samples(dict,image_list):
                         break
                 num = numero%2 == 0
                 if(num):
-                    list1.append(tmp1)
-                    list1.append(tmp3)
-                    print(len(list1))
+                    list1_dot.append(tmp1)
+                    list1_dot.append(tmp3)
+                    print(len(list1_dot))
 
                 else:
-                    list2.append(tmp2)
+                    list2_dot.append(tmp2)
                     gh=True
                     while(gh):              
                         second_image = random.choice(image_list)
                         s = second_image.split("/")
                         s = s[-1]
                         if(s not in actual_value[1]):
-                            list2.append(second_image)
+                            list2_dot.append(second_image)
                             gh = False
         else:
             print("repetition")
-    print(len(list1))                        
+    print(len(list2_dot))                        
     print("[INFO] batch samples created")
-    return list1,list2
+    return list1_dot,list2_dot
 
 
 
