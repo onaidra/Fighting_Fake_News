@@ -116,7 +116,7 @@ def create_batch_samples(dict,image_list):
                 tmp1 = str(random.choice(actual_value[1]))
                 tmp2 = str(random.choice(actual_value[1]))
                 tmp3 = str(random.choice(actual_value[1]))
-                for str(foto) in image_list:
+                for foto in image_list:
                     if(tmp1 in foto and flag[0] == False):
                         tmp1 = foto
                         print(tmp1)
