@@ -137,6 +137,7 @@ def create_batch_samples(dict,image_list):
                 if(num):
                     list1.append(tmp1)
                     list1.append(tmp3)
+                    print(len(list1))
 
                 else:
                     list2.append(tmp2)
