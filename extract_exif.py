@@ -113,14 +113,13 @@ def create_batch_samples(dict,image_list):
             flag = [False,False,False]
             list_values.remove(str(actual_value[0]))
             for i in range(64):
-                tmp1 = random.choice(actual_value[1])
-                tmp2 = random.choice(actual_value[1])
-                tmp3 = random.choice(actual_value[1])
-                for foto in image_list:
+                tmp1 = str(random.choice(actual_value[1]))
+                tmp2 = str(random.choice(actual_value[1]))
+                tmp3 = str(random.choice(actual_value[1]))
+                for str(foto) in image_list:
                     if(tmp1 in foto and flag[0] == False):
                         tmp1 = foto
-                        print(foto)
-                        
+                        print(tmp1)
                         flag[0] = True
                     if(tmp2 in foto and flag[1] == False):
                         tmp2 = foto
