@@ -66,7 +66,7 @@ def extract_exif():
         x = dict.pop(wrong_tags[i])
         dict[right_tags[i]] = x
 
-    #remove tags with less elements than 30
+    #remove tags with less elements than 100
     for key in list(dict):
         if str(key) in no_dir:
             dict.pop(key)
@@ -80,8 +80,23 @@ def extract_exif():
     print(len(dict.keys()))
     print("[INFO] Extracted dict")
     return dict,image_list,list(dict.keys())
+
+
+def remove_elements(dict):
+    #remove tags with less elements than 100
+    for key in list(dict):
+        i = len(dict[key])-1
+        while(i>=0):
+            if(len(dict[key][i][1])>1999):
+                dict[key].pop(i)
+            i=i-1
+    return dict
+
 def create_batch_samples(dict,list):
     return
+
+
+
 def random_list(list):
     second_list = []
     for i in range(len(list)):

@@ -9,7 +9,7 @@ from keras.initializers import RandomNormal
 from keras.layers import Dense,Flatten,Dropout,Lambda
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import load_model
-from extract_exif import extract_exif, random_list,generate_label,cropping_list,get_np_arrays
+from extract_exif import extract_exif, random_list,generate_label,cropping_list,get_np_arrays, remove_elements
 from matplotlib import image
 from lib.utils import benchmark_utils, util,io
 import cv2
@@ -115,6 +115,8 @@ def create_siamese_model(image_shape, dropout_rate):
 with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	dict = pickle.load(fp)
 fp.close()
+
+dict = remove_elements(dict)
 
 for key in dict:
     print(f"{key}:")
