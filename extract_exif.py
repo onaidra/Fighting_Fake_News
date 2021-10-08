@@ -96,6 +96,10 @@ def remove_elements(dict):
     return dict
 
 def create_batch_samples(dict,image_list):
+    path = r"/content/drive/MyDrive/foto/foto/"
+    dir = os.listdir(path)
+
+    print("[INFO] Creaing batch samples")
     list_values = []
     for key in dict:
         for elem in dict[key]:
@@ -111,20 +115,20 @@ def create_batch_samples(dict,image_list):
             for i in range(64):
                 if i<32:
                     if i % 2 == 0:
-                        list1.append(random.choice(actual_value[1]))
+                        list1.append(os.path.join(dir,random.choice(actual_value[1])))
                     else:
-                        list2.append(random.choice(actual_value[1]))
+                        list2.append(os.path.join(dir,random.choice(actual_value[1])))
                 else:
                     if i % 2 == 0:
-                        list1.append(random.choice(actual_value[1]))
+                        list1.append(os.path.join(dir,random.choice(actual_value[1])))
                     else:
                         while(1):              
                             second_image = random.choice(image_list)
                             if(second_image not in actual_value[1]):
-                                list2.append(second_image)
+                                list2.append(os.path.join(dir,second_image))
                                 break
             
-    
+    print("[INFO] batch samples created")
     return list1,list2
 
 
@@ -141,7 +145,7 @@ def random_list(list):
 
 def generate_label(keys,first,second):
     exif_lbl = []
-
+    print("[INFO] generating labels")
     if(len(first)!=len(second)):
         print("list len do not match")
         return
@@ -157,8 +161,6 @@ def generate_label(keys,first,second):
             im2keys = []
             if str(first[i]) == str(second[i]):
                 shared_tags = [1]*len(keys)
-                print(f"stampati {len(keys)} Ones, array: {shared_tags}")
-                print("[INDEX]: ",i)
             else:
                 for elem in exif1:
                     tag = TAGS.get(elem, elem)
@@ -204,6 +206,7 @@ def get_np_arrays(file):
 
 def cropping_list(first,second):
     N = len(first)
+    print(N)
     tmp1 = np.empty((N, 128, 128, 3), dtype=np.uint8)
     tmp2 = np.empty((N, 128, 128, 3), dtype=np.uint8)
     for i in range(N):
