@@ -107,10 +107,8 @@ def create_batch_samples(dict,image_list):
         actual_value = random.choice(dict[actual_key])
 
         if(str(actual_value[0]) in list_values):
+            list_values.remove(str(actual_value[0]))
             for i in range(64):
-                #second_key = random.choice(dict.keys())
-                second_value = random.choice(dict[second_key])
-                
                 if i<32:
                     if i % 2 == 0:
                         list1.append(random.choice(actual_value[1]))
@@ -120,11 +118,12 @@ def create_batch_samples(dict,image_list):
                     if i % 2 == 0:
                         list1.append(random.choice(actual_value[1]))
                     else:
-                        list2.append(random.choice(image_list))
+                        while(1):              
+                            second_image = random.choice(image_list)
+                            if(second_image not in actual_value[1]):
+                                list2.append(second_image)
+                                break
             
-
-    print()
-    
     
     return
 
