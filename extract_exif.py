@@ -115,17 +115,24 @@ def create_batch_samples(dict,image_list):
             for i in range(64):
                 if i<32:
                     if i % 2 == 0:
-                        list1.append(os.path.join(dir,random.choice(actual_value[1])))
+                        tmp1 = random.choice(actual_value[1])
+                        tmp1 = os.path.join(dir,tmp1)
+                        list1.append(tmp1)
                     else:
-                        list2.append(os.path.join(dir,random.choice(actual_value[1])))
+                        tmp1 = random.choice(actual_value[1])
+                        tmp1 = os.path.join(dir,tmp1)
+                        list2.append(tmp1)
                 else:
                     if i % 2 == 0:
-                        list1.append(os.path.join(dir,random.choice(actual_value[1])))
+                        tmp1 = random.choice(actual_value[1])
+                        tmp1 = os.path.join(dir,tmp1)
+                        list1.append(tmp1)
                     else:
                         while(1):              
                             second_image = random.choice(image_list)
                             if(second_image not in actual_value[1]):
-                                list2.append(os.path.join(dir,second_image))
+                                tmp1 = os.path.join(dir,second_image)
+                                list2.append(tmp1)
                                 break
             
     print("[INFO] batch samples created")
