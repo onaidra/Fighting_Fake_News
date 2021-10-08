@@ -117,9 +117,9 @@ with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
 fp.close()
 
 for key in dict:
-    print(f"--{key}:")
+    print(f"{key}:")
     for value in dict[key]:
-        print(f"-----{value} : [len]: {len(value)}")
+        print(f"\t-----{value} : [len]: {len(value)}")
 """
 #############################################GET IMAGE LIST##############################################
 
