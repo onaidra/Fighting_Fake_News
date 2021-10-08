@@ -91,17 +91,36 @@ def remove_elements(dict):
                 dict[key].pop(i)
             i=i-1
     
-    print("----------------------------------------------")
-    print(f"total_keys: {len(dict.keys())}")
-    sum = 0
-    for key in dict:
-        sum+=len(dict[key])
-    print(f"total_values: {sum} ")
-    print("----------------------------------------------")
     return dict
 
-def create_batch_samples(dict,list):
-    actual_key=random.choice(dict.keys())
+def create_batch_samples(dict,image_list):
+    list_values = []
+    for key in dict:
+        for elem in dict[key]:
+            list_values.append(str(elem[0]))
+    
+    while len(list_values>0):
+        list1 = list2 = []
+        actual_key = random.choice(dict.keys())
+        actual_value = random.choice(dict[actual_key])
+
+        if(str(actual_value[0]) in list_values):
+            for i in range(64):
+                second_key = random.choice(dict.keys())
+                second_value = random.choice(dict[second_key])
+                
+                if i<32:
+                    if i % 2 == 0:
+                        list1.append(random.choice(actual_value[1]))
+                    else:
+                        list2.append(random.choice(actual_value[1]))
+                else:
+                    if i % 2 == 0:
+                        list1.append(random.choice(actual_value[1]))
+                    else:
+                        list2.append(random.choice(image_list))
+            
+
     print()
     
     
