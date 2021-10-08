@@ -103,7 +103,7 @@ def create_batch_samples(dict,image_list):
     
     while len(list_values)>0:
         list1 = list2 = []
-        actual_key = random.choice(dict.keys())
+        actual_key = random.choice(list(dict.keys()))
         actual_value = random.choice(dict[actual_key])
 
         if(str(actual_value[0]) in list_values):
