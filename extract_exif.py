@@ -114,7 +114,7 @@ def create_batch_samples(dict,image_list):
         if(str(actual_value[0]) in list_values):
             flag = [False,False,False]
             list_values.remove(str(actual_value[0]))
-            for i in range(int(32)):
+            for numero in range(int(32)):
                 tmp1 = str(random.choice(actual_value[1]))
                 tmp2 = str(random.choice(actual_value[1]))
                 tmp3 = str(random.choice(actual_value[1]))
@@ -132,12 +132,11 @@ def create_batch_samples(dict,image_list):
                         flag = [False,False,False]
                         break
 
-                if(i%2 == 0):
-                    print(i)
+                if(numero%2 == 0):
                     list1.append(tmp1)
                     list1.append(tmp3)
 
-                else:
+                elif(numero%2 != 0):
                     list2.append(tmp2)
                     while(1):              
                         second_image = random.choice(image_list)
