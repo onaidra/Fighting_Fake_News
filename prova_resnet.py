@@ -122,8 +122,8 @@ fp.close()
 
 dict = remove_elements(dict)
 
-dict_keys = len(list(dict.keys()))
-print("[INFO] number of keys: ", dict_keys)
+dict_keys = list(dict.keys())
+print("[INFO] number of keys: ", len(dict_keys))
 
 list1_img,list2_img = create_batch_samples(dict,image_list)
 
