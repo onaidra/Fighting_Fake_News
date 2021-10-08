@@ -148,6 +148,8 @@ def create_batch_samples(dict,image_list):
                         if(s not in actual_value[1]):
                             list2.append(second_image)
                             gh = False
+        else:
+            print("repetition")
     print(len(list1))                        
     print("[INFO] batch samples created")
     return list1,list2
