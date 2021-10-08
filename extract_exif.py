@@ -80,7 +80,8 @@ def extract_exif():
     print(len(dict.keys()))
     print("[INFO] Extracted dict")
     return dict,image_list,list(dict.keys())
-
+def create_batch_samples(dict,list):
+    return
 def random_list(list):
     second_list = []
     for i in range(len(list)):

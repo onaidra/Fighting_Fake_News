@@ -115,6 +115,12 @@ def create_siamese_model(image_shape, dropout_rate):
 with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	dict = pickle.load(fp)
 fp.close()
+
+for key in dict:
+    print(f"--{key}:")
+    for value in key:
+        print(f"-----{value} : [len]: {len(value)}")
+"""
 #############################################GET IMAGE LIST##############################################
 
 with open("list_img.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
@@ -176,3 +182,4 @@ steps = int(train_set/EPOCHS)
 siamese_model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
 #siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
 siamese_model.save('siamese_model.h5')
+"""
