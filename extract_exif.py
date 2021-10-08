@@ -133,6 +133,7 @@ def create_batch_samples(dict,image_list):
                         break
 
                 if(i%2 != 0):
+                    print(i)
                     list1.append(tmp1)
                     list1.append(tmp3)
 
@@ -146,8 +147,6 @@ def create_batch_samples(dict,image_list):
                             list2.append(second_image)
                             break
 
-
-            print(len(list1))
     print("[INFO] batch samples created")
     return list1,list2
 
