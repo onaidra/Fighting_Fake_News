@@ -118,7 +118,7 @@ fp.close()
 
 for key in dict:
     print(f"--{key}:")
-    for value in key:
+    for value in dict[key]:
         print(f"-----{value} : [len]: {len(value)}")
 """
 #############################################GET IMAGE LIST##############################################
