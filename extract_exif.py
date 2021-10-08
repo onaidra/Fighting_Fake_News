@@ -102,9 +102,10 @@ def create_batch_samples(dict,image_list):
     for key in dict:
         for elem in dict[key]:
             list_values.append(str(elem[0]))
-    
+    list1 = list2 = []
+
     while len(list_values)>0:
-        list1 = list2 = []
+        
         actual_key = random.choice(list(dict.keys()))
         actual_value = random.choice(dict[actual_key])
 
@@ -118,6 +119,8 @@ def create_batch_samples(dict,image_list):
                 for foto in image_list:
                     if(tmp1 in foto and flag[0] == False):
                         tmp1 = foto
+                        print(foto)
+                        
                         flag[0] = True
                     if(tmp2 in foto and flag[1] == False):
                         tmp2 = foto
