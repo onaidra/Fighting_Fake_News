@@ -93,7 +93,10 @@ def remove_elements(dict):
     
     print("----------------------------------------------")
     print(f"total_keys: {len(dict.keys())}")
-    print(f"totatl_values: {len(dict.values())} ")
+    sum = 0
+    for key in dict:
+        sum+=len(dict[key])
+    print(f"total_values: {sum} ")
     print("----------------------------------------------")
     return dict
 
