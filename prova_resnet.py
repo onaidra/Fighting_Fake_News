@@ -117,12 +117,12 @@ with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
 fp.close()
 
 dict = remove_elements(dict)
-
+"""
 for key in dict:
     print(f"{key}:")
     for value in dict[key]:
         print(f"\t-----{value[0]} : [len]: {len(value[1])}")
-"""
+
 #############################################GET IMAGE LIST##############################################
 
 with open("list_img.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
