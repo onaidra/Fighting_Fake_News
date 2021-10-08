@@ -116,7 +116,7 @@ def create_batch_samples(dict,image_list):
                 if i<32:
                     if i % 2 == 0:
                         tmp1 = random.choice(actual_value[1])
-                        print(actual_value[1])
+                        print(tmp1)
                         tmp1 = os.path.join(dir,tmp1)
                         list1.append(tmp1)
                     else:
