@@ -83,7 +83,7 @@ def create_siamese_model(image_shape, dropout_rate):
 
     prediction = Dropout(0.2)(L1_prediction)
 
-    num_classes=45
+    num_classes=37
     
     x = prediction
     x = Dense(4096, activation='relu')(x)
@@ -126,7 +126,7 @@ def create_mlp(image_shape,dropout_rate):
     #input_mlp,output_mlp= create_mlp_model(output_siamese.shape)
     #output_siamese=Input(output_siamese_shape)
     sm_model = Model(inputs=[input_left, input_right], outputs=x)
-    
+    sm_model.summary()
     return sm_model
     
 
