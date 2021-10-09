@@ -112,28 +112,28 @@ def create_siamese_model(image_shape, dropout_rate):
 #list1,list2 = cropping_list(image_list,second_image_list)
 
 #############################################GET DICT##############################################
-with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
-	dict = pickle.load(fp)
-fp.close()
+#with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
+#	dict = pickle.load(fp)
+#fp.close()
 
-with open("list_img.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
-	image_list = pickle.load(fp)
-fp.close()
+#with open("list_img.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
+#	image_list = pickle.load(fp)
+#fp.close()
 
-dict = remove_elements(dict)
+#dict = remove_elements(dict)
 
-dict_keys = list(dict.keys())
-print("[INFO] number of keys: ", len(dict_keys))
+#dict_keys = list(dict.keys())
+#print("[INFO] number of keys: ", len(dict_keys))
 
-list1_img,list2_img = create_batch_samples(dict,image_list)
+#list1_img,list2_img = create_batch_samples(dict,image_list)
 
-exif_lbl = generate_label(dict_keys,list1_img,list2_img)
+#exif_lbl = generate_label(dict_keys,list1_img,list2_img)
 
-with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)#
-	pickle.dump(exif_lbl,fp)
-fp.close()
+#with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)#
+#	pickle.dump(exif_lbl,fp)
+#fp.close()
 
-list1,list2 = cropping_list(list1_img,list2_img)
+#list1,list2 = cropping_list(list1_img,list2_img)
 
 """
 #############################################GET IMAGE LIST##############################################
@@ -149,7 +149,7 @@ with open("dict_keys.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
 fp.close()
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-
+"""
 
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
@@ -197,4 +197,3 @@ steps = int(train_set/EPOCHS)
 siamese_model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
 #siamese_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
 siamese_model.save('siamese_model.h5')
-"""
