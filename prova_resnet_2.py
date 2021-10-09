@@ -170,4 +170,4 @@ steps = int(train_set/EPOCHS)
 # imagexs=tf.stack([imagexs,imagexs2],axis=0)
 
 total_model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
-
+total_model.save('final_model.h5')
