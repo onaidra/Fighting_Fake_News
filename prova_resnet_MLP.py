@@ -41,20 +41,16 @@ class ConsistencyNet(tf.keras.Model):
     x = self.model(netInput)
     return x
 
-def final1(image_shape):
-    k = tf.keras.models.load_model('final_model.h5')
-    input_left = Input(image_shape)
-    input_right = Input(image_shape)
-    
+def final1():
+    model = tf.keras.models.load_model('final_model.h5')
+       
     for layer in k.layers:
         layer.trainable = False
+  
+    model.add(Dense(512, activation='relu'))
+    model.add(Dense(1, activation='sigmoid'))
 
-    prova = k.evaluate([input_left,input_right])
-    x = Dense(512, activation='relu')(prova)
-    x = Dense(1, activation='sigmoid')(x)
-
-    mlp_model = Model(inputs=[input_left, input_right], outputs=x)
-    return mlp_model
+    return model
 
 def datagenerator(images,images2, labels, batchsize, mode="train"):
     while True:
@@ -99,11 +95,8 @@ x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 
 steps = int(train_set/EPOCHS)
 image_shape = (128,128,3)
-k = tf.keras.models.load_model('final_model.h5')
-input = k.input
-k.evaluate(x_train)
 
-#final = final1(image_shape)
-#final.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-#final.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
+model = final1()
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
 
