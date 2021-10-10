@@ -42,7 +42,7 @@ class ConsistencyNet(tf.keras.Model):
     return x
 
 def final1():
-    siameseMLP = tf.keras.models.load_model('final_model.h5')
+    siameseMLP = tf.keras.models.load_model('predicted_final_model.h5')
     
     for layer in siameseMLP.layers:
         layer.trainable = False
