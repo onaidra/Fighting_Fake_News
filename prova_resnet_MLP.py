@@ -101,7 +101,7 @@ steps = int(train_set/EPOCHS)
 image_shape = (128,128,3)
 k = tf.keras.models.load_model('final_model.h5')
 input = k.input
-k(x_train)
+k.evaluate(x_train)
 
 #final = final1(image_shape)
 #final.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
