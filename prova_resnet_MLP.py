@@ -49,8 +49,8 @@ def final1():
     last_layer  = siameseMLP.output
     x = Flatten()(last_layer)
     x = Dense(512, activation='relu')(x)
-    x= Dense(1, activation='sigmoid')(x)
-    
+    x = Dense(1, activation='sigmoid',name="final_out")(x)
+
     model = Model(inputs=siameseMLP.input,outputs=x)
     return model
 
