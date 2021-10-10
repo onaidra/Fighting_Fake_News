@@ -46,7 +46,7 @@ def final1(image_shape):
     for layer in k.layers:
         layer.trainable = False
     
-    k = k(image_shape)
+    k.evaluate(image_shape)
     x = Dense(512, activation='relu')(k)
     x = Dense(1, activation='sigmoid')(x)
     return x
