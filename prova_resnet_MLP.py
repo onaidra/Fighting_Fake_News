@@ -45,7 +45,10 @@ def final1():
     k = tf.keras.models.load_model('final_model.h5')
     for layer in k.layers:
         layer.trainable = False
-    x = Dense(512, activation='relu')(k)
+    
+    print(k.input.shape)
+    pred = k.prediction()
+    x = Dense(512, activation='relu')(pred)
     x = Dense(1, activation='sigmoid')(x)
     return x
 
