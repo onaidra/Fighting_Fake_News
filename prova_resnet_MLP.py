@@ -51,6 +51,7 @@ def final1():
     x = Dense(512, activation='relu')(x)
     x = Dense(1, activation='sigmoid',name="final_out")(x)
 
+    x.summary()
     model = Model(inputs=siameseMLP.input,outputs=x)
     return model
 
