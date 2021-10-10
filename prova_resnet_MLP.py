@@ -43,14 +43,16 @@ class ConsistencyNet(tf.keras.Model):
 
 def final1(image_shape):
     k = tf.keras.models.load_model('final_model.h5')
+    input_left = Input(image_shape)
+    input_right = Input(image_shape)
     for layer in k.layers:
         layer.trainable = False
     
     x = Dense(512, activation='relu')(k)
     x = Dense(1, activation='sigmoid')(x)
 
-    sm_model = Model(inputs=[image_shape, image_shape], outputs=x)
-    return x
+    mlp_model = Model(inputs=[input_left, input_right], outputs=x)
+    return mlp_model
 
 def datagenerator(images,images2, labels, batchsize, mode="train"):
     while True:
