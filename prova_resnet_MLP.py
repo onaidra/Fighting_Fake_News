@@ -20,29 +20,9 @@ from keras.engine import keras_tensor
 
 
 EPOCHS = 100
-class ConsistencyNet(tf.keras.Model):
-  def __init__(self, siamese):
-    super(ConsistencyNet, self).__init__()
-    
-    self.siamese = siamese
-    for layer in self.siamese.layers:
-      layer.trainable = False
 
-    self.model= tf.keras.Sequential(
-        [
-          Dense(512, activation='relu'),  
-          Dense(1, activation='sigmoid')
-        ]
-    )
-
-
-  def call(self, inputs):   
-    netInput = self.siamese(inputs)
-    x = self.model(netInput)
-    return x
-
-def final1():
-    siameseMLP = tf.keras.models.load_model('predicted_final_model.h5')
+def SiameseMLP2():
+    siameseMLP = tf.keras.models.load_model('final_model.h5')
     
     for layer in siameseMLP.layers:
         layer.trainable = False
@@ -98,7 +78,7 @@ x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 steps = int(train_set/EPOCHS)
 image_shape = (128,128,3)
 
-model = final1()
+model = SiameseMLP2()
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
 

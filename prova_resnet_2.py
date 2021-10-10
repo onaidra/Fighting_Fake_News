@@ -95,9 +95,6 @@ def create_siamese_model(image_shape, dropout_rate):
     x = Dense(1024, activation='relu')(x)
     x = Dense(num_classes, activation='softmax')(x)
 
-    x = Dense(512,activation='relu')(x)
-    x = Dense(1,activation='sigmoid')(x)
-
     #model.summary()
     #siamese_model = Model(inputs=[input_left, input_right], outputs=output_siamese)
     #out = model.output
@@ -176,5 +173,5 @@ steps = int(train_set/EPOCHS)
 # imagexs=tf.stack([imagexs,imagexs2],axis=0)
 
 total_model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
-total_model.save('predicted_final_model.h5')
+total_model.save('final_model.h5')
 
