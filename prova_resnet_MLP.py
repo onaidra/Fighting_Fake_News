@@ -42,13 +42,14 @@ class ConsistencyNet(tf.keras.Model):
     return x
 
 def final1():
-    model = tf.keras.models.load_model('final_model.h5')
-       
-    for layer in model.layers:
+    siameseMLP = tf.keras.models.load_model('final_model.h5')
+    
+    for layer in siameseMLP.layers:
         layer.trainable = False
-  
-    model = Dense(512, activation='relu')(model)
-    model = Dense(1, activation='sigmoid')(model)
+    model = Sequential()
+    model.add(siameseMLP)
+    model.add(Dense(512, activation='relu'))
+    model.add(Dense(1, activation='sigmoid'))
 
     return model
 
