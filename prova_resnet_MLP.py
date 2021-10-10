@@ -47,8 +47,8 @@ def final1():
     for layer in model.layers:
         layer.trainable = False
   
-    model.add(Dense(512, activation='relu'))
-    model.add(Dense(1, activation='sigmoid'))
+    model = Dense(512, activation='relu')(model)
+    model = Dense(1, activation='sigmoid')(model)
 
     return model
 
