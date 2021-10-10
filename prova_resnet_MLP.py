@@ -41,13 +41,12 @@ class ConsistencyNet(tf.keras.Model):
     x = self.model(netInput)
     return x
 
-def final1():
+def final1(image_shape):
     k = tf.keras.models.load_model('final_model.h5')
     for layer in k.layers:
         layer.trainable = False
     
-    print(k.input)
-    pred = k.prediction()
+    pred = k.prediction(image_shape)
     x = Dense(512, activation='relu')(pred)
     x = Dense(1, activation='sigmoid')(x)
     return x
