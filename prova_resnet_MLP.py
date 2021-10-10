@@ -41,14 +41,17 @@ class ConsistencyNet(tf.keras.Model):
     x = self.model(netInput)
     return x
 
-def final1(image_shape):
+def final1(input):
     k = tf.keras.models.load_model('final_model.h5')
+    ConsistencyNet(k)
+    """
     for layer in k.layers:
         layer.trainable = False
     
-    k.evaluate(image_shape)
     x = Dense(512, activation='relu')(k)
     x = Dense(1, activation='sigmoid')(x)
+    """
+    x = ConsistencyNet.call(input)
     return x
 
 def datagenerator(images,images2, labels, batchsize, mode="train"):
@@ -93,8 +96,8 @@ x_train = datagenerator(list1_train,list2_train,exif_lbl1,32)
 x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 
 steps = int(train_set/EPOCHS)
-image_shape = (128,128,3)
-final = final1(image_shape)
+
+final = final1(x_train)
 final.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 final.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
 

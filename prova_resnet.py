@@ -60,8 +60,6 @@ def create_siamese_model(image_shape, dropout_rate):
 
     output_left, input_left = create_base_model(image_shape, dropout_rate)
     output_right, input_right = create_base_model(image_shape, dropout_rate, suffix="_2")
-    print(output_left)
-    print(output_right)
     output = tf.concat([output_left,output_right],1)
     
     #L1_layer = Lambda(lambda tensors: tf.abs(tensors[0] - tensors[1]))
