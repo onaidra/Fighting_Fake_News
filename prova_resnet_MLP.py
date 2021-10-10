@@ -46,7 +46,7 @@ def final1():
     for layer in k.layers:
         layer.trainable = False
     
-    print(k.input.shape)
+    print(k.input)
     pred = k.prediction()
     x = Dense(512, activation='relu')(pred)
     x = Dense(1, activation='sigmoid')(x)
