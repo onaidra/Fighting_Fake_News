@@ -46,11 +46,12 @@ def final1():
     
     for layer in siameseMLP.layers:
         layer.trainable = False
-    model = Sequential()
-    model.add(siameseMLP)
-    model.add(Dense(512, activation='relu'))
-    model.add(Dense(1, activation='sigmoid'))
-
+    last_layer  = siameseMLP.output
+    x = Flatten()(last_layer)
+    x = Dense(512, activation='relu')(x)
+    x= Dense(1, activation='sigmoid')(x)
+    
+    model = Model(inputs=siameseMLP.input,outputs=x)
     return model
 
 def datagenerator(images,images2, labels, batchsize, mode="train"):
