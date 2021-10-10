@@ -43,11 +43,11 @@ class ConsistencyNet(tf.keras.Model):
 
 def final1():
     k = tf.keras.models.load_model('final_model.h5')
-    
+    I1 = Input(k)
     for layer in k.layers:
         layer.trainable = False
     
-    x = Dense(512, activation='relu')(k)
+    x = Dense(512, activation='relu')(I1)
     x = Dense(1, activation='sigmoid')(x)
 
     return x
