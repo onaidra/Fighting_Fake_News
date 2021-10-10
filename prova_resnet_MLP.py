@@ -47,7 +47,7 @@ def final1():
     for layer in siameseMLP.layers:
         layer.trainable = False
     last_layer  = siameseMLP.output
-    x = Flatten()(last_layer)
+    x = Flatten(name="flat21")(last_layer)
     x = Dense(512, activation='relu',name="pre_final_out")(x)
     x = Dense(1, activation='sigmoid',name="final_out")(x)
 
