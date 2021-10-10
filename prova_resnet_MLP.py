@@ -20,6 +20,15 @@ from keras.engine import keras_tensor
 
 
 EPOCHS = 100
+def MLP_Sequential(input):
+  input1 = Input(input=input.shape)
+  model = Sequential()
+  model.add(Dense(512, activation='relu', input_shape=input1))
+  model.add(Dense(1, activation='sigmoid'))
+
+  return model.output
+
+  
 class ConsistencyNet(tf.keras.Model):
   def __init__(self, siamese):
     super(ConsistencyNet, self).__init__()
@@ -43,7 +52,7 @@ class ConsistencyNet(tf.keras.Model):
 
 def final1():
     k = tf.keras.models.load_model('final_model.h5')
-    I1 = Input(k)
+  
     for layer in k.layers:
         layer.trainable = False
     

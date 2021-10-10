@@ -31,6 +31,8 @@ with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
 fp.close()
 
+
+
 def datagenerator(images,images2, labels, batchsize, mode="train"):
     while True:
         start = 0
@@ -47,6 +49,8 @@ def datagenerator(images,images2, labels, batchsize, mode="train"):
 
             start += batchsize
             end += batchsize
+
+
 
 def create_base_model(image_shape, dropout_rate, suffix=''):
     I1 = Input(image_shape)
@@ -68,7 +72,14 @@ def create_base_model(image_shape, dropout_rate, suffix=''):
 
     return x, model.input
 
+def MLP_Sequential(input):
+  input1 = Input(input=input.shape)
+  model = Sequential()
+  model.add(Dense(512, activation='relu', input_shape=input1))
+  model.add(Dense(1, activation='sigmoid'))
 
+  return model.output
+  
 def create_siamese_model(image_shape, dropout_rate):
 
     output_left, input_left = create_base_model(image_shape, dropout_rate)
@@ -92,13 +103,15 @@ def create_siamese_model(image_shape, dropout_rate):
     x = Dense(1024, activation='relu')(x)
     x = Dense(num_classes, activation='softmax')(x)
 
+    x = MLP_Sequential(x)
 
     #model.summary()
     #siamese_model = Model(inputs=[input_left, input_right], outputs=output_siamese)
     #out = model.output
     #sm_model = Model(inputs=[input_left, input_right], outputs=out)
     return x,input_left,input_right
-    
+
+
 # def create_mlp_model(output_siamese_shape):
 
     # num_classes=71;
