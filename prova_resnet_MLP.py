@@ -20,15 +20,6 @@ from keras.engine import keras_tensor
 
 
 EPOCHS = 100
-def MLP_Sequential(input):
-  input1 = Input(input=input.shape)
-  model = Sequential()
-  model.add(Dense(512, activation='relu', input_shape=input1))
-  model.add(Dense(1, activation='sigmoid'))
-
-  return model.output
-
-  
 class ConsistencyNet(tf.keras.Model):
   def __init__(self, siamese):
     super(ConsistencyNet, self).__init__()
@@ -50,15 +41,15 @@ class ConsistencyNet(tf.keras.Model):
     x = self.model(netInput)
     return x
 
-def final1():
+def final1(image_shape):
     k = tf.keras.models.load_model('final_model.h5')
-  
     for layer in k.layers:
         layer.trainable = False
     
-    x = Dense(512, activation='relu')(I1)
+    x = Dense(512, activation='relu')(k)
     x = Dense(1, activation='sigmoid')(x)
 
+    sm_model = Model(inputs=[image_shape, image_shape], outputs=x)
     return x
 
 def datagenerator(images,images2, labels, batchsize, mode="train"):
@@ -103,8 +94,8 @@ x_train = datagenerator(list1_train,list2_train,exif_lbl1,32)
 x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 
 steps = int(train_set/EPOCHS)
-
-final = final1()
+image_shape = (128,128,3)
+final = final1(image_shape)
 final.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 final.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
 
