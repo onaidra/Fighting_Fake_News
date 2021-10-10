@@ -99,7 +99,10 @@ x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 
 steps = int(train_set/EPOCHS)
 image_shape = (128,128,3)
-final = final1(image_shape)
-final.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-final.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
+k = tf.keras.models.load_model('final_model.h5')
+input = k.input
+
+#final = final1(image_shape)
+#final.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+#final.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
 
