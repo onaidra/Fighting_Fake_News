@@ -20,11 +20,34 @@ from keras.engine import keras_tensor
 
 
 EPOCHS = 100
+class ConsistencyNet(tf.keras.Model):
+  def __init__(self, siamese):
+    super(ConsistencyNet, self).__init__()
+    
+    self.siamese = siamese
+    for layer in self.siamese.layers:
+      layer.trainable = False
+
+    self.model= tf.keras.Sequential(
+        [
+          Dense(512, activation='relu'),  
+          Dense(1, activation='sigmoid')
+        ]
+    )
 
 
-with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
-	exif_lbl = pickle.load(fp)
-fp.close()
+  def call(self, inputs):   
+    netInput = self.siamese(inputs)
+    x = self.model(netInput)
+    return x
+
+def final1():
+    k = tf.keras.load_model('total_model.h5')
+    for layer in k.layers:
+        layer.trainable = False
+    x = Dense(512, activation='relu')(k)
+    x = Dense(1, activation='sigmoid')(x)
+    return x
 
 def datagenerator(images,images2, labels, batchsize, mode="train"):
     while True:
@@ -43,99 +66,6 @@ def datagenerator(images,images2, labels, batchsize, mode="train"):
             start += batchsize
             end += batchsize
 
-def create_base_model(image_shape, dropout_rate, suffix=''):
-    I1 = Input(image_shape)
-    model = ResNet50(include_top=False, weights='imagenet', input_tensor=I1, pooling=None)
-    model.layers.pop()
-    model.outputs = [model.layers[-1].output]
-    model.layers[-1]._outbound_nodes = []
-
-    for layer in model.layers:
-        layer._name = layer.name + str(suffix)
-        layer._trainable = False
-
-    flatten_name = 'flatten' + str(suffix)
-
-    x = model.output
-    x = Dense(128, activation='relu')(x)
-    x = Flatten(name=flatten_name)(x)
-    
-
-    return x, model.input
-
-
-def create_siamese_model(image_shape, dropout_rate):
-
-    
-    output_left, input_left = create_base_model(image_shape, dropout_rate)
-    output_right, input_right = create_base_model(image_shape, dropout_rate, suffix="_2")
-    
-    output_siamese = tf.concat([output_left,output_right],1)
-    num_classes=45
-    
-    x = output_siamese
-    x.add(Dense(4096, activation='relu'))
-    x.add(Dense(2048, activation='relu'))
-    x.add(Dense(1024, activation='relu'))
-    x.add(Dense(num_classes, activation='softmax'))
-    
-    
-    #model.summary()
-    #siamese_model = Model(inputs=[input_left, input_right], outputs=output_siamese)
-    #out = model.output
-    #sm_model = Model(inputs=[input_left, input_right], outputs=out)
-    return x,input_left,input_right
-    
-# def create_mlp_model(output_siamese_shape):
-
-    # num_classes=71;
-    # input_shape=Input((None,8192))
-  
-    
-    # Create the model
-    # model2 = Sequential()
-    # model2.add(Dense(8192, input_shape=output_siamese_shape, activation='relu'))
-    # model2.add(Dense(4096, input_shape=output_siamese_shape,activation='relu'))
-    # model2.add(Dense(2048, activation='relu'))
-    # model2.add(Dense(1024, activation='relu'))
-    # model2.add(Dense(num_classes, activation='softmax'))
-    
-    # model2.summary()
-    
-    # out_siamese=Input(output_siamese_shape)
-    # out = model2.output
-    
-    # return model2.input,out
-    """
-    num_classes=45
-    model = keras.models.load_model('siamese_model.h5') 
-    x =  model
-    x = Dense(4096, activation='relu')(x)
-    x = Dense(2048, activation='relu')(x)
-    x = Dense(1024, activation='relu')(x)
-    x = Dense(num_classes, activation='softmax')(x)
-    
-    mlp = Model(model.output, outputs=x)
-    return mlp
-"""
-def create_mlp(image_shape):
-    num_classes=45
-    model = keras.models.load_model('siamese_model.h5') 
-    x = Sequential()
-    x.add(model)
-    x.add(Dense(4096,input_shape=image_shape, activation='relu'))
-    x.add(Dense(2048, activation='relu'))
-    x.add(Dense(1024, activation='relu'))
-    x.add(Dense(num_classes, activation='softmax'))
-    
-    mlp = Model(model.input, outputs=x)
-    return mlp
-    
-
-total_model=create_mlp(image_shape=(128,128, 3))
-
-total_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-
 
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
@@ -145,21 +75,24 @@ for i in range(len(exif_lbl)):
     exif_lbl[i] = np.array(exif_lbl[i])
 exif_lbl = np.array(exif_lbl)
 
-
-#######################################################################################à
-#crop images to 128x128
-#######################################################################################à
-
 list1,list2 = get_np_arrays('cropped_arrays.npy')
 
-x_train = datagenerator(list1,list2,exif_lbl,32)
+train_set = int(len(list1)*(2/3))
 
-#x_train = datagenerator(list1,list2,exif_lbl,32)
-#steps = len(list1)/EPOCHS
-#total_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
+list1_train = list1[:train_set]
+list2_train = list2[:train_set]
+exif_lbl1 = exif_lbl[:train_set]
 
-steps = int(len(list1)/EPOCHS)
+list1_test = list1[train_set:]
+list2_test = list2[train_set:]
+exif_lbl2 = exif_lbl[train_set:]
 
-total_model.fit(x_train,epochs=EPOCHS,steps_per_epoch=steps)
+x_train = datagenerator(list1_train,list2_train,exif_lbl1,32)
+x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 
-total_model.save('total_model.h5')
+steps = int(train_set/EPOCHS)
+
+final = final1()
+final.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+final.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
+
