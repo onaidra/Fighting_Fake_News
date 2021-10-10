@@ -81,4 +81,5 @@ image_shape = (128,128,3)
 model = SiameseMLP2()
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
+model.save("siameseMLP.h5")
 
