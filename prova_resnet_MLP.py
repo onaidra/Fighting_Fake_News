@@ -48,7 +48,7 @@ def final1(image_shape):
     for layer in k.layers:
         layer.trainable = False
     
-    x = Dense(512, activation='relu')(k)
+    x = Dense(512, activation='relu')(k.output)
     x = Dense(1, activation='sigmoid')(x)
 
     mlp_model = Model(inputs=[input_left, input_right], outputs=x)
