@@ -100,8 +100,8 @@ x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 steps = int(train_set/EPOCHS)
 image_shape = (128,128,3)
 k = tf.keras.models.load_model('final_model.h5')
-input = k.
-print(k)
+input = k.input
+print(input)
 
 #final = final1(image_shape)
 #final.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
