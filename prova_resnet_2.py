@@ -73,7 +73,7 @@ def create_base_model(image_shape, dropout_rate, suffix=''):
     return x, model.input
 
 def MLP_Sequential(inputx):
-  input1 = Input(input=inputx).shape
+  input1 = Input(inputx)
   model = Sequential()
   model.add(Dense(512, activation='relu', input_shape=input1))
   model.add(Dense(1, activation='sigmoid'))
@@ -102,8 +102,8 @@ def create_siamese_model(image_shape, dropout_rate):
     x = Dense(2048, activation='relu')(x)
     x = Dense(1024, activation='relu')(x)
     x = Dense(num_classes, activation='softmax')(x)
-    print(x.shape)
-    x = MLP_Sequential(x)
+
+    x = MLP_Sequential(x.shape)
 
     #model.summary()
     #siamese_model = Model(inputs=[input_left, input_right], outputs=output_siamese)
