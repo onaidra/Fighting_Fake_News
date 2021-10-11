@@ -64,8 +64,8 @@ foto2 = cv2.imread(path)[:,:,[2,1,0]]
 patch1 = util.random_crop(foto1,[128,128])
 patch2 = util.random_crop(foto2,[128,128])
 print(foto1.shape)
-Image(patch1)
-Image(patch2)
+plt.imshow(patch1)
+plt.imshow(patch2)
 """
 #length = len(dir)
 tmp1 = np.empty((length, 128, 128, 3), dtype=np.uint8)
