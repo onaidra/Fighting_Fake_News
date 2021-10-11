@@ -17,12 +17,11 @@ import numpy as np
 import keras
 import pickle
 from keras.engine import keras_tensor
-import random
+
 
 EPOCHS = 100
 
 def SiameseMLP2():
-    
     siameseMLP = tf.keras.models.load_model('final_model.h5')
     
     for layer in siameseMLP.layers:
@@ -68,13 +67,11 @@ train_set = int(len(list1)*(2/3))
 list1_train = list1[:train_set]
 list2_train = list2[:train_set]
 exif_lbl1 = exif_lbl[:train_set]
-for i in range(len(exif_lbl1)):
-    exif_lbl1[i] = [random.choice([0,1])]
+
 list1_test = list1[train_set:]
 list2_test = list2[train_set:]
 exif_lbl2 = exif_lbl[train_set:]
-for i in range(len(exif_lbl2)):
-    exif_lbl2[i] = [random.choice([0,1])]
+
 x_train = datagenerator(list1_train,list2_train,exif_lbl1,32)
 x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 
