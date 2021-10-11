@@ -40,7 +40,7 @@ def extract_exif():
         # extract EXIF data
         exifdata = image.getexif()
         print(exifdata)
-        if exifdata is None:
+        if exifdata is None or exifdata == {}:
             print("Sorry, image has no exif data.")
         # iterating over all EXIF data fields
         for tag_id in exifdata:
