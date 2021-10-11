@@ -31,7 +31,7 @@ def extract_exif():
     #for dir in right_dir:
     #    directory = os.listdir(dir) -> for elem in directory a cascata
     for elem in dir:
-        new_dir = os.path.join(dir,elem)
+        new_dir = os.path.join(path,elem)
         
         # read the image data using PIL
         image = Image.open(new_dir)
