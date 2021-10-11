@@ -66,7 +66,10 @@ foto1 = cv2.imread(path)[:,:,[2,1,0]]
 patch1 = [util.random_crop(foto1,[128,128])]
 patch2 = [util.random_crop(foto1,[128,128])]
 model = tf.keras.models.load_model('siameseMLP.h5')
-x_test = datagenerator(patch1,patch2,1)
-s= (patch1,patch2)
-model.evaluate(s)
+tmp1 = np.empty((1, 128, 128, 3), dtype=np.uint8)
+tmp2 = np.empty((1, 128, 128, 3), dtype=np.uint8)
+tmp1[0] = patch1
+tmp2[0] = patch2
+x_test = datagenerator(tmp1,tmp2,1)
+model.evaluate(x_test)
 
