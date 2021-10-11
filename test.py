@@ -65,7 +65,7 @@ x_train = datagenerator(list1,list2,exif_lbl,32)
 path = r"/content/drive/MyDrive/foto/test/images/2217.jpg"
 #dir = os.listdir(path)
 foto1 = cv2.imread(path)[:,:,[2,1,0]]
-foto1.shape
+print(foto1.shape)
 """
 #length = len(dir)
 tmp1 = np.empty((length, 128, 128, 3), dtype=np.uint8)
