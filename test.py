@@ -70,6 +70,5 @@ tmp1 = np.empty((1, 128, 128, 3), dtype=np.uint8)
 tmp2 = np.empty((1, 128, 128, 3), dtype=np.uint8)
 tmp1[0] = patch1
 tmp2[0] = patch2
-x_test = datagenerator(tmp1,tmp2,1)
-model.evaluate(x_test)
+model.evaluate((tmp1,tmp2))
 
