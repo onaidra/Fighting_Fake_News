@@ -12,8 +12,6 @@ import keras
 import pickle
 from keras.engine import keras_tensor
 
-print("CAZZO")
-
 EPOCHS = 100 
 def datagenerator(images,images2, batchsize, mode="train"):
     while True:
