@@ -2,13 +2,6 @@ from re import I
 from models import exif
 from PIL import Image
 import tensorflow as tf
-from tensorflow.keras.applications.resnet50 import ResNet50
-from tensorflow.keras import Input
-from keras import Model,Sequential
-from keras.initializers import RandomNormal
-from keras.layers import Dense,Flatten,Dropout,Lambda
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.models import load_model
 from extract_exif import extract_exif,generate_label,cropping_list,get_np_arrays,remove_elements,create_batch_samples
 from matplotlib import image
 from lib.utils import benchmark_utils, util,io
@@ -18,8 +11,9 @@ import numpy as np
 import keras
 import pickle
 from keras.engine import keras_tensor
-from IPython.display import Image
 
+import matplotlib.pyplot as plt
+%pylab inline
 def datagenerator(images,images2, batchsize, mode="train"):
     while True:
         start = 0
@@ -33,9 +27,9 @@ def datagenerator(images,images2, batchsize, mode="train"):
             start += batchsize
             end += batchsize
 
-
-print("[INFO] starting test")
 """
+print("[INFO] starting test")
+
 #--------------------------------------------------------------- EXTRACT 
 dict,image_list,dict_keys = extract_exif()
 #--------------------------------------------------------------- REMOVE ELEMENTS
