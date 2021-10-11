@@ -62,10 +62,12 @@ list1,list2 = cropping_list(list1_img,list2_img)
 x_train = datagenerator(list1,list2,exif_lbl,32)
 """
 #prova
-path = r"/content/drive/MyDrive/foto/test/images"
-dir = os.listdir(path)
-
-length = len(dir)
+path = r"/content/drive/MyDrive/foto/test/images/2217.jpg"
+#dir = os.listdir(path)
+foto1 = cv2.imread(path)[:,:,[2,1,0]]
+foto1.shape
+"""
+#length = len(dir)
 tmp1 = np.empty((length, 128, 128, 3), dtype=np.uint8)
 tmp2 = np.empty((length, 128, 128, 3), dtype=np.uint8)
 i = 0
@@ -78,9 +80,11 @@ for elem in dir:
     tmp1[i] = patch1
     tmp2[i] = patch2
     i+=1
+
 model = tf.keras.models.load_model('siameseMLP.h5')
 
 
 x = model.predict((tmp1,tmp2))
 print(x)
 print(model.metrics_names)
+"""
