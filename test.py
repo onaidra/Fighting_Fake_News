@@ -60,6 +60,7 @@ x_train = datagenerator(list1,list2,exif_lbl,32)
 path = r"/content/drive/MyDrive/foto/test/images"
 dir = os.listdir(path)
 print(dir)
+"""
 length = len(dir)
 tmp1 = np.empty((length*32, 128, 128, 3), dtype=np.uint8)
 tmp2 = np.empty((length*32, 128, 128, 3), dtype=np.uint8)
@@ -84,3 +85,4 @@ model = tf.keras.models.load_model('siameseMLP.h5')
 model.evaluate(x_train,batch_size = 32)
 
 print(model.metrics_names)
+"""
