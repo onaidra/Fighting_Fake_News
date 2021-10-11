@@ -12,8 +12,7 @@ import numpy as np
 import keras
 import pickle
 from keras.engine import keras_tensor
-
-import matplotlib.pyplot as plt
+print("CAZZO")
 EPCHS = 100 
 def datagenerator(images,images2, batchsize, mode="train"):
     while True:
