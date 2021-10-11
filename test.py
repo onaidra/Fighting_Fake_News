@@ -62,11 +62,12 @@ x_train = datagenerator(list1,list2,exif_lbl,32)
 """
 #prova
 path = r"/content/drive/MyDrive/foto/test/images/2217.jpg"
-path = r"D01_img_orig_0001.jpg"
-path = r"gippafake.jpg"
-foto1 = cv2.imread(path)[:,:,[2,1,0]]
+path1 = r"D01_img_orig_0001.jpg"
+path2 = r"gippafake.jpg"
+foto1 = cv2.imread(path1)[:,:,[2,1,0]]
+foto2 = cv2.imread(path2)[:,:,[2,1,0]]
 patch1 = util.random_crop(foto1,[128,128])
-patch2 = util.random_crop(foto1,[128,128])
+patch2 = util.random_crop(foto2,[128,128])
 model = tf.keras.models.load_model('siameseMLP.h5')
 tmp1 = np.empty((1, 128, 128, 3), dtype=np.uint8)
 tmp2 = np.empty((1, 128, 128, 3), dtype=np.uint8)
