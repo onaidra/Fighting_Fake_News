@@ -1,6 +1,7 @@
 from re import I
 from models import exif
 from PIL import Image
+from prova_resnet import EPOCHS
 import tensorflow as tf
 from extract_exif import extract_exif,generate_label,cropping_list,get_np_arrays,remove_elements,create_batch_samples
 from matplotlib import image
@@ -13,7 +14,7 @@ import pickle
 from keras.engine import keras_tensor
 
 import matplotlib.pyplot as plt
-
+EPCHS = 100 
 def datagenerator(images,images2,labels, batchsize, mode="train"):
     while True:
         start = 0
@@ -67,6 +68,7 @@ list1,list2 = get_np_arrays('cropped_arrays.npy')
 x_train = datagenerator(list1,list2,exif_lbl,32)
 model = tf.keras.models.load_model('siameseMLP.h5')
 
-model.evaluate(x_train)
+steps = int(len(list1)/EPOCHS)
+model.evaluate(x_train,epochs=EPOCHS,steps_per_epoch=steps)
 
 print(model.metrics_names)
