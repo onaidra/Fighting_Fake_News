@@ -22,6 +22,7 @@ from keras.engine import keras_tensor
 EPOCHS = 100
 
 def SiameseMLP2():
+    
     siameseMLP = tf.keras.models.load_model('final_model.h5')
     
     for layer in siameseMLP.layers:

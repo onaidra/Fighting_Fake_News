@@ -16,51 +16,51 @@ right_tags = ["ISO2","StopsAboveBaseISO","ExposureCompensation","BrightnessValue
 ##my path r"C:\Users\Adri\Desktop\VISIOPE\prova\foto"
 ## drive path r"/content/drive/MyDrive/foto/foto/"
 def extract_exif():
-    path = r"/content/drive/MyDrive/foto/foto/"
+    path = r"/content/drive/MyDrive/foto/test/images"
     dir = os.listdir(path)
     no_dir = open(r"/content/drive/MyDrive/foto/foto/chiavi.txt","r").read().splitlines()
     right_dir = []
-    for i in dir:
-        if "D" in i and "_" in i:
-            s1 = os.path.join(path,i)
-            s1 = os.path.join(s1,"orig")
-            right_dir.append(s1)
+    #for i in dir:
+        #if "D" in i and "_" in i:
+            #s1 = os.path.join(path,i)
+            #s1 = os.path.join(s1,"orig")
+            #right_dir.append(s1)
     dict = {}
     image_list = []
     index = 0
-    for dir in right_dir:
-        directory = os.listdir(dir)
-        for elem in directory:
-            new_dir = os.path.join(dir,elem)
-            
-            # read the image data using PIL
-            image = Image.open(new_dir)
-            
-            if new_dir not in image_list : image_list.append(new_dir)
-            # extract EXIF data
-            exifdata = image.getexif()
-            if exifdata is None:
-                print("Sorry, image has no exif data.")
-            # iterating over all EXIF data fields
-            for tag_id in exifdata:
-                # get the tag name, instead of human unreadable tag id
-                tag = TAGS.get(tag_id, tag_id)
-                data = exifdata.get(tag_id)
-                #if isinstance(data, bytes):
-                #    data = data.decode('utf-8')
-                #data = str(data).strip(" ")
-                if tag not in dict.keys():
-                    dict[tag] = [[data,[elem]]]
-                else:
-                    flag = False
-                    for i in range(len(dict[tag])):
-                        if dict[tag][i][0] == data:
-                            dict[tag][i][1].append(elem)
-                            flag = True
-                    if flag == False:
-                        dict[tag].append([data,[elem]])
+    #for dir in right_dir:
+    #    directory = os.listdir(dir) -> for elem in directory a cascata
+    for elem in dir:
+        new_dir = os.path.join(dir,elem)
+        
+        # read the image data using PIL
+        image = Image.open(new_dir)
+        
+        if new_dir not in image_list : image_list.append(new_dir)
+        # extract EXIF data
+        exifdata = image.getexif()
+        if exifdata is None:
+            print("Sorry, image has no exif data.")
+        # iterating over all EXIF data fields
+        for tag_id in exifdata:
+            # get the tag name, instead of human unreadable tag id
+            tag = TAGS.get(tag_id, tag_id)
+            data = exifdata.get(tag_id)
+            #if isinstance(data, bytes):
+            #    data = data.decode('utf-8')
+            #data = str(data).strip(" ")
+            if tag not in dict.keys():
+                dict[tag] = [[data,[elem]]]
+            else:
+                flag = False
+                for i in range(len(dict[tag])):
+                    if dict[tag][i][0] == data:
+                        dict[tag][i][1].append(elem)
+                        flag = True
+                if flag == False:
+                    dict[tag].append([data,[elem]])
 
-            index+=1
+        index+=1
 
     #convert tags numbers to string
     for i in range(len(wrong_tags)):
@@ -216,7 +216,7 @@ def generate_label(keys,first,second):
 
 
 def save_np_arrays(tmp1,tmp2):
-    with open('cropped_arrays.npy','wb') as f:
+    with open('test_cropped_arrays.npy','wb') as f:
         np.save(f,tmp1)
         np.save(f,tmp2)
 
