@@ -71,4 +71,4 @@ tmp2 = np.empty((1, 128, 128, 3), dtype=np.uint8)
 tmp1[0] = patch1
 tmp2[0] = patch2
 model.evaluate((tmp1,tmp2))
-model.metrics_names
+print(model.metrics_names)
