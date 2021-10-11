@@ -17,22 +17,23 @@ import numpy as np
 import keras
 import pickle
 from keras.engine import keras_tensor
-"""
-def datagenerator(images,images2, labels, batchsize, mode="train"):
+
+def datagenerator(images,images2, batchsize, mode="train"):
     while True:
         start = 0
         end = batchsize
         while start  < len(images):
             x = images[start:end] 
-            y = labels[start:end]
+            #y = labels[start:end]
             x2 = images2[start:end]
-            yield (x,x2),y
+            yield (x,x2)
 
             start += batchsize
             end += batchsize
 
 
 print("[INFO] starting test")
+"""
 #--------------------------------------------------------------- EXTRACT 
 dict,image_list,dict_keys = extract_exif()
 #--------------------------------------------------------------- REMOVE ELEMENTS
@@ -62,10 +63,10 @@ x_train = datagenerator(list1,list2,exif_lbl,32)
 #prova
 path = r"/content/drive/MyDrive/foto/test/images/2217.jpg"
 foto1 = cv2.imread(path)[:,:,[2,1,0]]
-patch1 = util.random_crop(foto1,[128,128])
-patch2 = util.random_crop(foto1,[128,128])
+patch1 = [util.random_crop(foto1,[128,128])]
+patch2 = [util.random_crop(foto1,[128,128])]
 model = tf.keras.models.load_model('siameseMLP.h5')
-print(patch1.shape)
-s= (patch1,patch2),patch1
+x_test = datagenerator(patch1,patch2,1)
+s= (patch1,patch2)
 model.evaluate(s)
 
