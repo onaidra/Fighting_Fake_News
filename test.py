@@ -66,6 +66,5 @@ patch1 = util.random_crop(foto1,[128,128])
 patch2 = util.random_crop(foto1,[128,128])
 model = tf.keras.models.load_model('siameseMLP.h5')
 print(patch1.shape)
-print((patch1,patch2).shape)
-model.evaluate((patch1,patch2))
+model.evaluate(patch1,patch2)
 
