@@ -63,6 +63,6 @@ list1,list2 = get_np_arrays('cropped_arrays.npy')
 x_train = datagenerator(list1,list2,exif_lbl,32)
 model = tf.keras.models.load_model('siameseMLP.h5')
 
-x = model.evaluate(x_train)
+model.evaluate(x_train)
 
 print(model.metrics_names)
