@@ -18,6 +18,7 @@ import numpy as np
 import keras
 import pickle
 from keras.engine import keras_tensor
+from google.colab.patches import cv2_imshow
 
 def datagenerator(images,images2, batchsize, mode="train"):
     while True:
@@ -69,8 +70,8 @@ foto2 = cv2.imread(path)[:,:,[2,1,0]]
 patch1 = util.random_crop(foto1,[128,128])
 patch2 = util.random_crop(foto2,[128,128])
 print(foto1.shape)
-cv2.imshow("image",patch1)
-cv2.imshow("image",patch2)
+cv2_imshow("image",patch1)
+cv2_imshow("image",patch2)
 """
 #length = len(dir)
 tmp1 = np.empty((length, 128, 128, 3), dtype=np.uint8)
