@@ -13,6 +13,7 @@ from extract_exif import extract_exif,generate_label,cropping_list,get_np_arrays
 from matplotlib import image
 from lib.utils import benchmark_utils, util,io
 import cv2
+import os
 import numpy as np
 import keras
 import pickle
@@ -61,18 +62,23 @@ list1,list2 = cropping_list(list1_img,list2_img)
 x_train = datagenerator(list1,list2,exif_lbl,32)
 """
 #prova
-path = r"/content/drive/MyDrive/foto/test/images/2217.jpg"
-path1 = r"D01_img_orig_0001.jpg"
-path2 = r"gippafake.jpg"
-foto1 = cv2.imread(path1)[:,:,[2,1,0]]
-foto2 = cv2.imread(path2)[:,:,[2,1,0]]
-patch1 = util.random_crop(foto1,[128,128])
-patch2 = util.random_crop(foto2,[128,128])
+path = r"/content/drive/MyDrive/foto/test/images/"
+dir = os.listdir(path)
+length = len(dir)
+tmp1 = np.empty((length, 128, 128, 3), dtype=np.uint8)
+tmp2 = np.empty((length, 128, 128, 3), dtype=np.uint8)
+i = 0
+for elem in dir:
+    foto1 = cv2.imread(elem)[:,:,[2,1,0]]
+    foto2 = cv2.imread(elem)[:,:,[2,1,0]]
+    patch1 = util.random_crop(foto1,[128,128])
+    patch2 = util.random_crop(foto2,[128,128])
+    tmp1[i] = patch1
+    tmp2[i] = patch2
+    i+=1
 model = tf.keras.models.load_model('siameseMLP.h5')
-tmp1 = np.empty((1, 128, 128, 3), dtype=np.uint8)
-tmp2 = np.empty((1, 128, 128, 3), dtype=np.uint8)
-tmp1[0] = patch1
-tmp2[0] = patch2
+
+
 x = model.predict((tmp1,tmp2))
 print(x)
 print(model.metrics_names)
