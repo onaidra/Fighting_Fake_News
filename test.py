@@ -59,6 +59,10 @@ x_train = datagenerator(list1,list2,exif_lbl,32)
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
 fp.close()
+for i in range(len(exif_lbl)):
+    exif_lbl[i] = np.array(exif_lbl[i])
+exif_lbl = np.array(exif_lbl)
+
 list1,list2 = get_np_arrays('cropped_arrays.npy')
 x_train = datagenerator(list1,list2,exif_lbl,32)
 model = tf.keras.models.load_model('siameseMLP.h5')
