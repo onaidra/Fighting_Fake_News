@@ -62,8 +62,9 @@ list1,list2 = cropping_list(list1_img,list2_img)
 x_train = datagenerator(list1,list2,exif_lbl,32)
 """
 #prova
-path = r"/content/drive/MyDrive/foto/test/images/"
+path = r"/content/drive/MyDrive/foto/test/images"
 dir = os.listdir(path)
+print(dir)
 length = len(dir)
 tmp1 = np.empty((length, 128, 128, 3), dtype=np.uint8)
 tmp2 = np.empty((length, 128, 128, 3), dtype=np.uint8)
