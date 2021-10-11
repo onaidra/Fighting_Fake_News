@@ -64,12 +64,13 @@ x_train = datagenerator(list1,list2,exif_lbl,32)
 #prova
 path = r"/content/drive/MyDrive/foto/test/images"
 dir = os.listdir(path)
-print(dir)
+
 length = len(dir)
 tmp1 = np.empty((length, 128, 128, 3), dtype=np.uint8)
 tmp2 = np.empty((length, 128, 128, 3), dtype=np.uint8)
 i = 0
 for elem in dir:
+    print(elem)
     foto1 = cv2.imread(elem)[:,:,[2,1,0]]
     foto2 = cv2.imread(elem)[:,:,[2,1,0]]
     patch1 = util.random_crop(foto1,[128,128])
