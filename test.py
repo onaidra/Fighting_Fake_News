@@ -65,6 +65,7 @@ tmp2 = np.empty((length*32, 128, 128, 3), dtype=np.uint8)
 dir_counter = 0
 internal_loop = 0
 for elem in dir:
+    print(dir_counter)
     elem = os.path.join(path,elem)
     foto1 = cv2.imread(elem)[:,:,[2,1,0]]
     while internal_loop<32:
