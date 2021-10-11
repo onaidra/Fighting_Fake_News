@@ -13,7 +13,7 @@ import pickle
 from keras.engine import keras_tensor
 
 import matplotlib.pyplot as plt
-%pylab inline
+
 def datagenerator(images,images2, batchsize, mode="train"):
     while True:
         start = 0
