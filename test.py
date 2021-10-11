@@ -63,6 +63,7 @@ x_train = datagenerator(list1,list2,exif_lbl,32)
 #prova
 path = r"/content/drive/MyDrive/foto/test/images/2217.jpg"
 path = r"D01_img_orig_0001.jpg"
+path = r"gippafake.jpg"
 foto1 = cv2.imread(path)[:,:,[2,1,0]]
 patch1 = util.random_crop(foto1,[128,128])
 patch2 = util.random_crop(foto1,[128,128])
