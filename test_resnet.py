@@ -55,7 +55,7 @@ missing_labels = np.zeros(11)
 for i in range(len(exif_lbl)):
     exif_lbl[i] = np.concatenate((np.array(exif_lbl[i]),missing_labels),axis=0)
 exif_lbl = np.array(exif_lbl)
-
+print(len(exif_lbl[0]))
 #--------------------------------------------------------------- CROP IMAGES
 #list1,list2 = cropping_list(list1_img,list2_img)
 
