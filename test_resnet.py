@@ -27,7 +27,7 @@ def datagenerator(images,images2,labels, batchsize, mode="train"):
             end += batchsize
 
 print("[INFO] starting test")
-
+"""
 with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	training_dict = pickle.load(fp)
 fp.close()
@@ -45,13 +45,17 @@ list1_img,list2_img = create_batch_samples(dict,image_list)
 #--------------------------------------------------------------- GENERATE LABELS
 exif_lbl = generate_label(dict_keys,list1_img,list2_img)
 
-with open("exif_lbl.txt", "wb") as fp:   #Picklingpickle.dump(l, fp)#
-	pickle.dump(exif_lbl,fp)
+for i in range(len(exif_lbl)):
+    exif_lbl[i] = np.array(exif_lbl[i])
+exif_lbl = np.array(exif_lbl)
+"""
+with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
+	exif_lbl = pickle.load(fp)
 fp.close()
 #--------------------------------------------------------------- CROP IMAGES
-list1,list2 = cropping_list(list1_img,list2_img)
+#list1,list2 = cropping_list(list1_img,list2_img)
 
-
+list1,list2 = get_np_arrays('cropped_arrays.npy')
 #--------------------------------------------------------------- GET ELEMENTS
 #list1,list2 = get_np_arrays('test_cropped_arrays.npy')
 #with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
