@@ -69,7 +69,19 @@ def extract_exif_test(dict_keys_train):
         x = dict.pop(wrong_tags[i])
         dict[right_tags[i]] = x
 
-                
+
+    for key in list(dict):
+        i = len(dict[key])-1
+        while(i>=0):
+            if(len(dict[key][i][1])<100):
+                dict[key].pop(i)
+            i=i-1
+
+    for key in list(dict):
+        if ( len(dict[key]) == 0):
+            dict.pop(key)     
+
+            
     print(len(dict.keys()))
     print("[INFO] Extracted dict")
     return dict,image_list,list(dict.keys())
@@ -171,7 +183,6 @@ def create_batch_samples(dict,image_list):
 
         actual_key = random.choice(list(dict.keys()))
         actual_value = random.choice(dict[actual_key])
-        print(len(list_values))
         if(str(actual_value[0]) in list_values):
             flag = [False,False,False]
             list_values.remove(str(actual_value[0]))
@@ -203,9 +214,6 @@ def create_batch_samples(dict,image_list):
                     s = second_image.split("/")
                     s = s[-1]
                     list2_dot.append(second_image)
-
-        else:
-            print("repetition")
 
     print("[INFO] batch samples created")
     return list1_dot,list2_dot
