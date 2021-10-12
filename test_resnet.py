@@ -42,7 +42,7 @@ for key in dict:
     for val in dict[key]:
         print("     value: ",val[0],"   n: ",len(val[1]))
 print("[INFO] number of keys: ", len(dict_keys))
-"""
+
 #--------------------------------------------------------------- CREATE SAMPLES
 list1_img,list2_img = create_batch_samples(dict,image_list)
 #--------------------------------------------------------------- GENERATE LABELS
@@ -63,7 +63,7 @@ list1,list2 = cropping_list(list1_img,list2_img)
 #--------------------------------------------------------------- RUN MODEL
 x_train = datagenerator(list1,list2,exif_lbl,32)
 
-
+"""
 path = r"/content/drive/MyDrive/foto/test/images"
 dir = os.listdir(path)
 
@@ -112,11 +112,10 @@ exif_lbl2 = exif_lbl[train_set:]
 x_train = datagenerator(list1_train,list2_train,exif_lbl1,32)
 x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 
-steps = int(train_set/EPOCHS)
-
+steps = int(x_train/EPOCHS)
+"""
 model = tf.keras.models.load_model('siameseMLP.h5')
 print("[INFO] Starting Evaluation")
 print(model.evaluate(x_train,batch_size=32,steps=len(list1)))
 
 print(model.metrics_names)
-"""
