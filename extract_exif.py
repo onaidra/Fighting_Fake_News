@@ -50,7 +50,7 @@ def extract_exif_test(dict_keys_train):
             #if isinstance(data, bytes):
             #    data = data.decode('utf-8')
             #data = str(data).strip(" ")
-            if (tag in dict_keys_train or tag in wrong_tags) and (tag not in no_dir):
+            if (tag in dict_keys_train or tag in wrong_tags):
                 if tag not in dict.keys():
                     dict[tag] = [[data,[elem]]]
                 else:
@@ -71,11 +71,14 @@ def extract_exif_test(dict_keys_train):
 
 
     for key in list(dict):
-        i = len(dict[key])-1
-        while(i>=0):
-            if(len(dict[key][i][1])<5):
-                dict[key].pop(i)
-            i=i-1
+        if str(key) in no_dir:
+            dict.pop(key)
+        else:
+            i = len(dict[key])-1
+            while(i>=0):
+                if(len(dict[key][i][1])<100):
+                    dict[key].pop(i)
+                i=i-1
 
     for key in list(dict):
         if ( len(dict[key]) == 0):
