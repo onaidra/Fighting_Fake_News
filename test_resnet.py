@@ -28,11 +28,11 @@ def datagenerator(images,images2,labels, batchsize, mode="train"):
 
 print("[INFO] starting test")
 
-with open("dict_keys.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
+with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	training_dict = pickle.load(fp)
 fp.close()
 
-print(len(training_dict))
+print(len(list(training_dict.keys())))
 
 #--------------------------------------------------------------- EXTRACT 
 dict,image_list,dict_keys = extract_exif_test()
