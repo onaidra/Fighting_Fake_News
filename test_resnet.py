@@ -117,7 +117,7 @@ exif_lbl2 = exif_lbl[train_set:]
 x_train = datagenerator(list1_train,list2_train,exif_lbl1,32)
 x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 """
-steps = int(x_train/EPOCHS)
+steps = int(len(list1)/EPOCHS)
 
 model = tf.keras.models.load_model('siameseMLP.h5')
 print("[INFO] Starting Evaluation")
