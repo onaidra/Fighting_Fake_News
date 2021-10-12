@@ -13,13 +13,13 @@ import pickle
 from keras.engine import keras_tensor
 
 EPOCHS = 100 
-def datagenerator(images,images2, batchsize, mode="train"):
+def datagenerator(images,images2,labels, batchsize, mode="train"):
     while True:
         start = 0
         end = batchsize
         while start  < len(images):
             x = images[start:end] 
-            #y = labels[start:end]
+            y = labels[start:end]
             x2 = images2[start:end]
             yield (x,x2)
 
