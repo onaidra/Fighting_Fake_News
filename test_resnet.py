@@ -33,7 +33,9 @@ with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
 fp.close()
 training_dict = remove_elements(training_dict)
 print(len(list(training_dict.keys())))
-
+for key in list(training_dict.keys()):
+    print(key)
+"""
 #--------------------------------------------------------------- EXTRACT 
 dict,image_list,dict_keys = extract_exif_test(list(training_dict.keys()))
 #--------------------------------------------------------------- REMOVE ELEMENTS
@@ -62,7 +64,7 @@ list1,list2 = cropping_list(list1_img,list2_img)
 #fp.close()
 #--------------------------------------------------------------- RUN MODEL
 x_train = datagenerator(list1,list2,exif_lbl,32)
-
+"""
 """
 path = r"/content/drive/MyDrive/foto/test/images"
 dir = os.listdir(path)
@@ -113,9 +115,10 @@ x_train = datagenerator(list1_train,list2_train,exif_lbl1,32)
 x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 
 steps = int(x_train/EPOCHS)
-"""
+
 model = tf.keras.models.load_model('siameseMLP.h5')
 print("[INFO] Starting Evaluation")
 print(model.evaluate(x_train,batch_size=32,steps=len(list1)))
 
 print(model.metrics_names)
+"""
