@@ -59,7 +59,7 @@ print(len(exif_lbl[0]))
 #--------------------------------------------------------------- CROP IMAGES
 #list1,list2 = cropping_list(list1_img,list2_img)
 
-list1,list2 = get_np_arrays('cropped_arrays.npy')
+list1,list2 = get_np_arrays('test_cropped_arrays.npy')
 #--------------------------------------------------------------- GET ELEMENTS
 #list1,list2 = get_np_arrays('test_cropped_arrays.npy')
 #with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
@@ -117,10 +117,10 @@ exif_lbl2 = exif_lbl[train_set:]
 x_train = datagenerator(list1_train,list2_train,exif_lbl1,32)
 x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 """
-steps = 32
+
 
 model = tf.keras.models.load_model('siameseMLP.h5')
 print("[INFO] Starting Evaluation")
-print(model.evaluate(x_train,steps=steps))
+print(model.evaluate(x_train,steps=len(list1)))
 
 print(model.metrics_names)
