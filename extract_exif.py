@@ -200,11 +200,12 @@ def create_batch_samples(dict,image_list):
                 else:
                     list2_dot.append(tmp2)
                     gh=True
-                    while(gh):
-                        print("while")            
+                    print("Entering while")
+                    while(gh):         
                         second_image = random.choice(image_list)
                         s = second_image.split("/")
                         s = s[-1]
+                        print(s)
                         if(s not in actual_value[1]):
                             list2_dot.append(second_image)
                             gh = False
