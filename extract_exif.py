@@ -39,7 +39,7 @@ def extract_exif():
         if new_dir not in image_list : image_list.append(new_dir)
         # extract EXIF data
         exifdata = image.getexif()
-        print(exifdata)
+
         if exifdata is None or exifdata == {}:
             print("Sorry, image has no exif data.")
         # iterating over all EXIF data fields

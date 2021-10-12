@@ -27,7 +27,7 @@ def datagenerator(images,images2, batchsize, mode="train"):
             end += batchsize
 
 print("[INFO] starting test")
-
+"""
 #--------------------------------------------------------------- EXTRACT 
 dict,image_list,dict_keys = extract_exif()
 #--------------------------------------------------------------- REMOVE ELEMENTS
@@ -77,7 +77,7 @@ for elem in dir:
     dir_counter +=1
     internal_loop = 0
 x_train = datagenerator(tmp1,tmp2,32)
-"""
+
 
 model = tf.keras.models.load_model('siameseMLP.h5')
 
