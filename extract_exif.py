@@ -16,7 +16,7 @@ right_tags = ["ISO2","StopsAboveBaseISO","ExposureCompensation","BrightnessValue
 ##my path r"C:\Users\Adri\Desktop\VISIOPE\prova\foto"
 ## drive path r"/content/drive/MyDrive/foto/foto/"
 def extract_exif_test(dict_keys_train):
-    path = r"/content/drive/MyDrive/foto/test/images"
+    path = r"/content/drive/MyDrive/foto/test/images_test"
     dir = os.listdir(path)
     no_dir = open(r"/content/drive/MyDrive/foto/foto/chiavi.txt","r").read().splitlines()
     right_dir = []

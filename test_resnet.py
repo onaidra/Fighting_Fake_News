@@ -27,7 +27,7 @@ def datagenerator(images,images2,labels, batchsize, mode="train"):
             end += batchsize
 
 print("[INFO] starting test")
-"""
+
 with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	training_dict = pickle.load(fp)
 fp.close()
@@ -59,7 +59,7 @@ list1,list2 = cropping_list(list1_img,list2_img)
 #--------------------------------------------------------------- RUN MODEL
 x_train = datagenerator(list1,list2,exif_lbl,32)
 
-
+"""
 path = r"/content/drive/MyDrive/foto/test/images"
 dir = os.listdir(path)
 
@@ -84,7 +84,7 @@ for elem in dir:
     internal_loop = 0
 print("[INFO] Generating Batches")
 x_train = datagenerator(tmp1,tmp2,32)
-"""
+
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
 fp.close()
@@ -109,9 +109,9 @@ x_train = datagenerator(list1_train,list2_train,exif_lbl1,32)
 x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 
 steps = int(train_set/EPOCHS)
-
+"""
 model = tf.keras.models.load_model('siameseMLP.h5')
 print("[INFO] Starting Evaluation")
-print(model.evaluate(x_test,batch_size=32,steps=len(list1_test)))
+print(model.evaluate(x_train,batch_size=32,steps=len(list1)))
 
 print(model.metrics_names)
