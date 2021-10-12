@@ -107,6 +107,6 @@ steps = int(train_set/EPOCHS)
 
 model = tf.keras.models.load_model('siameseMLP.h5')
 print("[INFO] Starting Evaluation")
-print(model.evaluate(x_test,batch_size=32,steps=1))
+print(model.evaluate(x_test,batch_size=32,steps=len(list1_test)))
 
 print(model.metrics_names)
