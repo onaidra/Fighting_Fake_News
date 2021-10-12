@@ -66,6 +66,7 @@ dir_counter = 0
 internal_loop = 0
 for elem in dir:
     elem = os.path.join(path,elem)
+    print(elem)
     foto1 = cv2.imread(elem)[:,:,[2,1,0]]
     while internal_loop<32:
         patch1 = util.random_crop(foto1,[128,128])
