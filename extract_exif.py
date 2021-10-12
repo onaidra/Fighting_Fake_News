@@ -171,7 +171,7 @@ def create_batch_samples(dict,image_list):
 
         actual_key = random.choice(list(dict.keys()))
         actual_value = random.choice(dict[actual_key])
-
+        print(len(list_values))
         if(str(actual_value[0]) in list_values):
             flag = [False,False,False]
             list_values.remove(str(actual_value[0]))
@@ -200,7 +200,8 @@ def create_batch_samples(dict,image_list):
                 else:
                     list2_dot.append(tmp2)
                     gh=True
-                    while(gh):              
+                    while(gh):
+                        print("while")            
                         second_image = random.choice(image_list)
                         s = second_image.split("/")
                         s = s[-1]
