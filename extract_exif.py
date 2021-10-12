@@ -15,6 +15,65 @@ right_tags = ["ISO2","StopsAboveBaseISO","ExposureCompensation","BrightnessValue
 
 ##my path r"C:\Users\Adri\Desktop\VISIOPE\prova\foto"
 ## drive path r"/content/drive/MyDrive/foto/foto/"
+def extract_exif_test(dict_keys_train):
+    path = r"/content/drive/MyDrive/foto/test/images"
+    dir = os.listdir(path)
+    no_dir = open(r"/content/drive/MyDrive/foto/foto/chiavi.txt","r").read().splitlines()
+    right_dir = []
+    #for i in dir:
+        #if "D" in i and "_" in i:
+            #s1 = os.path.join(path,i)
+            #s1 = os.path.join(s1,"orig")
+            #right_dir.append(s1)
+    dict = {}
+    image_list = []
+    index = 0
+    #for dir in right_dir:
+    #    directory = os.listdir(dir) -> for elem in directory a cascata
+    for elem in dir:
+        new_dir = os.path.join(path,elem)
+        
+        # read the image data using PIL
+        image = Image.open(new_dir)
+        
+        if new_dir not in image_list : image_list.append(new_dir)
+        # extract EXIF data
+        exifdata = image.getexif()
+
+        if exifdata is None or exifdata == {}:
+            print("Sorry, image has no exif data.")
+        # iterating over all EXIF data fields
+        for tag_id in exifdata:
+            # get the tag name, instead of human unreadable tag id
+            tag = TAGS.get(tag_id, tag_id)
+            data = exifdata.get(tag_id)
+            #if isinstance(data, bytes):
+            #    data = data.decode('utf-8')
+            #data = str(data).strip(" ")
+            if tag in dict_keys_train or tag in wrong_tags:
+                if tag not in dict.keys():
+                    dict[tag] = [[data,[elem]]]
+                else:
+                    flag = False
+                    for i in range(len(dict[tag])):
+                        if dict[tag][i][0] == data:
+                            dict[tag][i][1].append(elem)
+                            flag = True
+                    if flag == False:
+                        dict[tag].append([data,[elem]])
+
+        index+=1
+
+    #convert tags numbers to string
+    for i in range(len(wrong_tags)):
+        x = dict.pop(wrong_tags[i])
+        dict[right_tags[i]] = x
+
+                
+    print(len(dict.keys()))
+    print("[INFO] Extracted dict")
+    return dict,image_list,list(dict.keys())
+
 def extract_exif():
     path = r"/content/drive/MyDrive/foto/test/images"
     dir = os.listdir(path)

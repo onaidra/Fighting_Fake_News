@@ -2,7 +2,7 @@ from re import I
 from models import exif
 from PIL import Image
 import tensorflow as tf
-from extract_exif import extract_exif,generate_label,cropping_list,get_np_arrays,remove_elements,create_batch_samples
+from extract_exif import extract_exif_test,generate_label,cropping_list,get_np_arrays,remove_elements,create_batch_samples
 from matplotlib import image
 from lib.utils import benchmark_utils, util,io
 import cv2
@@ -27,11 +27,16 @@ def datagenerator(images,images2,labels, batchsize, mode="train"):
             end += batchsize
 
 print("[INFO] starting test")
-"""
+
+with open("dict_keys.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
+	training_dict = pickle.load(fp)
+fp.close()
+
+print(len(training_dict))
+
 #--------------------------------------------------------------- EXTRACT 
-dict,image_list,dict_keys = extract_exif()
+dict,image_list,dict_keys = extract_exif_test()
 #--------------------------------------------------------------- REMOVE ELEMENTS
-dict = remove_elements(dict)
 
 print("[INFO] number of keys: ", len(dict_keys))
 #--------------------------------------------------------------- CREATE SAMPLES
@@ -104,7 +109,7 @@ x_train = datagenerator(list1_train,list2_train,exif_lbl1,32)
 x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
 
 steps = int(train_set/EPOCHS)
-
+"""
 model = tf.keras.models.load_model('siameseMLP.h5')
 print("[INFO] Starting Evaluation")
 print(model.evaluate(x_test,batch_size=32,steps=len(list1_test)))
