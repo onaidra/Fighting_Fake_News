@@ -76,11 +76,12 @@ for elem in dir:
 
     dir_counter +=1
     internal_loop = 0
+print("[INFO] Generating Batches")
 x_train = datagenerator(tmp1,tmp2,32)
 
 
 model = tf.keras.models.load_model('siameseMLP.h5')
-
-model.evaluate(x_train,epochs=EPOCHS,batch_size = 32)
+print("[INFO] Starting Evaluation")
+model.evaluate(x_train,batch_size = 32)
 
 print(model.metrics_names)
