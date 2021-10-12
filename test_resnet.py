@@ -82,6 +82,6 @@ x_train = datagenerator(tmp1,tmp2,32)
 
 model = tf.keras.models.load_model('siameseMLP.h5')
 print("[INFO] Starting Evaluation")
-model.evaluate(x_train,batch_size = 32)
+model.evaluate(x_train)
 
 print(model.metrics_names)
