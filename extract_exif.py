@@ -15,6 +15,8 @@ right_tags = ["ISO2","StopsAboveBaseISO","ExposureCompensation","BrightnessValue
 
 ##my path r"C:\Users\Adri\Desktop\VISIOPE\prova\foto"
 ## drive path r"/content/drive/MyDrive/foto/foto/"
+
+
 def extract_exif_test(dict_keys_train):
     path = r"/content/drive/MyDrive/foto/test/images_test"
     dir = os.listdir(path)
@@ -76,7 +78,7 @@ def extract_exif_test(dict_keys_train):
         else:
             i = len(dict[key])-1
             while(i>=0):
-                if(len(dict[key][i][1])<100):
+                if(len(dict[key][i][1])<10):
                     dict[key].pop(i)
                 i=i-1
 
