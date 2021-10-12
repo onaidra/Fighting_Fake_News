@@ -50,9 +50,12 @@ exif_lbl = generate_label(dict_keys,list1_img,list2_img)
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
 fp.close()
+missing_labels = np.zeros(11)
+
 for i in range(len(exif_lbl)):
-    exif_lbl[i] = np.array(exif_lbl[i])
+    exif_lbl[i] = np.concatenate((np.array(exif_lbl[i]),missing_labels),axis=0)
 exif_lbl = np.array(exif_lbl)
+
 #--------------------------------------------------------------- CROP IMAGES
 #list1,list2 = cropping_list(list1_img,list2_img)
 
