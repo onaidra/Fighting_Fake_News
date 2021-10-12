@@ -73,7 +73,7 @@ def extract_exif_test(dict_keys_train):
     for key in list(dict):
         i = len(dict[key])-1
         while(i>=0):
-            if(len(dict[key][i][1])<100):
+            if(len(dict[key][i][1])<5):
                 dict[key].pop(i)
             i=i-1
 
@@ -81,7 +81,7 @@ def extract_exif_test(dict_keys_train):
         if ( len(dict[key]) == 0):
             dict.pop(key)     
 
-            
+
     print(len(dict.keys()))
     print("[INFO] Extracted dict")
     return dict,image_list,list(dict.keys())
