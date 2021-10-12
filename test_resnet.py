@@ -121,6 +121,6 @@ steps = int(x_train/EPOCHS)
 """
 model = tf.keras.models.load_model('siameseMLP.h5')
 print("[INFO] Starting Evaluation")
-print(model.evaluate(x_train,batch_size=32,steps=len(list1)))
+print(model.evaluate(x_train,steps=len(list1)))
 
 print(model.metrics_names)
