@@ -35,7 +35,7 @@ training_dict = remove_elements(training_dict)
 print(len(list(training_dict.keys())))
 
 #--------------------------------------------------------------- EXTRACT 
-dict,image_list,dict_keys = extract_exif_test()
+dict,image_list,dict_keys = extract_exif_test(list(training_dict.keys()))
 #--------------------------------------------------------------- REMOVE ELEMENTS
 
 print("[INFO] number of keys: ", len(dict_keys))
