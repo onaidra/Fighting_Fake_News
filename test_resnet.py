@@ -45,13 +45,14 @@ list1_img,list2_img = create_batch_samples(dict,image_list)
 #--------------------------------------------------------------- GENERATE LABELS
 exif_lbl = generate_label(dict_keys,list1_img,list2_img)
 
-for i in range(len(exif_lbl)):
-    exif_lbl[i] = np.array(exif_lbl[i])
-exif_lbl = np.array(exif_lbl)
+
 """
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
 fp.close()
+for i in range(len(exif_lbl)):
+    exif_lbl[i] = np.array(exif_lbl[i])
+exif_lbl = np.array(exif_lbl)
 #--------------------------------------------------------------- CROP IMAGES
 #list1,list2 = cropping_list(list1_img,list2_img)
 
