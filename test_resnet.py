@@ -31,7 +31,7 @@ print("[INFO] starting test")
 with open("dict.pkl", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	training_dict = pickle.load(fp)
 fp.close()
-
+training_dict = remove_elements(training_dict)
 print(len(list(training_dict.keys())))
 
 #--------------------------------------------------------------- EXTRACT 
