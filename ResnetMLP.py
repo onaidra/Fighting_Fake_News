@@ -21,25 +21,12 @@ from keras.engine import keras_tensor
 
 EPOCHS = 100
 
-
-list1,list2 = get_np_arrays('cropped_arrays.npy')
-# imagexs = np.expand_dims(list1[0],axis=0)
-# imagexs2 = np.expand_dims(list2[0],axis=0)
-# num_classes=71
-
-with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
-	exif_lbl = pickle.load(fp)
-fp.close()
-
 def datagenerator(images,images2, labels, batchsize, mode="train"):
     while True:
         start = 0
         end = batchsize
         while start  < len(images):
-            #if(len(images)-start < batchsize):
-            #    break
-            # load your images from numpy arrays or read from directory
-            #else:
+
             x = images[start:end] 
             y = labels[start:end]
             x2 = images2[start:end]
@@ -76,15 +63,6 @@ def create_siamese_model(image_shape, dropout_rate):
     output_right, input_right = create_base_model(image_shape, dropout_rate, suffix="_2")
     
     output_siamese = tf.concat([output_left,output_right],1)
-    """
-    L1_prediction = Dense(1, use_bias=True,
-                          activation='sigmoid',
-                          input_shape = image_shape,
-                          kernel_initializer=RandomNormal(mean=0.0, stddev=0.001),
-                          name='weighted-average')(x)
-
-    prediction = Dropout(0.2)(L1_prediction)
-    """
 
     num_classes=37
     
@@ -95,41 +73,16 @@ def create_siamese_model(image_shape, dropout_rate):
     x = Dense(1024, activation='relu')(x)
     x = Dense(num_classes, activation='softmax')(x)
 
-    #model.summary()
-    #siamese_model = Model(inputs=[input_left, input_right], outputs=output_siamese)
-    #out = model.output
-    #sm_model = Model(inputs=[input_left, input_right], outputs=out)
     return x,input_left,input_right
     
-# def create_mlp_model(output_siamese_shape):
-
-    # num_classes=71;
-    # input_shape=Input((None,8192))
-  
-    
-    # Create the model
-    # model2 = Sequential()
-    # model2.add(Dense(8192, input_shape=output_siamese_shape, activation='relu'))
-    # model2.add(Dense(4096, input_shape=output_siamese_shape,activation='relu'))
-    # model2.add(Dense(2048, activation='relu'))
-    # model2.add(Dense(1024, activation='relu'))
-    # model2.add(Dense(num_classes, activation='softmax'))
-    
-    # model2.summary()
-    
-    # out_siamese=Input(output_siamese_shape)
-    # out = model2.output
-    
-    # return model2.input,out
     
 def create_mlp(image_shape,dropout_rate):
     x,input_left,input_right = create_siamese_model(image_shape,
                                       dropout_rate)
                                       
-    #input_mlp,output_mlp= create_mlp_model(output_siamese.shape)
-    #output_siamese=Input(output_siamese_shape)
+
     sm_model = Model(inputs=[input_left, input_right], outputs=x)
-    #sm_model.summary()
+
     return sm_model
     
 
@@ -140,7 +93,7 @@ total_model=create_mlp(image_shape=(128,128,3),dropout_rate=0.2)
 total_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 
-with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
+with open("exif_lbl.txt", "rb") as fp:   
 	exif_lbl = pickle.load(fp)
 fp.close()
 
@@ -148,12 +101,9 @@ for i in range(len(exif_lbl)):
     exif_lbl[i] = np.array(exif_lbl[i])
 exif_lbl = np.array(exif_lbl)
 
-#######################################################################################à
-#crop images to 128x128
-#######################################################################################à
-train_set = int(len(list1)*(2/3))
-
 list1,list2 = get_np_arrays('cropped_arrays.npy')
+
+train_set = int(len(list1)*(2/3))
 
 list1_train = list1[:train_set]
 list2_train = list2[:train_set]
@@ -165,12 +115,10 @@ exif_lbl2 = exif_lbl[train_set:]
 
 x_train = datagenerator(list1_train,list2_train,exif_lbl1,32)
 x_test = datagenerator(list1_test,list2_test,exif_lbl2,32)
-#steps = len(list1)/EPOCHS
+
 steps = int(train_set/EPOCHS)
 
-# imagexs = np.expand_dims(list1[0],axis=0)
-# imagexs2 = np.expand_dims(list2[0],axis=0)
-# imagexs=tf.stack([imagexs,imagexs2],axis=0)
+
 
 total_model.fit(x = x_train,epochs=EPOCHS,steps_per_epoch=steps,validation_data = x_test,validation_steps=steps,validation_batch_size=32)
 total_model.save('final_model.h5')

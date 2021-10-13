@@ -21,17 +21,11 @@ def extract_exif_test(dict_keys_train):
     path = r"/content/drive/MyDrive/foto/test/images_test"
     dir = os.listdir(path)
     no_dir = open(r"/content/drive/MyDrive/foto/foto/chiavi.txt","r").read().splitlines()
-    right_dir = []
-    #for i in dir:
-        #if "D" in i and "_" in i:
-            #s1 = os.path.join(path,i)
-            #s1 = os.path.join(s1,"orig")
-            #right_dir.append(s1)
+
     dict = {}
     image_list = []
     index = 0
-    #for dir in right_dir:
-    #    directory = os.listdir(dir) -> for elem in directory a cascata
+
     for elem in dir:
         new_dir = os.path.join(path,elem)
         
@@ -313,9 +307,6 @@ def cropping_list(first,second):
     
     print("[INFO] Images cropped")
     save_np_arrays(tmp1,tmp2)
-    #a,b = get_np_arrays('cropped_arrays.npy')
-    #if(np.array_equal(a,tmp1) and np.array_equal(b,tmp2)):
-        #print("Corretti")
             
 
     return tmp1 ,tmp2
