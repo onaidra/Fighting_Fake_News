@@ -13,15 +13,15 @@ import pickle
 from keras.engine import keras_tensor
 
 EPOCHS = 100 
-def datagenerator(images,images2,labels, batchsize, mode="train"):
+def datagenerator(images,images2,batchsize, mode="train"):
     while True:
         start = 0
         end = batchsize
         while start  < len(images):
             x = images[start:end] 
-            y = labels[start:end]
+            #y = labels[start:end]
             x2 = images2[start:end]
-            yield (x,x2),y
+            yield (x,x2)
 
             start += batchsize
             end += batchsize
@@ -47,6 +47,7 @@ exif_lbl = generate_label(dict_keys,list1_img,list2_img)
 
 
 """
+"""
 with open("exif_lbl.txt", "rb") as fp:   #Picklingpickle.dump(l, fp)
 	exif_lbl = pickle.load(fp)
 fp.close()
@@ -57,6 +58,7 @@ for i in range(len(exif_lbl)):
     exif_lbl[i] = np.array(exif_lbl[i])
 exif_lbl = np.array(exif_lbl)
 print(len(exif_lbl[0]))
+"""
 #--------------------------------------------------------------- CROP IMAGES
 #list1,list2 = cropping_list(list1_img,list2_img)
 
@@ -67,8 +69,8 @@ list1,list2 = get_np_arrays('test_cropped_arrays.npy')
 #	exif_lbl = pickle.load(fp)
 #fp.close()
 #--------------------------------------------------------------- RUN MODEL
-x_train = datagenerator(list1,list2,exif_lbl,32)
-
+#x_train = datagenerator(list1,list2,exif_lbl,32)
+x_train = datagenerator(list1,list2,32)
 """
 path = r"/content/drive/MyDrive/foto/test/images"
 dir = os.listdir(path)
